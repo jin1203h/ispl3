@@ -1,0 +1,291 @@
+"""
+LangGraph 구조 시각화 생성 스크립트
+3-Agent 구조 (Router → Search/Processing/Management)
+"""
+import sys
+from pathlib import Path
+
+# 프로젝트 루트를 sys.path에 추가
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from agents.graph import create_graph
+
+
+def generate_mermaid_diagram():
+    """Mermaid 다이어그램 생성"""
+    return """
+graph TD
+    START([시작]) --> router[Router Agent<br/>의도 분석]
+    
+    router -->|검색| search[Search Agent<br/>하이브리드 검색]
+    router -->|업로드| processing[Processing Agent<br/>PDF 처리]
+    router -->|관리| management[Management Agent<br/>문서 관리]
+    
+    search --> answer[Answer Agent<br/>답변 생성 & 검증]
+    answer --> END1([종료])
+    
+    processing --> END2([종료])
+    management --> END3([종료])
+    
+    style START fill:#e1f5e1
+    style END1 fill:#ffe1e1
+    style END2 fill:#ffe1e1
+    style END3 fill:#ffe1e1
+    style router fill:#fff4e1
+    style search fill:#e1f0ff
+    style answer fill:#e1f0ff
+    style processing fill:#f0e1ff
+    style management fill:#ffe1f0
+"""
+
+
+def generate_html():
+    """HTML 파일 생성"""
+    mermaid_code = generate_mermaid_diagram()
+    
+    html_content = f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISPL 3-Agent 구조 시각화</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        body {{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }}
+        .container {{
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }}
+        h1 {{
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }}
+        .subtitle {{
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }}
+        .diagram {{
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }}
+        .info-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }}
+        .info-card {{
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }}
+        .info-card h3 {{
+            margin-top: 0;
+            font-size: 1.5em;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+        }}
+        .info-card ul {{
+            list-style: none;
+            padding: 0;
+        }}
+        .info-card li {{
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }}
+        .info-card li:before {{
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            color: #fff;
+        }}
+        .timestamp {{
+            text-align: center;
+            color: #95a5a6;
+            margin-top: 30px;
+            font-size: 0.9em;
+        }}
+        .legend {{
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }}
+        .legend h4 {{
+            margin-top: 0;
+            color: #2c3e50;
+        }}
+        .legend-item {{
+            display: inline-block;
+            margin: 5px 15px 5px 0;
+        }}
+        .legend-color {{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 ISPL 3-Agent 구조</h1>
+        <p class="subtitle">Router Agent → Search/Processing/Management Agents</p>
+        
+        <div class="diagram">
+            <div class="mermaid">
+{mermaid_code}
+            </div>
+        </div>
+
+        <div class="legend">
+            <h4>노드 색상 범례</h4>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #fff4e1;"></span>
+                <span>Router (의도 분석)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #e1f0ff;"></span>
+                <span>Query Path (검색)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #f0e1ff;"></span>
+                <span>Processing Path (처리)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #ffe1f0;"></span>
+                <span>Management Path (관리)</span>
+            </div>
+        </div>
+        
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>🔍 Search Agent</h3>
+                <ul>
+                    <li>쿼리 전처리 (정규화, 동의어 확장)</li>
+                    <li>하이브리드 검색 (Vector + Keyword)</li>
+                    <li>RRF 기반 결과 병합</li>
+                    <li>컨텍스트 최적화</li>
+                </ul>
+            </div>
+            
+            <div class="info-card">
+                <h3>📄 Processing Agent</h3>
+                <ul>
+                    <li>PDF 업로드 및 저장</li>
+                    <li>PyMuPDF/Vision 기반 추출</li>
+                    <li>텍스트 청킹</li>
+                    <li>임베딩 및 벡터 DB 저장</li>
+                </ul>
+            </div>
+            
+            <div class="info-card">
+                <h3>📋 Management Agent</h3>
+                <ul>
+                    <li>문서 목록 조회 (필터링, 정렬)</li>
+                    <li>문서 상세 정보 조회</li>
+                    <li>문서 삭제</li>
+                    <li>페이지네이션 지원</li>
+                </ul>
+            </div>
+            
+            <div class="info-card">
+                <h3>💬 Answer Agent</h3>
+                <ul>
+                    <li>GPT-4 기반 답변 생성</li>
+                    <li>Hallucination 검증</li>
+                    <li>컨텍스트 매칭 확인</li>
+                    <li>신뢰도 점수 계산</li>
+                </ul>
+            </div>
+            
+            <div class="info-card">
+                <h3>🎯 Router Agent</h3>
+                <ul>
+                    <li>키워드 기반 의도 분류</li>
+                    <li>Search/Upload/Manage 라우팅</li>
+                    <li>명시적 task_type 우선 처리</li>
+                    <li>Command 기반 동적 라우팅</li>
+                </ul>
+            </div>
+            
+            <div class="info-card">
+                <h3>🔧 기술 스택</h3>
+                <ul>
+                    <li>LangGraph (Multi-Agent)</li>
+                    <li>PostgreSQL 17.6 + pgvector</li>
+                    <li>OpenAI GPT-4 / GPT-4o-mini</li>
+                    <li>FastAPI + React</li>
+                </ul>
+            </div>
+        </div>
+        
+        <p class="timestamp">생성 시간: {__import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+    </div>
+    
+    <script>
+        mermaid.initialize({{ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {{
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }}
+        }});
+    </script>
+</body>
+</html>
+"""
+    
+    return html_content
+
+
+if __name__ == "__main__":
+    print("="*70)
+    print("ISPL 3-Agent 구조 시각화 생성")
+    print("="*70)
+    
+    # 그래프 생성 (구조 확인)
+    print("\n1. LangGraph 구조 확인 중...")
+    graph = create_graph()
+    print(f"   ✅ 노드 수: {len(graph.nodes)}")
+    print(f"   ✅ 노드 목록: {list(graph.nodes.keys())}")
+    
+    # HTML 생성
+    print("\n2. HTML 시각화 생성 중...")
+    html = generate_html()
+    
+    # 파일 저장
+    output_path = Path(__file__).parent / "graph_visualization.html"
+    output_path.write_text(html, encoding="utf-8")
+    
+    print(f"   ✅ 저장 완료: {output_path}")
+    print(f"\n🌐 브라우저에서 열기: file:///{output_path.absolute()}")
+    print("="*70)
+
+
+

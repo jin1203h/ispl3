@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <style>
+      .title { font: bold 26px sans-serif; fill: #1a1a1a; }
+      .category { font: bold 18px sans-serif; fill: #ffffff; }
+      .tech-item { font: 15px sans-serif; fill: #2c3e50; }
+      .tech-desc { font: 12px sans-serif; fill: #7f8c8d; }
+      .box-frontend { fill: #3498db; }
+      .box-backend { fill: #e67e22; }
+      .box-ai { fill: #9b59b6; }
+      .box-data { fill: #1abc9c; }
+      .box-db { fill: #16a085; }
+      .box-infra { fill: #34495e; }
+      .tech-box { fill: #ffffff; stroke: #95a5a6; stroke-width: 2; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="600" y="45" text-anchor="middle" class="title">ISPL 기술 스택 (Tech Stack)</text>
+
+  <!-- Frontend -->
+  <g>
+    <rect x="50" y="90" width="520" height="50" rx="5" class="box-frontend"/>
+    <text x="310" y="122" text-anchor="middle" class="category">Frontend</text>
+    
+    <rect x="60" y="150" width="240" height="130" rx="5" class="tech-box"/>
+    <text x="180" y="175" text-anchor="middle" class="tech-item">• Next.js 15 (App Router)</text>
+    <text x="180" y="198" text-anchor="middle" class="tech-item">• React 18</text>
+    <text x="180" y="221" text-anchor="middle" class="tech-item">• TypeScript</text>
+    <text x="180" y="244" text-anchor="middle" class="tech-desc">서버 컴포넌트 기반</text>
+    <text x="180" y="262" text-anchor="middle" class="tech-desc">타입 안전성 보장</text>
+
+    <rect x="320" y="150" width="240" height="130" rx="5" class="tech-box"/>
+    <text x="440" y="175" text-anchor="middle" class="tech-item">• Tailwind CSS</text>
+    <text x="440" y="198" text-anchor="middle" class="tech-item">• Shadcn/ui</text>
+    <text x="440" y="221" text-anchor="middle" class="tech-item">• Axios</text>
+    <text x="440" y="244" text-anchor="middle" class="tech-desc">유틸리티 퍼스트 CSS</text>
+    <text x="440" y="262" text-anchor="middle" class="tech-desc">재사용 가능 컴포넌트</text>
+  </g>
+
+  <!-- Backend -->
+  <g>
+    <rect x="630" y="90" width="520" height="50" rx="5" class="box-backend"/>
+    <text x="890" y="122" text-anchor="middle" class="category">Backend</text>
+    
+    <rect x="640" y="150" width="240" height="130" rx="5" class="tech-box"/>
+    <text x="760" y="175" text-anchor="middle" class="tech-item">• FastAPI</text>
+    <text x="760" y="198" text-anchor="middle" class="tech-item">• Python 3.11+</text>
+    <text x="760" y="221" text-anchor="middle" class="tech-item">• Pydantic</text>
+    <text x="760" y="244" text-anchor="middle" class="tech-desc">비동기 처리</text>
+    <text x="760" y="262" text-anchor="middle" class="tech-desc">자동 API 문서 생성</text>
+
+    <rect x="900" y="150" width="240" height="130" rx="5" class="tech-box"/>
+    <text x="1020" y="175" text-anchor="middle" class="tech-item">• SQLAlchemy (ORM)</text>
+    <text x="1020" y="198" text-anchor="middle" class="tech-item">• LangGraph</text>
+    <text x="1020" y="221" text-anchor="middle" class="tech-item">• asyncio</text>
+    <text x="1020" y="244" text-anchor="middle" class="tech-desc">멀티 에이전트 시스템</text>
+    <text x="1020" y="262" text-anchor="middle" class="tech-desc">비동기 데이터베이스</text>
+  </g>
+
+  <!-- AI/ML -->
+  <g>
+    <rect x="50" y="310" width="520" height="50" rx="5" class="box-ai"/>
+    <text x="310" y="342" text-anchor="middle" class="category">AI / ML</text>
+    
+    <rect x="60" y="370" width="240" height="155" rx="5" class="tech-box"/>
+    <text x="180" y="395" text-anchor="middle" class="tech-item">• OpenAI GPT-4</text>
+    <text x="180" y="418" text-anchor="middle" class="tech-desc">답변 생성 (temp: 0.1)</text>
+    <text x="180" y="441" text-anchor="middle" class="tech-item">• GPT-4 Vision</text>
+    <text x="180" y="464" text-anchor="middle" class="tech-desc">PDF 이미지 분석</text>
+    <text x="180" y="487" text-anchor="middle" class="tech-item">• text-embedding-3-large</text>
+    <text x="180" y="510" text-anchor="middle" class="tech-desc">1536차원 벡터 임베딩</text>
+
+    <rect x="320" y="370" width="240" height="155" rx="5" class="tech-box"/>
+    <text x="440" y="395" text-anchor="middle" class="tech-item">• LangChain</text>
+    <text x="440" y="418" text-anchor="middle" class="tech-desc">LLM 통합 프레임워크</text>
+    <text x="440" y="441" text-anchor="middle" class="tech-item">• LangGraph</text>
+    <text x="440" y="464" text-anchor="middle" class="tech-desc">멀티 에이전트 워크플로우</text>
+    <text x="440" y="487" text-anchor="middle" class="tech-desc">상태 관리 및 라우팅</text>
+  </g>
+
+  <!-- Data Processing -->
+  <g>
+    <rect x="630" y="310" width="520" height="50" rx="5" class="box-data"/>
+    <text x="890" y="342" text-anchor="middle" class="category">Data Processing</text>
+    
+    <rect x="640" y="370" width="240" height="155" rx="5" class="tech-box"/>
+    <text x="760" y="395" text-anchor="middle" class="tech-item">• PyMuPDF4LLM</text>
+    <text x="760" y="418" text-anchor="middle" class="tech-desc">PDF → Markdown 변환</text>
+    <text x="760" y="441" text-anchor="middle" class="tech-item">• pdf2image</text>
+    <text x="760" y="464" text-anchor="middle" class="tech-desc">PDF → 이미지 (DPI 300)</text>
+    <text x="760" y="487" text-anchor="middle" class="tech-item">• OpenCV / Pillow</text>
+    <text x="760" y="510" text-anchor="middle" class="tech-desc">이미지 전처리</text>
+
+    <rect x="900" y="370" width="240" height="155" rx="5" class="tech-box"/>
+    <text x="1020" y="395" text-anchor="middle" class="tech-item">• py-hanspell</text>
+    <text x="1020" y="418" text-anchor="middle" class="tech-desc">한글 맞춤법 검사</text>
+    <text x="1020" y="441" text-anchor="middle" class="tech-item">• SequenceMatcher</text>
+    <text x="1020" y="464" text-anchor="middle" class="tech-desc">텍스트 유사도 계산</text>
+    <text x="1020" y="487" text-anchor="middle" class="tech-item">• tiktoken</text>
+    <text x="1020" y="510" text-anchor="middle" class="tech-desc">토큰 카운팅</text>
+  </g>
+
+  <!-- Database -->
+  <g>
+    <rect x="50" y="555" width="520" height="50" rx="5" class="box-db"/>
+    <text x="310" y="587" text-anchor="middle" class="category">Database</text>
+    
+    <rect x="60" y="615" width="240" height="155" rx="5" class="tech-box"/>
+    <text x="180" y="640" text-anchor="middle" class="tech-item">• PostgreSQL 17.6</text>
+    <text x="180" y="663" text-anchor="middle" class="tech-desc">관계형 데이터베이스</text>
+    <text x="180" y="686" text-anchor="middle" class="tech-item">• pgvector</text>
+    <text x="180" y="709" text-anchor="middle" class="tech-desc">벡터 검색 확장</text>
+    <text x="180" y="732" text-anchor="middle" class="tech-item">• HNSW 인덱스</text>
+    <text x="180" y="755" text-anchor="middle" class="tech-desc">고속 근사 검색</text>
+
+    <rect x="320" y="615" width="240" height="155" rx="5" class="tech-box"/>
+    <text x="440" y="640" text-anchor="middle" class="tech-item">• Cosine Similarity</text>
+    <text x="440" y="663" text-anchor="middle" class="tech-desc">벡터 유사도 측정</text>
+    <text x="440" y="686" text-anchor="middle" class="tech-item">• Full-Text Search</text>
+    <text x="440" y="709" text-anchor="middle" class="tech-desc">키워드 검색 (tsvector)</text>
+    <text x="440" y="732" text-anchor="middle" class="tech-item">• Connection Pooling</text>
+    <text x="440" y="755" text-anchor="middle" class="tech-desc">SQLAlchemy 비동기</text>
+  </g>
+
+  <!-- Infrastructure -->
+  <g>
+    <rect x="630" y="555" width="520" height="50" rx="5" class="box-infra"/>
+    <text x="890" y="587" text-anchor="middle" class="category">Infrastructure</text>
+    
+    <rect x="640" y="615" width="240" height="155" rx="5" class="tech-box"/>
+    <text x="760" y="640" text-anchor="middle" class="tech-item">• Redis (선택사항)</text>
+    <text x="760" y="663" text-anchor="middle" class="tech-desc">캐싱 레이어</text>
+    <text x="760" y="686" text-anchor="middle" class="tech-item">• 로컬 개발 환경</text>
+    <text x="760" y="709" text-anchor="middle" class="tech-desc">Windows 10 지원</text>
+    <text x="760" y="732" text-anchor="middle" class="tech-desc">PoC 단계</text>
+  </g>
+
+</svg>
+

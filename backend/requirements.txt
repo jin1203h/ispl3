@@ -1,0 +1,51 @@
+# FastAPI 및 웹 프레임워크
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+python-multipart==0.0.12
+
+# 데이터베이스
+sqlalchemy==2.0.35
+asyncpg==0.30.0
+psycopg2-binary==2.9.10
+pgvector==0.3.6
+
+# Redis (캐싱)
+redis[hiredis]==5.2.1
+
+# PDF 처리
+PyMuPDF==1.24.14
+pymupdf4llm==0.0.17
+pdf2image==1.17.0
+Pillow==11.0.0
+
+# 이미지 처리
+opencv-python==4.10.0.84
+numpy>=1.26.0,<2.0.0  # langchain 호환성 (Python 3.12+)
+
+# OpenAI 및 LangChain
+openai==1.55.3
+tiktoken==0.8.0  # 토큰 카운팅
+tenacity==9.0.0  # 재시도 로직
+
+# LangChain 패키지 (핵심 패키지만 명시, 나머지는 자동 의존성 해결)
+langchain==0.3.7
+langchain-openai==0.2.8
+langchain-community==0.3.5
+
+# LangGraph 
+langgraph>=0.3.27
+
+# 유틸리티
+python-dotenv==1.0.1
+pydantic==2.10.2
+pydantic-settings==2.6.1
+
+# 한글 처리
+# py-hanspell==1.1  # Python 3.13 호환 문제로 임시 제거, 추후 대체 라이브러리 검토
+kiwipiepy==0.21.0  # 한국어 형태소 분석기
+
+# 기타 유틸리티
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-dateutil==2.9.0.post0
+

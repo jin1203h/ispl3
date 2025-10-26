@@ -1,0 +1,168 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+# FastAPI
+
+## Project Structure
+- Use proper directory structure
+- Implement proper module organization
+- Use proper dependency injection
+- Keep routes organized by domain
+- Implement proper middleware
+- Use proper configuration management
+
+## API Design
+- Use proper HTTP methods
+- Implement proper status codes
+- Use proper request/response models
+- Implement proper validation
+- Use proper error handling
+- Document APIs with OpenAPI
+
+## Models
+- Use Pydantic models
+- Implement proper validation
+- Use proper type hints
+- Keep models organized
+- Use proper inheritance
+- Implement proper serialization
+
+## Database
+- Use proper ORM (SQLAlchemy)
+- Implement proper migrations
+- Use proper connection pooling
+- Implement proper transactions
+- Use proper query optimization
+- Handle database errors properly
+
+## Documentation
+- Use proper docstrings
+- Implement proper API documentation
+- Use proper type hints
+- Keep documentation updated
+- Document error scenarios
+- Use proper versioning 
+
+
+# Python 
+
+## Project Structure
+- Use src-layout with `backend/`
+- Place tests in `tests/` directory parallel to `src/`
+- Keep configuration in `config/` or as environment variables
+- Store requirements in `requirements.txt` or `pyproject.toml`
+- Place static files in `static/` directory
+- Use `templates/` for Jinja2 templates
+
+## Code Style
+- Follow Black code formatting
+- Use isort for import sorting
+- Follow PEP 8 naming conventions:
+  - snake_case for functions and variables
+  - PascalCase for classes
+  - UPPER_CASE for constants
+- Maximum line length of 88 characters (Black default)
+- Use absolute imports over relative imports
+
+## Type Hints
+- Use type hints for all function parameters and returns
+- Import types from `typing` module
+- Use `Optional[Type]` instead of `Type | None`
+- Use `TypeVar` for generic types
+- Define custom types in `types.py`
+- Use `Protocol` for duck typing
+
+## Error Handling
+- Create custom exception classes
+- Use proper try-except blocks
+- Implement proper logging
+- Return proper error responses
+- Handle edge cases properly
+- Use proper error messages
+
+## Documentation
+- Use Google-style docstrings
+- Document all public APIs
+- Keep README.md updated
+- Use proper inline comments
+- Generate API documentation
+- Document environment setup
+
+## Dependencies
+- Pin dependency versions
+- Use requirements.txt for production
+- Separate dev dependencies
+- Use proper package versions
+- Regularly update dependencies
+- Check for security vulnerabilities
+
+
+## LangGraph (Multi-Agent System)
+
+### Agent Design
+- Each agent should have a single, clear responsibility
+- Use StateGraph for defining agent workflows
+- Implement proper state management between agents
+- Use conditional edges for routing logic
+
+### Agent Communication
+- Define clear input/output schemas
+- Use typed state objects
+- Implement proper error handling in agent transitions
+- Log agent decisions for debugging
+
+### Best Practices
+- Keep agent logic focused and testable
+- Use LangChain tools for external integrations
+- Implement proper retry logic
+- Monitor agent performance
+
+
+## Vector Database (pgvector)
+
+### Schema Design
+- Use VECTOR type for embeddings
+- Set appropriate dimension (1536 for OpenAI embeddings)
+- Use HNSW index for fast similarity search
+
+### Query Optimization
+- Use vector_cosine_ops for cosine similarity
+- Set appropriate ef_construction and m parameters
+- Implement proper filtering before vector search
+- Use batch operations for bulk insertions
+
+### Best Practices
+- Normalize vectors before storage
+- Use connection pooling
+- Monitor index size and query performance
+- Implement proper error handling for vector operations
+
+
+## Database (postgreSQL)
+
+### Schema Design
+- Don't use trigger
+
+
+## OpenAI API Integration
+
+### API Usage
+- Store API keys in environment variables
+- Use appropriate temperature settings (0.1 for accuracy)
+- Implement token counting before requests
+- Set reasonable timeout values
+
+### Error Handling
+- Handle rate limits with exponential backoff
+- Catch and log API errors properly
+- Implement fallback mechanisms
+- Monitor API usage and costs
+
+### Cost Optimization
+- Cache embeddings when possible
+- Use batch requests where applicable
+- Monitor token usage per request
+- Set max_tokens limits appropriately

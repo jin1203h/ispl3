@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISPL 아키텍처 다이어그램 뷰어</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .tab {
+            background: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .viewer-container {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: auto;
+        }
+        
+        .diagram {
+            display: none;
+            width: 100%;
+            overflow: auto;
+        }
+        
+        .diagram.active {
+            display: block;
+        }
+        
+        .diagram svg {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+        }
+        
+        .description {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .description h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .description p {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏗️ ISPL 아키텍처 다이어그램</h1>
+            <p class="subtitle">Insurance Policy - Agentic AI System</p>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showDiagram('overview')">
+                01. 시스템 전체 구조
+            </button>
+            <button class="tab" onclick="showDiagram('agents')">
+                02. Multi-Agent 상세
+            </button>
+            <button class="tab" onclick="showDiagram('pipeline')">
+                03. PDF 전처리
+            </button>
+            <button class="tab" onclick="showDiagram('search')">
+                04. 검색 & 답변
+            </button>
+            <button class="tab" onclick="showDiagram('schema')">
+                05. DB 스키마
+            </button>
+            <button class="tab" onclick="showDiagram('tech')">
+                06. 기술 스택
+            </button>
+        </div>
+        
+        <div class="viewer-container">
+            <div id="overview" class="diagram active">
+                <object data="01_system_overview.svg" type="image/svg+xml" width="100%" height="900"></object>
+                <div class="description">
+                    <h3>📊 시스템 전체 구조</h3>
+                    <p>
+                        ISPL 시스템의 3계층 아키텍처를 보여줍니다. 
+                        Frontend (React/Next.js), Backend (FastAPI + LangGraph), 
+                        그리고 외부 서비스 (OpenAI, PostgreSQL, 파일 시스템)로 구성됩니다.
+                    </p>
+                </div>
+            </div>
+            
+            <div id="agents" class="diagram">
+                <object data="02_langgraph_agents.svg" type="image/svg+xml" width="100%" height="1000"></object>
+                <div class="description">
+                    <h3>🤖 LangGraph Multi-Agent 상세</h3>
+                    <p>
+                        5개의 전문화된 Agent (Router, Search, Answer, Processing, Management)의 
+                        워크플로우와 상호작용을 상세히 보여줍니다.
+                    </p>
+                </div>
+            </div>
+            
+            <div id="pipeline" class="diagram">
+                <object data="03_pdf_processing_pipeline.svg" type="image/svg+xml" width="100%" height="1200"></object>
+                <div class="description">
+                    <h3>⚙️ PDF 전처리 하이브리드 파이프라인</h3>
+                    <p>
+                        Path 1 (PyMuPDF4LLM 직접 추출)과 Path 2 (GPT-4 Vision 멀티모달)를 
+                        병렬로 실행하고 결과를 병합하는 고품질 전처리 과정을 보여줍니다.
+                    </p>
+                </div>
+            </div>
+            
+            <div id="search" class="diagram">
+                <object data="04_search_answer_flow.svg" type="image/svg+xml" width="100%" height="1400"></object>
+                <div class="description">
+                    <h3>🔍 검색 및 답변 생성 플로우</h3>
+                    <p>
+                        사용자 질의부터 최종 답변까지의 전체 프로세스를 단계별로 보여줍니다. 
+                        질의 전처리, 하이브리드 검색, GPT-4 답변 생성, 할루시네이션 검증 과정을 포함합니다.
+                    </p>
+                </div>
+            </div>
+            
+            <div id="schema" class="diagram">
+                <object data="05_database_schema.svg" type="image/svg+xml" width="100%" height="900"></object>
+                <div class="description">
+                    <h3>🗄️ 데이터베이스 스키마</h3>
+                    <p>
+                        PostgreSQL 데이터베이스의 테이블 구조와 관계를 보여줍니다. 
+                        users, documents, document_chunks (벡터 임베딩), processing_logs, search_logs 테이블로 구성됩니다.
+                    </p>
+                </div>
+            </div>
+            
+            <div id="tech" class="diagram">
+                <object data="06_tech_stack.svg" type="image/svg+xml" width="100%" height="800"></object>
+                <div class="description">
+                    <h3>🛠️ 기술 스택</h3>
+                    <p>
+                        Frontend (Next.js, React, TypeScript), Backend (FastAPI, Python, LangGraph), 
+                        AI/ML (OpenAI GPT-4, Embeddings), Database (PostgreSQL + pgvector) 등 
+                        프로젝트에서 사용하는 모든 기술과 라이브러리를 정리했습니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 ISPL Project - Architecture Documentation</p>
+        </footer>
+    </div>
+    
+    <script>
+        function showDiagram(id) {
+            // 모든 다이어그램 숨기기
+            document.querySelectorAll('.diagram').forEach(diagram => {
+                diagram.classList.remove('active');
+            });
+            
+            // 모든 탭 비활성화
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // 선택한 다이어그램 보이기
+            document.getElementById(id).classList.add('active');
+            
+            // 선택한 탭 활성화
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
+
