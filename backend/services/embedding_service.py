@@ -20,12 +20,12 @@ class EmbeddingService:
     
     MODEL_NAME = "text-embedding-3-large"
     EMBEDDING_DIM = 1536
-    BATCH_SIZE = 100  # OpenAI API 배치 크기
+    BATCH_SIZE = 2048  # OpenAI API 최대 배치 크기 (100 → 2048 최적화)
     
     def __init__(self):
         """초기화"""
         self.client = AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
-        self.semaphore = asyncio.Semaphore(5)  # 동시 요청 제한
+        self.semaphore = asyncio.Semaphore(50)  # 동시 요청 제한 (5 → 50 최적화)
         logger.info(
             f"EmbeddingService 초기화: model={self.MODEL_NAME}, "
             f"dim={self.EMBEDDING_DIM}"

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1600" width="1400" height="1600">
+  <defs>
+    <style>
+      text { font-family: 'Segoe UI', Arial, sans-serif; }
+      .title { font-size: 28px; font-weight: 700; fill: #2c3e50; }
+      .subtitle { font-size: 16px; fill: #7f8c8d; }
+      .actor-box { fill: #e8f4f8; stroke: #2c3e50; stroke-width: 2; }
+      .actor-text { font-size: 13px; font-weight: 600; fill: #2c3e50; text-anchor: middle; }
+      .lifeline { stroke: #95a5a6; stroke-width: 1.5; stroke-dasharray: 6,4; }
+      .message { stroke: #2c3e50; stroke-width: 2.5; fill: none; }
+      .message-return { stroke: #2c3e50; stroke-width: 2.5; stroke-dasharray: 6,4; fill: none; }
+      .message-text { font-size: 12px; fill: #2c3e50; }
+      .note { fill: #fff8dc; stroke: #f0ad4e; stroke-width: 2; }
+      .note-text { font-size: 14px; font-weight: 600; fill: #856404; text-anchor: middle; }
+      .activation { fill: #667eea; opacity: 0.25; }
+      .section-list { fill: #e6f2ff; stroke: #667eea; stroke-width: 2; }
+      .section-detail { fill: #fff5e6; stroke: #f0ad4e; stroke-width: 2; }
+      .section-delete { fill: #ffe6e6; stroke: #dc3545; stroke-width: 2; }
+      .section-title { font-size: 14px; font-weight: 600; }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="11" refY="6" orient="auto">
+      <path d="M2,2 L2,11 L10,6 z" fill="#2c3e50"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="700" y="40" class="title" text-anchor="middle">📋 문서 관리 플로우</text>
+  <text x="700" y="70" class="subtitle" text-anchor="middle">List · Detail · Delete with Management Agent</text>
+
+  <!-- Participants -->
+  <g id="participants">
+    <!-- Client -->
+    <rect x="50" y="100" width="100" height="50" class="actor-box" rx="5"/>
+    <text x="100" y="130" class="actor-text">🖥️ Client</text>
+    <line x1="100" y1="150" x2="100" y2="1500" class="lifeline"/>
+
+    <!-- API -->
+    <rect x="200" y="100" width="120" height="50" class="actor-box" rx="5"/>
+    <text x="260" y="120" class="actor-text">FastAPI</text>
+    <text x="260" y="138" class="actor-text">documents.py</text>
+    <line x1="260" y1="150" x2="260" y2="1500" class="lifeline"/>
+
+    <!-- Graph -->
+    <rect x="370" y="100" width="110" height="50" class="actor-box" rx="5"/>
+    <text x="425" y="120" class="actor-text">LangGraph</text>
+    <text x="425" y="138" class="actor-text">graph.py</text>
+    <line x1="425" y1="150" x2="425" y2="1500" class="lifeline"/>
+
+    <!-- Router -->
+    <rect x="530" y="100" width="100" height="50" class="actor-box" rx="5"/>
+    <text x="580" y="120" class="actor-text">Router</text>
+    <text x="580" y="138" class="actor-text">Agent</text>
+    <line x1="580" y1="150" x2="580" y2="1500" class="lifeline"/>
+
+    <!-- Management Agent -->
+    <rect x="680" y="100" width="130" height="50" class="actor-box" rx="5"/>
+    <text x="745" y="120" class="actor-text">Management</text>
+    <text x="745" y="138" class="actor-text">Agent</text>
+    <line x1="745" y1="150" x2="745" y2="1500" class="lifeline"/>
+
+    <!-- Service -->
+    <rect x="860" y="100" width="150" height="50" class="actor-box" rx="5"/>
+    <text x="935" y="120" class="actor-text">Document</text>
+    <text x="935" y="138" class="actor-text">Management Service</text>
+    <line x1="935" y1="150" x2="935" y2="1500" class="lifeline"/>
+
+    <!-- DB -->
+    <rect x="1060" y="100" width="150" height="50" class="actor-box" rx="5"/>
+    <text x="1135" y="120" class="actor-text">🗄️ PostgreSQL</text>
+    <text x="1135" y="138" class="actor-text">documents + chunks</text>
+    <line x1="1135" y1="150" x2="1135" y2="1500" class="lifeline"/>
+  </g>
+
+  <!-- Flow 1: List Documents -->
+  <g id="flow-list">
+    <rect x="50" y="180" width="1190" height="360" class="section-list"/>
+    <text x="70" y="210" class="section-title" fill="#667eea">📋 문서 목록 조회</text>
+
+    <!-- 1. Client → API -->
+    <line x1="100" y1="240" x2="260" y2="240" class="message" marker-end="url(#arrow)"/>
+    <text x="180" y="230" class="message-text">GET /api/documents</text>
+    <text x="180" y="255" class="message-text" font-size="10">{filename, sort_by, limit}</text>
+    <rect x="250" y="240" width="20" height="260" class="activation"/>
+
+    <!-- 2. API → Graph -->
+    <line x1="260" y1="280" x2="425" y2="280" class="message" marker-end="url(#arrow)"/>
+    <text x="342" y="270" class="message-text">run_graph(task_type="manage")</text>
+    <rect x="415" y="280" width="20" height="200" class="activation"/>
+
+    <!-- 3. Graph → Router -->
+    <line x1="425" y1="310" x2="580" y2="310" class="message" marker-end="url(#arrow)"/>
+    <text x="502" y="300" class="message-text">router_node()</text>
+    <rect x="570" y="310" width="20" height="40" class="activation"/>
+
+    <line x1="580" y1="340" x2="425" y2="340" class="message-return" marker-end="url(#arrow)"/>
+    <text x="502" y="330" class="message-text" font-size="11">management_agent</text>
+
+    <!-- 4. Graph → Management -->
+    <line x1="425" y1="370" x2="745" y2="370" class="message" marker-end="url(#arrow)"/>
+    <text x="585" y="360" class="message-text">management_node()</text>
+    <rect x="735" y="370" width="20" height="100" class="activation"/>
+
+    <!-- 5. Management → Service -->
+    <line x1="745" y1="400" x2="935" y2="400" class="message" marker-end="url(#arrow)"/>
+    <text x="840" y="390" class="message-text">list_documents(filters)</text>
+    <rect x="925" y="400" width="20" height="60" class="activation"/>
+
+    <!-- 6. Service → DB -->
+    <line x1="935" y1="420" x2="1135" y2="420" class="message" marker-end="url(#arrow)"/>
+    <text x="1035" y="410" class="message-text" font-size="11">SELECT WHERE + ORDER BY + LIMIT</text>
+
+    <line x1="1135" y1="445" x2="935" y2="445" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1035" y="435" class="message-text" font-size="11">documents[]</text>
+
+    <!-- 7. Service → Management -->
+    <line x1="935" y1="460" x2="745" y2="460" class="message-return" marker-end="url(#arrow)"/>
+    <text x="840" y="450" class="message-text" font-size="11">{documents, total, has_more}</text>
+
+    <!-- 8. Management → Graph -->
+    <line x1="745" y1="470" x2="425" y2="470" class="message-return" marker-end="url(#arrow)"/>
+    <text x="585" y="460" class="message-text" font-size="11">task_results</text>
+
+    <!-- 9. Graph → API -->
+    <line x1="425" y1="480" x2="260" y2="480" class="message-return" marker-end="url(#arrow)"/>
+    <text x="342" y="470" class="message-text" font-size="11">final_state</text>
+
+    <!-- 10. API → Client -->
+    <line x1="260" y1="500" x2="100" y2="500" class="message-return" marker-end="url(#arrow)"/>
+    <text x="180" y="490" class="message-text">200 OK</text>
+    <text x="180" y="515" class="message-text" font-size="10">{documents, pagination}</text>
+  </g>
+
+  <!-- Flow 2: Document Detail -->
+  <g id="flow-detail">
+    <rect x="50" y="570" width="1190" height="290" class="section-detail"/>
+    <text x="70" y="600" class="section-title" fill="#f0ad4e">📄 문서 상세 조회</text>
+
+    <!-- 1. Client → API -->
+    <line x1="100" y1="630" x2="260" y2="630" class="message" marker-end="url(#arrow)"/>
+    <text x="180" y="620" class="message-text">GET /api/documents/{doc_id}</text>
+    <rect x="250" y="630" width="20" height="200" class="activation"/>
+
+    <!-- 2. API → Service -->
+    <line x1="260" y1="660" x2="935" y2="660" class="message" marker-end="url(#arrow)"/>
+    <text x="597" y="650" class="message-text">get_document_detail(doc_id)</text>
+    <rect x="925" y="660" width="20" height="140" class="activation"/>
+
+    <!-- 3. Service → DB: Get document -->
+    <line x1="935" y1="690" x2="1135" y2="690" class="message" marker-end="url(#arrow)"/>
+    <text x="1035" y="680" class="message-text" font-size="11">SELECT WHERE id = doc_id</text>
+
+    <line x1="1135" y1="715" x2="935" y2="715" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1035" y="705" class="message-text" font-size="11">document</text>
+
+    <!-- 4. Service → DB: Count chunks -->
+    <line x1="935" y1="745" x2="1135" y2="745" class="message" marker-end="url(#arrow)"/>
+    <text x="1035" y="735" class="message-text" font-size="11">SELECT COUNT(*) FROM chunks</text>
+
+    <line x1="1135" y1="770" x2="935" y2="770" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1035" y="760" class="message-text" font-size="11">chunk_count</text>
+
+    <!-- 5. Service → API -->
+    <line x1="935" y1="800" x2="260" y2="800" class="message-return" marker-end="url(#arrow)"/>
+    <text x="597" y="790" class="message-text" font-size="11">{document, chunks, stats}</text>
+
+    <!-- 6. API → Client -->
+    <line x1="260" y1="830" x2="100" y2="830" class="message-return" marker-end="url(#arrow)"/>
+    <text x="180" y="820" class="message-text">200 OK</text>
+    <text x="180" y="845" class="message-text" font-size="10">{document_detail}</text>
+  </g>
+
+  <!-- Flow 3: Delete Document -->
+  <g id="flow-delete">
+    <rect x="50" y="890" width="1190" height="550" class="section-delete"/>
+    <text x="70" y="920" class="section-title" fill="#dc3545">🗑️ 문서 삭제</text>
+
+    <!-- 1. Client → API -->
+    <line x1="100" y1="950" x2="260" y2="950" class="message" marker-end="url(#arrow)"/>
+    <text x="180" y="940" class="message-text">DELETE /api/documents/{doc_id}</text>
+    <rect x="250" y="950" width="20" height="450" class="activation"/>
+
+    <!-- 2. API → Graph -->
+    <line x1="260" y1="980" x2="425" y2="980" class="message" marker-end="url(#arrow)"/>
+    <text x="342" y="970" class="message-text">run_graph(task_type="manage")</text>
+    <rect x="415" y="980" width="20" height="390" class="activation"/>
+
+    <!-- 3. Graph → Router -->
+    <line x1="425" y1="1010" x2="580" y2="1010" class="message" marker-end="url(#arrow)"/>
+    <text x="502" y="1000" class="message-text">router_node()</text>
+    <rect x="570" y="1010" width="20" height="40" class="activation"/>
+
+    <line x1="580" y1="1040" x2="425" y2="1040" class="message-return" marker-end="url(#arrow)"/>
+    <text x="502" y="1030" class="message-text" font-size="11">management_agent</text>
+
+    <!-- 4. Graph → Management -->
+    <line x1="425" y1="1070" x2="745" y2="1070" class="message" marker-end="url(#arrow)"/>
+    <text x="585" y="1060" class="message-text">management_node()</text>
+    <rect x="735" y="1070" width="20" height="290" class="activation"/>
+
+    <!-- 5. Management → Service -->
+    <line x1="745" y1="1100" x2="935" y2="1100" class="message" marker-end="url(#arrow)"/>
+    <text x="840" y="1090" class="message-text">delete_document(doc_id)</text>
+    <rect x="925" y="1100" width="20" height="240" class="activation"/>
+
+    <!-- 6. Service → DB: BEGIN -->
+    <line x1="935" y1="1130" x2="1135" y2="1130" class="message" marker-end="url(#arrow)"/>
+    <text x="1035" y="1120" class="message-text" font-size="11">BEGIN TRANSACTION</text>
+
+    <!-- 7. Service → DB: Delete chunks -->
+    <line x1="935" y1="1165" x2="1135" y2="1165" class="message" marker-end="url(#arrow)"/>
+    <text x="1035" y="1155" class="message-text" font-size="11">DELETE FROM chunks WHERE document_id</text>
+
+    <line x1="1135" y1="1195" x2="935" y2="1195" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1035" y="1185" class="message-text" font-size="11">삭제된 청크 수</text>
+
+    <!-- 8. Service → DB: Delete document -->
+    <line x1="935" y1="1230" x2="1135" y2="1230" class="message" marker-end="url(#arrow)"/>
+    <text x="1035" y="1220" class="message-text" font-size="11">DELETE FROM documents WHERE id</text>
+
+    <line x1="1135" y1="1260" x2="935" y2="1260" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1035" y="1250" class="message-text" font-size="11">1 row deleted</text>
+
+    <!-- 9. Service → DB: COMMIT -->
+    <line x1="935" y1="1295" x2="1135" y2="1295" class="message" marker-end="url(#arrow)"/>
+    <text x="1035" y="1285" class="message-text" font-size="11">COMMIT</text>
+
+    <line x1="1135" y1="1320" x2="935" y2="1320" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1035" y="1310" class="message-text" font-size="11">성공</text>
+
+    <!-- 10. Service → Management -->
+    <line x1="935" y1="1340" x2="745" y2="1340" class="message-return" marker-end="url(#arrow)"/>
+    <text x="840" y="1330" class="message-text" font-size="11">{success=True, deleted_chunks}</text>
+
+    <!-- 11. Management → Graph -->
+    <line x1="745" y1="1360" x2="425" y2="1360" class="message-return" marker-end="url(#arrow)"/>
+    <text x="585" y="1350" class="message-text" font-size="11">task_results</text>
+
+    <!-- 12. Graph → API -->
+    <line x1="425" y1="1370" x2="260" y2="1370" class="message-return" marker-end="url(#arrow)"/>
+    <text x="342" y="1360" class="message-text" font-size="11">final_state</text>
+
+    <!-- 13. API → Client -->
+    <line x1="260" y1="1400" x2="100" y2="1400" class="message-return" marker-end="url(#arrow)"/>
+    <text x="180" y="1390" class="message-text">200 OK</text>
+    <text x="180" y="1415" class="message-text" font-size="10">{message: "삭제 완료"}</text>
+  </g>
+
+  <!-- Bottom actors -->
+  <g id="bottom-actors">
+    <rect x="50" y="1520" width="100" height="50" class="actor-box" rx="5"/>
+    <text x="100" y="1550" class="actor-text">🖥️ Client</text>
+
+    <rect x="200" y="1520" width="120" height="50" class="actor-box" rx="5"/>
+    <text x="260" y="1540" class="actor-text">FastAPI</text>
+    <text x="260" y="1558" class="actor-text">documents.py</text>
+
+    <rect x="370" y="1520" width="110" height="50" class="actor-box" rx="5"/>
+    <text x="425" y="1540" class="actor-text">LangGraph</text>
+    <text x="425" y="1558" class="actor-text">graph.py</text>
+
+    <rect x="530" y="1520" width="100" height="50" class="actor-box" rx="5"/>
+    <text x="580" y="1540" class="actor-text">Router</text>
+    <text x="580" y="1558" class="actor-text">Agent</text>
+
+    <rect x="680" y="1520" width="130" height="50" class="actor-box" rx="5"/>
+    <text x="745" y="1540" class="actor-text">Management</text>
+    <text x="745" y="1558" class="actor-text">Agent</text>
+
+    <rect x="860" y="1520" width="150" height="50" class="actor-box" rx="5"/>
+    <text x="935" y="1540" class="actor-text">Document</text>
+    <text x="935" y="1558" class="actor-text">Management Service</text>
+
+    <rect x="1060" y="1520" width="150" height="50" class="actor-box" rx="5"/>
+    <text x="1135" y="1540" class="actor-text">🗄️ PostgreSQL</text>
+    <text x="1135" y="1558" class="actor-text">documents + chunks</text>
+  </g>
+</svg>
+
+
+

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISPL 아키텍처 다이어그램 뷰어 v2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .version-badge {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .tab {
+            background: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .viewer-container {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: auto;
+        }
+        
+        .diagram {
+            display: none;
+            width: 100%;
+            overflow: auto;
+        }
+        
+        .diagram.active {
+            display: block;
+        }
+        
+        .diagram svg {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+        }
+        
+        .description {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .description h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .description p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        
+        .description .new-feature {
+            color: #28a745;
+            font-weight: 600;
+        }
+        
+        .description ul {
+            margin-left: 20px;
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏗️ ISPL 아키텍처 다이어그램</h1>
+            <p class="subtitle">Insurance Policy - Agentic AI System</p>
+            <span class="version-badge">⭐ Version 2.0 - 실제 구현 기반</span>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showDiagram('overview')">
+                01. 시스템 전체 구조
+            </button>
+            <button class="tab" onclick="showDiagram('agents')">
+                02. 7개 Multi-Agent ⭐
+            </button>
+            <button class="tab" onclick="showDiagram('pipeline')">
+                03. PDF 전처리
+            </button>
+            <button class="tab" onclick="showDiagram('search')">
+                04. 검색 & 답변 ⭐
+            </button>
+            <button class="tab" onclick="showDiagram('schema')">
+                05. DB 스키마 ⭐
+            </button>
+            <button class="tab" onclick="showDiagram('tech')">
+                06. 기술 스택 ⭐
+            </button>
+            <button class="tab" onclick="showDiagram('userflow')">
+                07. 사용자 플로우 ⭐
+            </button>
+            <button class="tab" onclick="showDiagram('localarch')">
+                08. 로컬 아키텍처 ⭐
+            </button>
+            <button class="tab" onclick="showDiagram('langgraph')">
+                09. LangGraph Flow ⭐
+            </button>
+        </div>
+        
+        <div class="viewer-container">
+            <div id="overview" class="diagram active">
+                <object data="01_system_overview_v2.svg" type="image/svg+xml" width="100%" height="950"></object>
+                <div class="description">
+                    <h3>📊 시스템 전체 구조 v2</h3>
+                    <p>
+                        ISPL 시스템의 3계층 아키텍처를 보여줍니다. 
+                        Frontend (Next.js 15.0.3 + React 18.3.1), Backend (FastAPI 0.115.0 + LangGraph 0.3.27+), 
+                        그리고 외부 서비스 (OpenAI, PostgreSQL, MemoryCache)로 구성됩니다.
+                    </p>
+                    <p class="new-feature">⭐ v2 업데이트:</p>
+                    <ul>
+                        <li>7개 에이전트 시스템 명시</li>
+                        <li>MemoryCache 표시 (Redis 대체)</li>
+                        <li>대화 이력 기능 추가</li>
+                        <li>실제 버전 번호 반영</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="agents" class="diagram">
+                <object data="02_langgraph_agents_v2.svg" type="image/svg+xml" width="100%" height="1300"></object>
+                <div class="description">
+                    <h3>🤖 LangGraph Multi-Agent 상세 v2 (7개 에이전트)</h3>
+                    <p>
+                        7개의 전문화된 Agent의 워크플로우와 상호작용을 상세히 보여줍니다.
+                    </p>
+                    <p class="new-feature">⭐ v2 업데이트 (5개 → 7개):</p>
+                    <ul>
+                        <li><strong>Context Judgement Agent</strong> ⭐ NEW: 컨텍스트 충분성 판단</li>
+                        <li><strong>Chunk Expansion Agent</strong> ⭐ NEW: 동적 청크 확장</li>
+                        <li>조건부 라우팅 및 재판단 루프</li>
+                        <li>Search Agent: 하이브리드 검색 강화 (RRF)</li>
+                        <li>Answer Agent: 4단계 검증 추가</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="pipeline" class="diagram">
+                <object data="03_pdf_processing_pipeline_v2.svg" type="image/svg+xml" width="100%" height="1250"></object>
+                <div class="description">
+                    <h3>⚙️ PDF 전처리 하이브리드 파이프라인 v2</h3>
+                    <p>
+                        Path 1 (PyMuPDF4LLM 직접 추출)과 Path 2 (GPT-4o Vision 멀티모달)를 
+                        병렬로 실행하고 결과를 병합하는 고품질 전처리 과정을 보여줍니다.
+                    </p>
+                    <p class="new-feature">⭐ v2 업데이트:</p>
+                    <ul>
+                        <li>GPT-4 Vision → GPT-4o Vision</li>
+                        <li>QualityValidator 단계 강조</li>
+                        <li>EmbeddingCache (MemoryCache) 표시</li>
+                        <li>처리 시간 명시 (PyMuPDF: 5-10초, Vision: 30-60초)</li>
+                        <li>서비스 컴포넌트 목록 추가</li>
+                        <li>pdf_page_number 필드 표시</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="search" class="diagram">
+                <object data="04_search_answer_flow_v2.svg" type="image/svg+xml" width="100%" height="1850"></object>
+                <div class="description">
+                    <h3>🔍 검색 및 답변 생성 플로우 v2</h3>
+                    <p>
+                        사용자 질의부터 최종 답변까지의 전체 프로세스를 단계별로 보여줍니다. 
+                        (기존 8단계 → 12단계로 확장)
+                    </p>
+                    <p class="new-feature">⭐ v2 업데이트:</p>
+                    <ul>
+                        <li><strong>Query 전처리</strong> ⭐ NEW: QueryPreprocessor (정규화/표준화/키워드 추출)</li>
+                        <li><strong>하이브리드 검색</strong> ⭐ ENHANCED: RRF 융합 (K=60), 최대 20K 토큰</li>
+                        <li><strong>컨텍스트 판단</strong> ⭐ NEW: Context Judgement Agent</li>
+                        <li><strong>청크 확장</strong> ⭐ NEW: Chunk Expansion Agent (재판단 루프)</li>
+                        <li><strong>4단계 검증</strong> ⭐ NEW: 형식(10%) + 조항(20%) + 컨텍스트(30%) + 할루시네이션(40%)</li>
+                        <li>GPT-4o 사용 (temperature: 0.1)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="schema" class="diagram">
+                <object data="05_database_schema_v2.svg" type="image/svg+xml" width="100%" height="950"></object>
+                <div class="description">
+                    <h3>🗄️ 데이터베이스 스키마 v2</h3>
+                    <p>
+                        PostgreSQL 17.6 + pgvector 0.3.6 데이터베이스의 테이블 구조와 관계를 보여줍니다.
+                    </p>
+                    <p class="new-feature">⭐ v2 업데이트:</p>
+                    <ul>
+                        <li><strong>document_chunks</strong>: pdf_page_number 필드 추가 (이중 페이지 시스템)</li>
+                        <li><strong>chat_sessions</strong> ⭐ NEW: 채팅 세션 관리 테이블</li>
+                        <li><strong>chat_messages</strong> ⭐ NEW: 대화 메시지 저장 테이블</li>
+                        <li>새로운 관계: users → chat_sessions → chat_messages (CASCADE DELETE)</li>
+                        <li>인덱스 추가: pdf_page_number, session_id</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="tech" class="diagram">
+                <object data="06_tech_stack_v2.svg" type="image/svg+xml" width="100%" height="850"></object>
+                <div class="description">
+                    <h3>🛠️ 기술 스택 v2 (실제 버전)</h3>
+                    <p>
+                        프로젝트에서 실제로 사용하는 모든 기술과 라이브러리의 정확한 버전을 정리했습니다.
+                        (2025-10-27 기준)
+                    </p>
+                    <p class="new-feature">⭐ v2 업데이트 (실제 버전 반영):</p>
+                    <ul>
+                        <li><strong>AI/ML</strong>: GPT-4o (gpt-4o) ⭐, GPT-4o Vision ⭐, OpenAI SDK 1.55.3</li>
+                        <li><strong>Frontend</strong>: Next.js 15.0.3, React 18.3.1, TypeScript 5.6.3, react-markdown 9.0.1 ⭐</li>
+                        <li><strong>Backend</strong>: FastAPI 0.115.0, LangGraph 0.3.27+, SQLAlchemy 2.0.35, Pydantic 2.10.2</li>
+                        <li><strong>Data</strong>: kiwipiepy 0.21.0 ⭐, tenacity 9.0.0 ⭐, OpenCV 4.10.0.84, Pillow 11.0.0</li>
+                        <li><strong>Database</strong>: PostgreSQL 17.6, pgvector 0.3.6, asyncpg 0.30.0</li>
+                        <li><strong>Cache</strong>: MemoryCache (LRU, 10K 항목) ⭐ - Redis 대신 사용</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="userflow" class="diagram">
+                <object data="07_user_flow.svg" type="image/svg+xml" width="100%" height="2000"></object>
+                <div class="description">
+                    <h3>👤 사용자 플로우 v2</h3>
+                    <p>
+                        사용자 관점의 3가지 주요 시나리오를 시각화한 End-to-End 플로우입니다.
+                    </p>
+                    <p class="new-feature">⭐ 3가지 주요 플로우:</p>
+                    <ul>
+                        <li><strong>Flow 1: AI 채팅 질의</strong> - 질문 입력부터 답변 표시까지 (7단계)</li>
+                        <li><strong>Flow 2: 약관 업로드</strong> - 파일 업로드부터 DB 저장까지 (8단계)</li>
+                        <li><strong>Flow 3: 대화 이력 관리</strong> - 세션 조회부터 대화 이어가기까지 (7단계)</li>
+                    </ul>
+                    <p class="new-feature">공통 기능:</p>
+                    <ul>
+                        <li>로딩 상태 표시 (스피너/프로그레스바)</li>
+                        <li>에러 핸들링 (Toast/Alert)</li>
+                        <li>자동 저장 (대화 이력)</li>
+                        <li>Markdown 렌더링</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="localarch" class="diagram">
+                <object data="08_local_architecture.svg" type="image/svg+xml" width="100%" height="800"></object>
+                <div class="description">
+                    <h3>🏢 로컬 환경 아키텍처 ⭐ NEW</h3>
+                    <p>
+                        현재 개발 환경의 실제 아키텍처를 AWS 스타일로 시각화했습니다.
+                        좌측에서 우측으로 데이터 흐름을 표현합니다.
+                    </p>
+                    <p class="new-feature">⭐ 주요 구성 요소:</p>
+                    <ul>
+                        <li><strong>사용자</strong> → <strong>Frontend</strong> (Next.js 15 + React 18)</li>
+                        <li><strong>Backend</strong> (FastAPI 0.115 + LangGraph 7개 Agent)</li>
+                        <li><strong>OpenAI API</strong> (GPT-4o, Embeddings, Vision)</li>
+                        <li><strong>PostgreSQL 17.6</strong> (pgvector, HNSW Index)</li>
+                        <li><strong>File System</strong> (로컬 스토리지 - uploads/)</li>
+                        <li><strong>MemoryCache</strong> (LRU, 10K 항목)</li>
+                    </ul>
+                    <p class="new-feature">특징:</p>
+                    <ul>
+                        <li>3D 아이콘 스타일 (AWS 아키텍처 참고)</li>
+                        <li>각 기술별 공식 브랜드 색상 사용</li>
+                        <li>단방향 화살표로 데이터 흐름 표시</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="langgraph" class="diagram">
+                <object data="09_langgraph_flow.svg" type="image/svg+xml" width="100%" height="1800"></object>
+                <div class="description">
+                    <h3>🔄 LangGraph Multi-Agent Workflow ⭐ NEW</h3>
+                    <p>
+                        LangGraph 기반 7개 Agent의 실제 실행 흐름을 플로우차트로 표현했습니다.
+                        조건부 라우팅 및 재판단 루프를 명확하게 보여줍니다.
+                    </p>
+                    <p class="new-feature">⭐ Agent 흐름:</p>
+                    <ul>
+                        <li><strong>start</strong> → Router Agent (의도 분석)</li>
+                        <li><strong>조건부 라우팅</strong>: search/upload/manage</li>
+                        <li><strong>Search 경로</strong>:
+                            <ul>
+                                <li>Search Agent → Context Judgement Agent</li>
+                                <li>충분 → Answer Agent → 4단계 검증</li>
+                                <li>불충분 → Chunk Expansion Agent → 재판단 (최대 3회)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Upload 경로</strong>: Processing Agent (하이브리드 전처리)</li>
+                        <li><strong>Manage 경로</strong>: Management Agent (문서 CRUD)</li>
+                    </ul>
+                    <p class="new-feature">특징:</p>
+                    <ul>
+                        <li>깔끔한 플로우차트 스타일</li>
+                        <li>실선/점선/조건부 화살표 구분</li>
+                        <li>하단에 각 Agent 상세 설명 포함</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 ISPL Project - Architecture Documentation v2.0</p>
+            <p style="font-size: 0.9em; margin-top: 5px;">실제 구현 기반 (2025-10-27)</p>
+        </footer>
+    </div>
+    
+    <script>
+        function showDiagram(id) {
+            // 모든 다이어그램 숨기기
+            document.querySelectorAll('.diagram').forEach(diagram => {
+                diagram.classList.remove('active');
+            });
+            
+            // 모든 탭 비활성화
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // 선택한 다이어그램 보이기
+            const selectedDiagram = document.getElementById(id);
+            if (selectedDiagram) {
+                selectedDiagram.classList.add('active');
+            }
+            
+            // 클릭한 탭 활성화
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <style>
+      .title { font: bold 24px sans-serif; fill: #1a1a1a; }
+      .subtitle { font: bold 16px sans-serif; fill: #2c3e50; }
+      .label { font: 14px sans-serif; fill: #2c3e50; }
+      .small-text { font: 12px sans-serif; fill: #555; }
+      
+      /* 박스 스타일 */
+      .box-user { fill: #f5f5f5; stroke: #333; stroke-width: 3; }
+      .box-frontend { fill: #ffffff; stroke: #000000; stroke-width: 3; }
+      .box-backend { fill: #ffffff; stroke: #009688; stroke-width: 3; }
+      .box-ai { fill: #ffffff; stroke: #10a37f; stroke-width: 3; }
+      .box-db { fill: #ffffff; stroke: #336791; stroke-width: 3; }
+      .box-storage { fill: #ffffff; stroke: #FF9900; stroke-width: 3; }
+      
+      /* 화살표 */
+      .arrow { stroke: #424242; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .arrow-data { stroke: #1976d2; stroke-width: 2; fill: none; marker-end: url(#arrowhead-blue); stroke-dasharray: 5,3; }
+    </style>
+    
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#424242" />
+    </marker>
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#1976d2" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#fafafa"/>
+
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" class="title">ISPL 로컬 환경 아키텍처</text>
+  <text x="600" y="65" text-anchor="middle" class="small-text">Insurance Policy - Local Development Architecture</text>
+
+  <!-- ========== 왼쪽: 사용자 ========== -->
+  <g id="users">
+    <rect x="50" y="350" width="140" height="120" rx="15" class="box-user"/>
+    
+    <!-- 사용자 아이콘 (3명) -->
+    <circle cx="85" cy="395" r="15" fill="#333"/>
+    <path d="M 70 410 Q 85 415 100 410" fill="#333"/>
+    
+    <circle cx="120" cy="395" r="15" fill="#333"/>
+    <path d="M 105 410 Q 120 415 135 410" fill="#333"/>
+    
+    <circle cx="155" cy="395" r="15" fill="#333"/>
+    <path d="M 140 410 Q 155 415 170 410" fill="#333"/>
+    
+    <text x="120" y="445" text-anchor="middle" class="subtitle">사용자</text>
+    <text x="120" y="463" text-anchor="middle" class="small-text">Users</text>
+  </g>
+
+  <!-- 화살표: 사용자 → Frontend -->
+  <path d="M 190 410 L 250 410" class="arrow"/>
+  <text x="220" y="400" text-anchor="middle" class="small-text">HTTP</text>
+
+  <!-- ========== Frontend ========== -->
+  <g id="frontend">
+    <rect x="250" y="330" width="180" height="160" rx="15" class="box-frontend"/>
+    
+    <!-- Next.js 로고 영역 -->
+    <rect x="270" y="350" width="60" height="60" rx="8" fill="#000000"/>
+    <text x="300" y="385" text-anchor="middle" class="label" fill="#ffffff" font-size="24">▲</text>
+    
+    <!-- React 로고 영역 -->
+    <circle cx="380" cy="380" r="25" fill="#61dafb" opacity="0.2"/>
+    <circle cx="380" cy="380" r="20" fill="none" stroke="#61dafb" stroke-width="2"/>
+    <circle cx="380" cy="380" r="4" fill="#61dafb"/>
+    
+    <text x="330" y="435" text-anchor="middle" class="subtitle">Frontend</text>
+    <text x="330" y="455" text-anchor="middle" class="small-text">Next.js 15.0.3</text>
+    <text x="330" y="472" text-anchor="middle" class="small-text">React 18.3.1</text>
+  </g>
+
+  <!-- 화살표: Frontend → Backend -->
+  <path d="M 430 410 L 490 410" class="arrow"/>
+  <text x="460" y="400" text-anchor="middle" class="small-text">API</text>
+
+  <!-- ========== Backend (중앙) ========== -->
+  <g id="backend">
+    <rect x="490" y="280" width="220" height="260" rx="15" class="box-backend"/>
+    
+    <!-- FastAPI 영역 -->
+    <rect x="510" y="300" width="180" height="70" rx="10" fill="#009688" opacity="0.1"/>
+    <text x="600" y="325" text-anchor="middle" class="subtitle" fill="#009688">FastAPI</text>
+    <text x="600" y="345" text-anchor="middle" class="small-text">0.115.0</text>
+    <text x="600" y="360" text-anchor="middle" class="small-text">Python 3.11</text>
+    
+    <!-- LangGraph Agents 영역 -->
+    <rect x="510" y="380" width="180" height="145" rx="10" fill="#7b1fa2" opacity="0.1"/>
+    <text x="600" y="405" text-anchor="middle" class="subtitle" fill="#7b1fa2">LangGraph</text>
+    <text x="600" y="423" text-anchor="middle" class="small-text">Multi-Agent (7개)</text>
+    
+    <!-- Agent 아이콘들 -->
+    <circle cx="540" cy="450" r="8" fill="#7b1fa2"/>
+    <text x="540" y="473" text-anchor="middle" class="small-text" font-size="9">Router</text>
+    
+    <circle cx="580" cy="450" r="8" fill="#7b1fa2"/>
+    <text x="580" y="473" text-anchor="middle" class="small-text" font-size="9">Search</text>
+    
+    <circle cx="620" cy="450" r="8" fill="#7b1fa2"/>
+    <text x="620" y="473" text-anchor="middle" class="small-text" font-size="9">Answer</text>
+    
+    <circle cx="660" cy="450" r="8" fill="#7b1fa2"/>
+    <text x="660" y="473" text-anchor="middle" class="small-text" font-size="9">Process</text>
+    
+    <circle cx="540" cy="490" r="8" fill="#7b1fa2"/>
+    <text x="540" y="513" text-anchor="middle" class="small-text" font-size="9">Manage</text>
+    
+    <circle cx="580" cy="490" r="8" fill="#28a745"/>
+    <text x="580" y="513" text-anchor="middle" class="small-text" font-size="9">Context</text>
+    
+    <circle cx="620" cy="490" r="8" fill="#28a745"/>
+    <text x="620" y="513" text-anchor="middle" class="small-text" font-size="9">Expand</text>
+  </g>
+
+  <!-- 화살표: Backend → OpenAI -->
+  <path d="M 710 350 L 770 290" class="arrow"/>
+  <text x="745" y="315" text-anchor="middle" class="small-text">API</text>
+
+  <!-- ========== OpenAI (우측 상단) ========== -->
+  <g id="openai">
+    <rect x="770" y="200" width="180" height="120" rx="15" class="box-ai"/>
+    
+    <!-- OpenAI 로고 영역 -->
+    <circle cx="820" cy="245" r="25" fill="#10a37f" opacity="0.2"/>
+    <circle cx="820" cy="245" r="20" fill="none" stroke="#10a37f" stroke-width="3"/>
+    <path d="M 810 245 L 830 245 M 820 235 L 820 255" stroke="#10a37f" stroke-width="3"/>
+    
+    <text x="860" y="245" text-anchor="middle" class="subtitle" fill="#10a37f">OpenAI</text>
+    <text x="860" y="265" text-anchor="middle" class="small-text">GPT-4o</text>
+    <text x="860" y="280" text-anchor="middle" class="small-text">Embeddings</text>
+    <text x="860" y="295" text-anchor="middle" class="small-text">Vision</text>
+  </g>
+
+  <!-- 화살표: Backend → PostgreSQL -->
+  <path d="M 710 440 L 770 480" class="arrow"/>
+  <text x="745" y="455" text-anchor="middle" class="small-text">Query</text>
+
+  <!-- ========== PostgreSQL (우측 중앙) ========== -->
+  <g id="database">
+    <rect x="770" y="420" width="180" height="140" rx="15" class="box-db"/>
+    
+    <!-- PostgreSQL 코끼리 로고 (간단히) -->
+    <ellipse cx="820" cy="475" rx="25" ry="30" fill="#336791" opacity="0.2"/>
+    <circle cx="815" cy="470" r="3" fill="#336791"/>
+    <circle cx="825" cy="470" r="3" fill="#336791"/>
+    <path d="M 810 485 Q 820 490 830 485" fill="none" stroke="#336791" stroke-width="2"/>
+    
+    <text x="860" y="470" text-anchor="middle" class="subtitle" fill="#336791">PostgreSQL</text>
+    <text x="860" y="490" text-anchor="middle" class="small-text">17.6</text>
+    <text x="860" y="510" text-anchor="middle" class="small-text">pgvector 0.3.6</text>
+    <text x="860" y="525" text-anchor="middle" class="small-text">HNSW Index</text>
+    <text x="860" y="545" text-anchor="middle" class="small-text">Embeddings</text>
+  </g>
+
+  <!-- 화살표: Backend → File Storage -->
+  <path d="M 710 500 L 770 620" class="arrow-data"/>
+  <text x="745" y="565" text-anchor="middle" class="small-text">Files</text>
+
+  <!-- ========== File Storage (우측 하단) ========== -->
+  <g id="storage">
+    <rect x="770" y="600" width="180" height="120" rx="15" class="box-storage"/>
+    
+    <!-- 파일 아이콘 -->
+    <rect x="800" y="630" width="40" height="50" rx="5" fill="#FF9900" opacity="0.2"/>
+    <rect x="803" y="633" width="34" height="44" rx="3" fill="none" stroke="#FF9900" stroke-width="2"/>
+    <line x1="810" y1="643" x2="830" y2="643" stroke="#FF9900" stroke-width="2"/>
+    <line x1="810" y1="653" x2="830" y2="653" stroke="#FF9900" stroke-width="2"/>
+    <line x1="810" y1="663" x2="830" y2="663" stroke="#FF9900" stroke-width="2"/>
+    
+    <text x="860" y="650" text-anchor="middle" class="subtitle" fill="#FF9900">File System</text>
+    <text x="860" y="670" text-anchor="middle" class="small-text">로컬 스토리지</text>
+    <text x="860" y="687" text-anchor="middle" class="small-text">uploads/</text>
+    <text x="860" y="702" text-anchor="middle" class="small-text">PDF, Images</text>
+  </g>
+
+  <!-- ========== Cache (Backend 내부 하단) ========== -->
+  <g id="cache">
+    <rect x="980" y="450" width="170" height="90" rx="15" fill="#fff" stroke="#dc382d" stroke-width="3"/>
+    
+    <!-- Cache 아이콘 -->
+    <circle cx="1025" cy="490" r="20" fill="#dc382d" opacity="0.2"/>
+    <circle cx="1025" cy="490" r="15" fill="none" stroke="#dc382d" stroke-width="2"/>
+    <path d="M 1020 490 L 1025 485 L 1025 490 L 1030 490" stroke="#dc382d" stroke-width="2" fill="none"/>
+    
+    <text x="1065" y="490" text-anchor="middle" class="subtitle" fill="#dc382d">Cache</text>
+    <text x="1065" y="510" text-anchor="middle" class="small-text">MemoryCache</text>
+    <text x="1065" y="527" text-anchor="middle" class="small-text">LRU (10K)</text>
+  </g>
+
+  <!-- 화살표: Backend → Cache -->
+  <path d="M 710 470 L 980 485" class="arrow-data"/>
+
+  <!-- ========== 하단 범례 ========== -->
+  <rect x="50" y="720" width="1100" height="60" rx="10" fill="#fff" stroke="#ccc" stroke-width="2"/>
+  <text x="600" y="745" text-anchor="middle" class="subtitle">🔄 데이터 흐름</text>
+  <text x="150" y="765" class="small-text">① 사용자 요청 → Frontend → Backend API</text>
+  <text x="450" y="765" class="small-text">② LangGraph Agents 처리</text>
+  <text x="700" y="765" class="small-text">③ OpenAI API 호출</text>
+  <text x="950" y="765" class="small-text">④ PostgreSQL 검색 &amp; 저장</text>
+
+</svg>
+

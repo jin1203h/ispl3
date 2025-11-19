@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1850">
+  <defs>
+    <style>
+      .title { font: bold 24px sans-serif; fill: #1a1a1a; }
+      .subtitle { font: bold 16px sans-serif; fill: #2c3e50; }
+      .text { font: 14px sans-serif; fill: #34495e; }
+      .small-text { font: 12px sans-serif; fill: #555; }
+      .box-input { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; }
+      .box-preprocess { fill: #fff3e0; stroke: #f57c00; stroke-width: 2; }
+      .box-search { fill: #f3e5f5; stroke: #7b1fa2; stroke-width: 2; }
+      .box-hybrid { fill: #fce4ec; stroke: #c2185b; stroke-width: 2; }
+      .box-new { fill: #d4edda; stroke: #28a745; stroke-width: 3; }
+      .box-llm { fill: #e8f5e9; stroke: #388e3c; stroke-width: 2; }
+      .box-verify { fill: #fff9c4; stroke: #f57f17; stroke-width: 2; }
+      .box-output { fill: #e0f2f1; stroke: #00796b; stroke-width: 2; }
+      .arrow { stroke: #424242; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .arrow-loop { stroke: #28a745; stroke-width: 2; fill: none; marker-end: url(#arrowhead); stroke-dasharray: 3,3; }
+      .label-new { font: bold 12px sans-serif; fill: #28a745; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#424242" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="500" y="40" text-anchor="middle" class="title">검색 및 답변 생성 플로우</text>
+
+  <!-- User Query -->
+  <rect x="300" y="80" width="400" height="70" rx="10" class="box-input"/>
+  <text x="500" y="110" text-anchor="middle" class="subtitle">1. 사용자 질의</text>
+  <text x="500" y="135" text-anchor="middle" class="small-text">"골절 시 보험금을 얼마나 받을 수 있나요?"</text>
+
+  <path d="M 500 150 L 500 190" class="arrow"/>
+
+  <!-- Router Agent -->
+  <rect x="325" y="190" width="350" height="60" rx="10" class="box-preprocess"/>
+  <text x="500" y="217" text-anchor="middle" class="subtitle">2. Router Agent (의도 분석)</text>
+  <text x="500" y="237" text-anchor="middle" class="small-text">task_type = "search" 판단</text>
+
+  <path d="M 500 250 L 500 290" class="arrow"/>
+
+  <!-- Query Preprocessing (ENHANCED) -->
+  <rect x="200" y="290" width="600" height="130" rx="10" class="box-preprocess"/>
+  <text x="500" y="320" text-anchor="middle" class="subtitle">3. Query 전처리</text>
+  <text x="500" y="340" text-anchor="middle" class="label-new">(QueryPreprocessor)</text>
+  <text x="500" y="363" text-anchor="middle" class="small-text">• 정규화: 공백 처리</text>
+  <text x="500" y="380" text-anchor="middle" class="small-text">• 표준화: "보험금/급여금" → "보험금" (insurance_terms.json)</text>
+  <text x="500" y="397" text-anchor="middle" class="small-text">• 동의어 확장: "골절" + "뼈부러짐"</text>
+  <text x="500" y="414" text-anchor="middle" class="small-text">• 키워드 추출: 조사 제거</text>
+
+  <path d="M 500 420 L 500 460" class="arrow"/>
+
+  <!-- Query Embedding -->
+  <rect x="325" y="460" width="350" height="60" rx="10" class="box-preprocess"/>
+  <text x="500" y="487" text-anchor="middle" class="subtitle">4. 쿼리 임베딩 생성</text>
+  <text x="500" y="507" text-anchor="middle" class="small-text">text-embedding-3-large (1536차원)</text>
+
+  <path d="M 500 520 L 500 560" class="arrow"/>
+
+  <!-- Hybrid Search (ENHANCED) -->
+  <rect x="150" y="560" width="700" height="280" rx="10" class="box-search"/>
+  <text x="500" y="590" text-anchor="middle" class="subtitle">5. 하이브리드 검색</text>
+  <text x="500" y="610" text-anchor="middle" class="label-new">(HybridSearchService)</text>
+
+  <rect x="180" y="630" width="290" height="180" rx="5" class="box-hybrid"/>
+  <text x="325" y="655" text-anchor="middle" class="text">벡터 검색</text>
+  <text x="325" y="678" text-anchor="middle" class="small-text">• VectorSearchService</text>
+  <text x="325" y="695" text-anchor="middle" class="small-text">• pgvector 코사인 유사도</text>
+  <text x="325" y="712" text-anchor="middle" class="small-text">• HNSW 인덱스 활용</text>
+  <text x="325" y="729" text-anchor="middle" class="small-text">• Top-K 후보 (K=20)</text>
+  <text x="325" y="746" text-anchor="middle" class="small-text">• 유사도 임계값 > 0.7</text>
+  <text x="325" y="763" text-anchor="middle" class="small-text">• Cosine Similarity</text>
+  <text x="325" y="795" text-anchor="middle" class="text">→ 벡터 검색 결과</text>
+
+  <rect x="530" y="630" width="290" height="180" rx="5" class="box-hybrid"/>
+  <text x="675" y="655" text-anchor="middle" class="text">키워드 검색</text>
+  <text x="675" y="678" text-anchor="middle" class="small-text">• PostgreSQL Full-Text</text>
+  <text x="675" y="695" text-anchor="middle" class="small-text">• tsquery 생성</text>
+  <text x="675" y="712" text-anchor="middle" class="small-text">• 키워드 AND 연산</text>
+  <text x="675" y="729" text-anchor="middle" class="small-text">• 조사 제거 (extract_keywords)</text>
+  <text x="675" y="746" text-anchor="middle" class="small-text">• tsvector 매칭</text>
+  <text x="675" y="795" text-anchor="middle" class="text">→ 키워드 검색 결과</text>
+
+  <path d="M 325 810 L 425 860" class="arrow"/>
+  <path d="M 675 810 L 575 860" class="arrow"/>
+
+  <!-- RRF Fusion -->
+  <rect x="330" y="860" width="340" height="65" rx="5" class="box-hybrid"/>
+  <text x="500" y="885" text-anchor="middle" class="text">RRF 융합 &amp; 재순위화</text>
+  <text x="500" y="905" text-anchor="middle" class="small-text">Reciprocal Rank Fusion (K=60)</text>
+  <text x="500" y="920" text-anchor="middle" class="small-text">벡터 + 키워드 결과 통합</text>
+
+  <path d="M 500 925 L 500 965" class="arrow"/>
+
+  <!-- Context Optimization -->
+  <rect x="200" y="965" width="600" height="90" rx="10" class="box-search"/>
+  <text x="500" y="995" text-anchor="middle" class="subtitle">6. 컨텍스트 최적화</text>
+  <text x="500" y="1018" text-anchor="middle" class="small-text">• 최대 토큰 제한: 20,000 토큰 (GPT-4o)</text>
+  <text x="500" y="1035" text-anchor="middle" class="small-text">• tiktoken으로 토큰 카운팅 (cl100k_base)</text>
+  <text x="500" y="1052" text-anchor="middle" class="small-text">• 문서 메타데이터 포함 (조항 번호, 페이지)</text>
+
+  <path d="M 500 1055 L 500 1095" class="arrow"/>
+
+  <!-- Context Judgement (NEW) -->
+  <rect x="200" y="1095" width="600" height="100" rx="10" class="box-search"/>
+  <text x="500" y="1125" text-anchor="middle" class="subtitle">7. 컨텍스트 판단</text>
+  <text x="500" y="1145" text-anchor="middle" class="label-new">(Context Judgement Agent)</text>
+  <text x="500" y="1168" text-anchor="middle" class="small-text">충분성 평가: 결과 개수 / 최고 유사도 / 토큰 수</text>
+  <text x="500" y="1185" text-anchor="middle" class="small-text">→ 불충분 시: Chunk Expansion Agent</text>
+
+  <path d="M 500 1195 L 500 1235" class="arrow"/>
+  
+  <!-- Note for loop -->
+  <text x="820" y="1145" class="label-new">[불충분 시]</text>
+  <path d="M 800 1125 L 920 1125 L 920 1165" class="arrow-loop"/>
+  
+  <!-- Chunk Expansion (NEW) -->
+  <rect x="825" y="1165" width="325" height="90" rx="10" class="box-search"/>
+  <text x="987" y="1195" text-anchor="middle" class="subtitle">Chunk Expansion</text>
+  <text x="987" y="1215" text-anchor="middle" class="small-text">인접 청크 확장 / 재판단 루프</text>
+  <text x="987" y="1232" text-anchor="middle" class="small-text">최대 3회 / 20K 토큰 제한</text>
+
+  <!-- Prompt Assembly -->
+  <rect x="200" y="1235" width="600" height="90" rx="10" class="box-llm"/>
+  <text x="500" y="1265" text-anchor="middle" class="subtitle">8. 프롬프트 조립</text>
+  <text x="500" y="1288" text-anchor="middle" class="small-text">• 시스템 프롬프트 (정확성, 근거 제시, 한계 인정)</text>
+  <text x="500" y="1305" text-anchor="middle" class="small-text">• 컨텍스트 (검색된 청크들)</text>
+  <text x="500" y="1322" text-anchor="middle" class="small-text">• 사용자 질의</text>
+
+  <path d="M 500 1325 L 500 1365" class="arrow"/>
+
+  <!-- GPT-4o Call -->
+  <rect x="325" y="1365" width="350" height="70" rx="10" class="box-llm"/>
+  <text x="500" y="1395" text-anchor="middle" class="subtitle">9. GPT-4o 호출</text>
+  <text x="500" y="1418" text-anchor="middle" class="small-text">temperature: 0.1 (정확성 우선)</text>
+
+  <path d="M 500 1435 L 500 1475" class="arrow"/>
+
+  <!-- 4-Stage Verification (ENHANCED) -->
+  <rect x="150" y="1475" width="700" height="155" rx="10" class="box-verify"/>
+  <text x="500" y="1505" text-anchor="middle" class="subtitle">10. 4단계 검증</text>
+  <text x="500" y="1525" text-anchor="middle" class="label-new">(AnswerValidator - 가중 평균)</text>
+  <text x="500" y="1548" text-anchor="middle" class="small-text">① 형식 검증 (10%): 구조화 / 참조 번호 / 조항 번호 포함</text>
+  <text x="500" y="1565" text-anchor="middle" class="small-text">② 조항 검증 (20%): DB 조회로 실제 존재 확인</text>
+  <text x="500" y="1582" text-anchor="middle" class="small-text">③ 컨텍스트 일치도 (30%): 유사도 계산</text>
+  <text x="500" y="1599" text-anchor="middle" class="small-text">④ 할루시네이션 검증 (40%): GPT-4o로 사실 확인 및 재대조</text>
+  <text x="500" y="1616" text-anchor="middle" class="small-text">→ 최종 신뢰도 계산 / 임계값 0.7 / 미달 시 재생성</text>
+
+  <path d="M 500 1630 L 500 1670" class="arrow"/>
+
+  <!-- Response Formatting -->
+  <rect x="250" y="1670" width="500" height="90" rx="10" class="box-output"/>
+  <text x="500" y="1700" text-anchor="middle" class="subtitle">11. 응답 포맷팅</text>
+  <text x="500" y="1723" text-anchor="middle" class="small-text">📌 답변: "골절 시 XXX만원까지 보장됩니다." [참조 1]</text>
+  <text x="500" y="1740" text-anchor="middle" class="small-text">📋 관련 약관: [참조 1] 문서명 | 페이지 | 조항</text>
+  <text x="500" y="1757" text-anchor="middle" class="small-text">⚠️ 주의사항: "단, 면책사유에 해당 시 제외"</text>
+
+  <path d="M 500 1760 L 500 1790" class="arrow"/>
+
+  <!-- Final Response -->
+  <rect x="300" y="1790" width="400" height="40" rx="10" class="box-output"/>
+  <text x="500" y="1815" text-anchor="middle" class="subtitle">12. 사용자에게 전달</text>
+
+</svg>
+

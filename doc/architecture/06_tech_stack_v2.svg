@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 850">
+  <defs>
+    <style>
+      .title { font: bold 26px sans-serif; fill: #1a1a1a; }
+      .category { font: bold 18px sans-serif; fill: #ffffff; }
+      .tech-item { font: 15px sans-serif; fill: #2c3e50; }
+      .tech-desc { font: 12px sans-serif; fill: #7f8c8d; }
+      .tech-version { font: bold 13px sans-serif; fill: #e74c3c; }
+      .tech-new { font: bold 12px sans-serif; fill: #28a745; }
+      .box-frontend { fill: #3498db; }
+      .box-backend { fill: #e67e22; }
+      .box-ai { fill: #9b59b6; }
+      .box-data { fill: #1abc9c; }
+      .box-db { fill: #16a085; }
+      .box-infra { fill: #34495e; }
+      .tech-box { fill: #ffffff; stroke: #95a5a6; stroke-width: 2; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="600" y="45" text-anchor="middle" class="title">ISPL 기술 스택 v2 (Tech Stack - 실제 버전)</text>
+
+  <!-- Frontend -->
+  <g>
+    <rect x="50" y="90" width="520" height="50" rx="5" class="box-frontend"/>
+    <text x="310" y="122" text-anchor="middle" class="category">Frontend</text>
+    
+    <rect x="60" y="150" width="240" height="145" rx="5" class="tech-box"/>
+    <text x="180" y="175" text-anchor="middle" class="tech-item">• Next.js</text>
+    <text x="180" y="193" text-anchor="middle" class="tech-version">15.0.3 (App Router)</text>
+    <text x="180" y="216" text-anchor="middle" class="tech-item">• React</text>
+    <text x="180" y="234" text-anchor="middle" class="tech-version">18.3.1</text>
+    <text x="180" y="257" text-anchor="middle" class="tech-item">• TypeScript</text>
+    <text x="180" y="275" text-anchor="middle" class="tech-version">5.6.3</text>
+
+    <rect x="320" y="150" width="240" height="145" rx="5" class="tech-box"/>
+    <text x="440" y="175" text-anchor="middle" class="tech-item">• Tailwind CSS</text>
+    <text x="440" y="193" text-anchor="middle" class="tech-version">3.4.14</text>
+    <text x="440" y="216" text-anchor="middle" class="tech-item">• react-markdown ⭐</text>
+    <text x="440" y="234" text-anchor="middle" class="tech-version">9.0.1</text>
+    <text x="440" y="257" text-anchor="middle" class="tech-item">• remark-gfm ⭐</text>
+    <text x="440" y="275" text-anchor="middle" class="tech-version">4.0.0</text>
+  </g>
+
+  <!-- Backend -->
+  <g>
+    <rect x="630" y="90" width="520" height="50" rx="5" class="box-backend"/>
+    <text x="890" y="122" text-anchor="middle" class="category">Backend</text>
+    
+    <rect x="640" y="150" width="240" height="145" rx="5" class="tech-box"/>
+    <text x="760" y="175" text-anchor="middle" class="tech-item">• FastAPI</text>
+    <text x="760" y="193" text-anchor="middle" class="tech-version">0.115.0</text>
+    <text x="760" y="216" text-anchor="middle" class="tech-item">• uvicorn</text>
+    <text x="760" y="234" text-anchor="middle" class="tech-version">0.32.0</text>
+    <text x="760" y="257" text-anchor="middle" class="tech-item">• Pydantic</text>
+    <text x="760" y="275" text-anchor="middle" class="tech-version">2.10.2</text>
+
+    <rect x="900" y="150" width="240" height="145" rx="5" class="tech-box"/>
+    <text x="1020" y="175" text-anchor="middle" class="tech-item">• SQLAlchemy</text>
+    <text x="1020" y="193" text-anchor="middle" class="tech-version">2.0.35 (비동기)</text>
+    <text x="1020" y="216" text-anchor="middle" class="tech-item">• LangGraph</text>
+    <text x="1020" y="234" text-anchor="middle" class="tech-version">0.3.27+</text>
+    <text x="1020" y="257" text-anchor="middle" class="tech-item">• LangChain</text>
+    <text x="1020" y="275" text-anchor="middle" class="tech-version">0.3.7</text>
+  </g>
+
+  <!-- AI/ML -->
+  <g>
+    <rect x="50" y="325" width="520" height="50" rx="5" class="box-ai"/>
+    <text x="310" y="357" text-anchor="middle" class="category">AI / ML</text>
+    
+    <rect x="60" y="385" width="240" height="170" rx="5" class="tech-box"/>
+    <text x="180" y="410" text-anchor="middle" class="tech-item">• GPT-4o ⭐</text>
+    <text x="180" y="428" text-anchor="middle" class="tech-version">(gpt-4o, temp: 0.1)</text>
+    <text x="180" y="451" text-anchor="middle" class="tech-item">• GPT-4o Vision ⭐</text>
+    <text x="180" y="469" text-anchor="middle" class="tech-desc">PDF 이미지 분석</text>
+    <text x="180" y="492" text-anchor="middle" class="tech-item">• text-embedding-3-large</text>
+    <text x="180" y="510" text-anchor="middle" class="tech-version">1536차원</text>
+    <text x="180" y="533" text-anchor="middle" class="tech-item">• OpenAI SDK</text>
+    <text x="180" y="551" text-anchor="middle" class="tech-version">1.55.3</text>
+
+    <rect x="320" y="385" width="240" height="170" rx="5" class="tech-box"/>
+    <text x="440" y="410" text-anchor="middle" class="tech-item">• LangChain</text>
+    <text x="440" y="428" text-anchor="middle" class="tech-version">0.3.7</text>
+    <text x="440" y="451" text-anchor="middle" class="tech-item">• langchain-openai</text>
+    <text x="440" y="469" text-anchor="middle" class="tech-version">0.2.8</text>
+    <text x="440" y="492" text-anchor="middle" class="tech-item">• LangGraph</text>
+    <text x="440" y="510" text-anchor="middle" class="tech-version">0.3.27+ (Multi-Agent)</text>
+    <text x="440" y="533" text-anchor="middle" class="tech-desc">7개 에이전트 시스템</text>
+  </g>
+
+  <!-- Data Processing -->
+  <g>
+    <rect x="630" y="325" width="520" height="50" rx="5" class="box-data"/>
+    <text x="890" y="357" text-anchor="middle" class="category">Data Processing</text>
+    
+    <rect x="640" y="385" width="240" height="170" rx="5" class="tech-box"/>
+    <text x="760" y="410" text-anchor="middle" class="tech-item">• PyMuPDF</text>
+    <text x="760" y="428" text-anchor="middle" class="tech-version">1.24.14</text>
+    <text x="760" y="451" text-anchor="middle" class="tech-item">• pymupdf4llm</text>
+    <text x="760" y="469" text-anchor="middle" class="tech-version">0.0.17</text>
+    <text x="760" y="492" text-anchor="middle" class="tech-item">• pdf2image</text>
+    <text x="760" y="510" text-anchor="middle" class="tech-version">1.17.0</text>
+    <text x="760" y="533" text-anchor="middle" class="tech-item">• OpenCV</text>
+    <text x="760" y="551" text-anchor="middle" class="tech-version">4.10.0.84</text>
+
+    <rect x="900" y="385" width="240" height="170" rx="5" class="tech-box"/>
+    <text x="1020" y="410" text-anchor="middle" class="tech-item">• kiwipiepy ⭐</text>
+    <text x="1020" y="428" text-anchor="middle" class="tech-version">0.21.0 (한글 형태소)</text>
+    <text x="1020" y="451" text-anchor="middle" class="tech-item">• tiktoken</text>
+    <text x="1020" y="469" text-anchor="middle" class="tech-version">0.8.0</text>
+    <text x="1020" y="492" text-anchor="middle" class="tech-item">• tenacity ⭐</text>
+    <text x="1020" y="510" text-anchor="middle" class="tech-version">9.0.0 (재시도)</text>
+    <text x="1020" y="533" text-anchor="middle" class="tech-item">• Pillow</text>
+    <text x="1020" y="551" text-anchor="middle" class="tech-version">11.0.0</text>
+  </g>
+
+  <!-- Database -->
+  <g>
+    <rect x="50" y="585" width="520" height="50" rx="5" class="box-db"/>
+    <text x="310" y="617" text-anchor="middle" class="category">Database</text>
+    
+    <rect x="60" y="645" width="240" height="165" rx="5" class="tech-box"/>
+    <text x="180" y="670" text-anchor="middle" class="tech-item">• PostgreSQL</text>
+    <text x="180" y="688" text-anchor="middle" class="tech-version">17.6</text>
+    <text x="180" y="711" text-anchor="middle" class="tech-item">• pgvector</text>
+    <text x="180" y="729" text-anchor="middle" class="tech-version">0.3.6</text>
+    <text x="180" y="752" text-anchor="middle" class="tech-item">• asyncpg</text>
+    <text x="180" y="770" text-anchor="middle" class="tech-version">0.30.0</text>
+    <text x="180" y="793" text-anchor="middle" class="tech-item">• HNSW 인덱스</text>
+
+    <rect x="320" y="645" width="240" height="165" rx="5" class="tech-box"/>
+    <text x="440" y="670" text-anchor="middle" class="tech-item">• Cosine Similarity</text>
+    <text x="440" y="688" text-anchor="middle" class="tech-desc">벡터 유사도 측정</text>
+    <text x="440" y="711" text-anchor="middle" class="tech-item">• Full-Text Search</text>
+    <text x="440" y="729" text-anchor="middle" class="tech-desc">키워드 검색 (tsquery)</text>
+    <text x="440" y="752" text-anchor="middle" class="tech-item">• Connection Pooling</text>
+    <text x="440" y="770" text-anchor="middle" class="tech-desc">SQLAlchemy 비동기</text>
+    <text x="440" y="793" text-anchor="middle" class="tech-item">• CASCADE DELETE</text>
+  </g>
+
+  <!-- Infrastructure -->
+  <g>
+    <rect x="630" y="585" width="520" height="50" rx="5" class="box-infra"/>
+    <text x="890" y="617" text-anchor="middle" class="category">Infrastructure</text>
+    
+    <rect x="640" y="645" width="240" height="165" rx="5" class="tech-box"/>
+    <text x="760" y="670" text-anchor="middle" class="tech-item">• MemoryCache ⭐</text>
+    <text x="760" y="688" text-anchor="middle" class="tech-version">LRU (10K 항목)</text>
+    <text x="760" y="711" text-anchor="middle" class="tech-desc">임베딩 캐싱 (기본)</text>
+    <text x="760" y="734" text-anchor="middle" class="tech-item">• 로컬 개발 환경</text>
+    <text x="760" y="752" text-anchor="middle" class="tech-desc">Windows 10+</text>
+    <text x="760" y="770" text-anchor="middle" class="tech-desc">PoC 단계</text>
+    <text x="760" y="793" text-anchor="middle" class="tech-item">• Poppler (의존성)</text>
+
+    <rect x="900" y="645" width="240" height="165" rx="5" class="tech-box"/>
+    <text x="1020" y="670" text-anchor="middle" class="tech-item">• python-dotenv</text>
+    <text x="1020" y="688" text-anchor="middle" class="tech-version">1.0.1</text>
+    <text x="1020" y="711" text-anchor="middle" class="tech-item">• pydantic-settings</text>
+    <text x="1020" y="729" text-anchor="middle" class="tech-version">2.6.1</text>
+    <text x="1020" y="752" text-anchor="middle" class="tech-item">• python-multipart</text>
+    <text x="1020" y="770" text-anchor="middle" class="tech-version">0.0.12</text>
+  </g>
+
+  <!-- Legend -->
+  <rect x="250" y="825" width="700" height="15" rx="3" fill="#f8f9fa" stroke="#dee2e6"/>
+  <text x="600" y="837" text-anchor="middle" class="tech-desc">
+    ⭐ = v2 신규 추가 | 모든 버전은 2025-10-27 기준 실제 사용 중인 버전
+  </text>
+
+</svg>
+

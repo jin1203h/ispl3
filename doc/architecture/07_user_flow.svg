@@ -1,0 +1,319 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 2100">
+  <defs>
+    <style>
+      .title { font: bold 24px sans-serif; fill: #1a1a1a; }
+      .flow-title { font: bold 18px sans-serif; fill: #2c3e50; }
+      .subtitle { font: bold 16px sans-serif; fill: #2c3e50; }
+      .text { font: 14px sans-serif; fill: #34495e; }
+      .small-text { font: 12px sans-serif; fill: #555; }
+      .step-num { font: bold 20px sans-serif; fill: white; }
+      
+      /* 04_search_answer_flow_v2.svg와 동일한 색상 스타일 */
+      .box-start { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; }
+      .box-action { fill: #fff3e0; stroke: #f57c00; stroke-width: 2; }
+      .box-system { fill: #f3e5f5; stroke: #7b1fa2; stroke-width: 2; }
+      .box-result { fill: #e8f5e9; stroke: #388e3c; stroke-width: 2; }
+      .box-end { fill: #e0f2f1; stroke: #00796b; stroke-width: 2; }
+      .box-decision { fill: #fff9c4; stroke: #f57f17; stroke-width: 2; }
+      
+      .arrow { stroke: #424242; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .arrow-yes { stroke: #28a745; stroke-width: 2; fill: none; marker-end: url(#arrowhead-green); }
+      .arrow-no { stroke: #f44336; stroke-width: 2; fill: none; marker-end: url(#arrowhead-red); }
+      .arrow-label { font: 12px sans-serif; fill: #555; }
+      
+      .step-circle { fill: #1976d2; stroke: #0d47a1; stroke-width: 2; }
+      .divider { stroke: #bbb; stroke-width: 1; stroke-dasharray: 5,3; }
+      .label-new { font: bold 12px sans-serif; fill: #28a745; }
+    </style>
+    
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#424242" />
+    </marker>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#28a745" />
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#f44336" />
+    </marker>
+  </defs>
+
+  <!-- Main Title -->
+  <text x="700" y="40" text-anchor="middle" class="title">ISPL 사용자 플로우 (User Flow)</text>
+  <text x="700" y="65" text-anchor="middle" class="small-text">보험약관 AI 시스템 - 3가지 주요 시나리오</text>
+
+  <!-- ====== FLOW 1: 채팅 질의 ====== -->
+  <text x="80" y="110" class="flow-title">💬 Flow 1: AI 채팅 질의 (Chat)</text>
+  <line x1="60" y1="120" x2="680" y2="120" class="divider"/>
+
+  <!-- Step 1 -->
+  <circle cx="80" cy="160" r="24" class="step-circle"/>
+  <text x="80" y="168" text-anchor="middle" class="step-num">1</text>
+  
+  <rect x="125" y="136" width="200" height="50" rx="10" class="box-start"/>
+  <text x="225" y="159" text-anchor="middle" class="subtitle">채팅 페이지 접속</text>
+  <text x="225" y="177" text-anchor="middle" class="small-text">/chat 경로</text>
+
+  <path d="M 325 161 L 375 161" class="arrow"/>
+
+  <!-- Step 2 -->
+  <circle cx="405" cy="160" r="24" class="step-circle"/>
+  <text x="405" y="168" text-anchor="middle" class="step-num">2</text>
+  
+  <rect x="450" y="131" width="210" height="70" rx="10" class="box-action"/>
+  <text x="555" y="157" text-anchor="middle" class="subtitle">질문 입력</text>
+  <text x="555" y="176" text-anchor="middle" class="small-text">"골절 시 보험금을</text>
+  <text x="555" y="191" text-anchor="middle" class="small-text">얼마나 받을 수 있나요?"</text>
+
+  <path d="M 555 201 L 555 260" class="arrow"/>
+
+  <!-- Step 3 -->
+  <circle cx="525" cy="290" r="24" class="step-circle"/>
+  <text x="525" y="298" text-anchor="middle" class="step-num">3</text>
+  
+  <rect x="340" y="266" width="300" height="90" rx="10" class="box-system"/>
+  <text x="490" y="291" text-anchor="middle" class="subtitle">시스템 처리 (LangGraph)</text>
+  <text x="490" y="311" text-anchor="middle" class="small-text">• Router Agent: 의도 분석</text>
+  <text x="490" y="327" text-anchor="middle" class="small-text">• Search Agent: 하이브리드 검색</text>
+  <text x="490" y="343" text-anchor="middle" class="small-text">• Answer Agent: GPT-4o 답변</text>
+
+  <path d="M 490 356 L 490 415" class="arrow"/>
+
+  <!-- Step 4 -->
+  <circle cx="460" cy="445" r="24" class="step-circle"/>
+  <text x="460" y="453" text-anchor="middle" class="step-num">4</text>
+  
+  <rect x="290" y="421" width="300" height="90" rx="10" class="box-result"/>
+  <text x="440" y="446" text-anchor="middle" class="subtitle">답변 표시 + 참조 문서</text>
+  <text x="440" y="466" text-anchor="middle" class="small-text">• 답변 본문 (Markdown)</text>
+  <text x="440" y="482" text-anchor="middle" class="small-text">• 관련 약관 [참조 1][참조 2]</text>
+  <text x="440" y="498" text-anchor="middle" class="small-text">• 문서명, 페이지, 조항 번호</text>
+
+  <path d="M 440 511 L 440 570" class="arrow"/>
+
+  <!-- Step 5 -->
+  <circle cx="410" cy="600" r="24" class="step-circle"/>
+  <text x="410" y="608" text-anchor="middle" class="step-num">5</text>
+  
+  <rect x="285" y="576" width="210" height="50" rx="10" class="box-action"/>
+  <text x="390" y="599" text-anchor="middle" class="subtitle">참조 문서 클릭</text>
+  <text x="390" y="617" text-anchor="middle" class="small-text">(우측 패널 열림)</text>
+
+  <path d="M 495 601 L 545 601" class="arrow"/>
+
+  <!-- Step 6 -->
+  <circle cx="575" cy="600" r="24" class="step-circle"/>
+  <text x="575" y="608" text-anchor="middle" class="step-num">6</text>
+  
+  <rect x="620" y="571" width="210" height="70" rx="10" class="box-result"/>
+  <text x="725" y="597" text-anchor="middle" class="subtitle">원문 확인</text>
+  <text x="725" y="616" text-anchor="middle" class="small-text">• 청크 원문</text>
+  <text x="725" y="631" text-anchor="middle" class="small-text">• 유사도 점수</text>
+
+  <path d="M 725 641 L 725 700" class="arrow"/>
+
+  <!-- Step 7 -->
+  <circle cx="695" cy="730" r="24" class="step-circle"/>
+  <text x="695" y="738" text-anchor="middle" class="step-num">7</text>
+  
+  <rect x="590" y="706" width="200" height="50" rx="10" class="box-end"/>
+  <text x="690" y="729" text-anchor="middle" class="subtitle">대화 이력 자동 저장</text>
+  <text x="690" y="747" text-anchor="middle" class="small-text">(chat_messages 테이블)</text>
+
+
+  <!-- ====== FLOW 2: 약관 업로드 ====== -->
+  <text x="950" y="110" class="flow-title">📄 Flow 2: 약관 업로드 (Document Management)</text>
+  <line x1="870" y1="120" x2="1340" y2="120" class="divider"/>
+
+  <!-- Step 1 -->
+  <circle cx="900" cy="160" r="24" class="step-circle"/>
+  <text x="900" y="168" text-anchor="middle" class="step-num">1</text>
+  
+  <rect x="945" y="136" width="200" height="50" rx="10" class="box-start"/>
+  <text x="1045" y="159" text-anchor="middle" class="subtitle">약관 관리 페이지</text>
+  <text x="1045" y="177" text-anchor="middle" class="small-text">/documents 경로</text>
+
+  <path d="M 1145 161 L 1195 161" class="arrow"/>
+
+  <!-- Step 2 -->
+  <circle cx="1225" cy="160" r="24" class="step-circle"/>
+  <text x="1225" y="168" text-anchor="middle" class="step-num">2</text>
+  
+  <rect x="1270" y="136" width="160" height="50" rx="10" class="box-action"/>
+  <text x="1350" y="159" text-anchor="middle" class="subtitle">업로드 버튼 클릭</text>
+  <text x="1350" y="177" text-anchor="middle" class="small-text">모달 열림</text>
+
+  <path d="M 1350 186 L 1350 245" class="arrow"/>
+
+  <!-- Step 3 -->
+  <circle cx="1320" cy="275" r="24" class="step-circle"/>
+  <text x="1320" y="283" text-anchor="middle" class="step-num">3</text>
+  
+  <rect x="1180" y="246" width="250" height="110" rx="10" class="box-action"/>
+  <text x="1305" y="271" text-anchor="middle" class="subtitle">파일 및 정보 입력</text>
+  <text x="1305" y="291" text-anchor="middle" class="small-text">• PDF 파일 선택</text>
+  <text x="1305" y="307" text-anchor="middle" class="small-text">• 문서 유형 (약관/안내장)</text>
+  <text x="1305" y="323" text-anchor="middle" class="small-text">• 보험 종류 (건강/손해/생명)</text>
+  <text x="1305" y="339" text-anchor="middle" class="small-text">• 보험사명</text>
+
+  <path d="M 1305 356 L 1305 415" class="arrow"/>
+
+  <!-- Step 4 -->
+  <circle cx="1275" cy="445" r="24" class="step-circle"/>
+  <text x="1275" y="453" text-anchor="middle" class="step-num">4</text>
+  
+  <rect x="1145" y="416" width="250" height="110" rx="10" class="box-system"/>
+  <text x="1270" y="441" text-anchor="middle" class="subtitle">하이브리드 전처리 (백엔드)</text>
+  <text x="1270" y="461" text-anchor="middle" class="small-text">• Path 1: PyMuPDF4LLM</text>
+  <text x="1270" y="477" text-anchor="middle" class="small-text">• Path 2: GPT-4o Vision</text>
+  <text x="1270" y="493" text-anchor="middle" class="small-text">• Hybrid Merger</text>
+  <text x="1270" y="509" text-anchor="middle" class="small-text">• Quality Validator</text>
+
+  <path d="M 1270 526 L 1270 585" class="arrow"/>
+
+  <!-- Step 5 -->
+  <circle cx="1245" cy="615" r="24" class="step-circle"/>
+  <text x="1245" y="623" text-anchor="middle" class="step-num">5</text>
+  
+  <rect x="1125" y="591" width="250" height="85" rx="10" class="box-system"/>
+  <text x="1250" y="616" text-anchor="middle" class="subtitle">청킹 및 임베딩</text>
+  <text x="1250" y="636" text-anchor="middle" class="small-text">• TextChunker (1000 토큰)</text>
+  <text x="1250" y="652" text-anchor="middle" class="small-text">• EmbeddingService</text>
+  <text x="1250" y="668" text-anchor="middle" class="small-text">• MemoryCache 활용</text>
+
+  <path d="M 1250 676 L 1250 735" class="arrow"/>
+
+  <!-- Step 6 -->
+  <circle cx="1225" cy="765" r="24" class="step-circle"/>
+  <text x="1225" y="773" text-anchor="middle" class="step-num">6</text>
+  
+  <rect x="1105" y="736" width="250" height="100" rx="10" class="box-system"/>
+  <text x="1230" y="761" text-anchor="middle" class="subtitle">DB 저장</text>
+  <text x="1230" y="781" text-anchor="middle" class="small-text">• documents 테이블</text>
+  <text x="1230" y="797" text-anchor="middle" class="small-text">• document_chunks 테이블</text>
+  <text x="1230" y="813" text-anchor="middle" class="small-text">• pgvector 임베딩 저장</text>
+  <text x="1230" y="829" text-anchor="middle" class="small-text">• HNSW 인덱스 생성</text>
+
+  <path d="M 1230 836 L 1230 895" class="arrow"/>
+
+  <!-- Step 7 -->
+  <circle cx="1205" cy="925" r="24" class="step-circle"/>
+  <text x="1205" y="933" text-anchor="middle" class="step-num">7</text>
+  
+  <rect x="1110" y="901" width="180" height="50" rx="10" class="box-result"/>
+  <text x="1200" y="924" text-anchor="middle" class="subtitle">업로드 완료 알림</text>
+  <text x="1200" y="942" text-anchor="middle" class="small-text">처리 결과 표시</text>
+
+  <path d="M 1200 951 L 1200 1010" class="arrow"/>
+
+  <!-- Step 8 -->
+  <circle cx="1175" cy="1040" r="24" class="step-circle"/>
+  <text x="1175" y="1048" text-anchor="middle" class="step-num">8</text>
+  
+  <rect x="1085" y="1016" width="170" height="50" rx="10" class="box-end"/>
+  <text x="1170" y="1039" text-anchor="middle" class="subtitle">문서 목록 새로고침</text>
+  <text x="1170" y="1057" text-anchor="middle" class="small-text">새 약관 표시</text>
+
+
+  <!-- ====== FLOW 3: 대화 이력 관리 ====== -->
+  <text x="80" y="1150" class="flow-title">📋 Flow 3: 대화 이력 관리 (Chat History)</text>
+  <line x1="60" y1="1160" x2="700" y2="1160" class="divider"/>
+
+  <!-- Step 1 -->
+  <circle cx="80" cy="1200" r="24" class="step-circle"/>
+  <text x="80" y="1208" text-anchor="middle" class="step-num">1</text>
+  
+  <rect x="125" y="1176" width="200" height="50" rx="10" class="box-start"/>
+  <text x="225" y="1199" text-anchor="middle" class="subtitle">최근 대화 페이지</text>
+  <text x="225" y="1217" text-anchor="middle" class="small-text">/history 경로</text>
+
+  <path d="M 325 1201 L 375 1201" class="arrow"/>
+
+  <!-- Step 2 -->
+  <circle cx="405" cy="1200" r="24" class="step-circle"/>
+  <text x="405" y="1208" text-anchor="middle" class="step-num">2</text>
+  
+  <rect x="450" y="1171" width="200" height="70" rx="10" class="box-system"/>
+  <text x="550" y="1197" text-anchor="middle" class="subtitle">세션 목록 로드</text>
+  <text x="550" y="1216" text-anchor="middle" class="small-text">chat_sessions 조회</text>
+  <text x="550" y="1231" text-anchor="middle" class="small-text">(최신순 정렬)</text>
+
+  <path d="M 550 1241 L 550 1300" class="arrow"/>
+
+  <!-- Step 3 -->
+  <circle cx="520" cy="1330" r="24" class="step-circle"/>
+  <text x="520" y="1338" text-anchor="middle" class="step-num">3</text>
+  
+  <rect x="340" y="1306" width="270" height="85" rx="10" class="box-result"/>
+  <text x="475" y="1331" text-anchor="middle" class="subtitle">세션 목록 표시</text>
+  <text x="475" y="1351" text-anchor="middle" class="small-text">• 세션 제목 (첫 질문)</text>
+  <text x="475" y="1367" text-anchor="middle" class="small-text">• 생성 시간</text>
+  <text x="475" y="1383" text-anchor="middle" class="small-text">• 메시지 개수</text>
+
+  <path d="M 475 1391 L 475 1450" class="arrow"/>
+
+  <!-- Step 4 -->
+  <circle cx="445" cy="1480" r="24" class="step-circle"/>
+  <text x="445" y="1488" text-anchor="middle" class="step-num">4</text>
+  
+  <rect x="330" y="1456" width="200" height="50" rx="10" class="box-action"/>
+  <text x="430" y="1479" text-anchor="middle" class="subtitle">세션 선택 (클릭)</text>
+  <text x="430" y="1497" text-anchor="middle" class="small-text">thread_id 전달</text>
+
+  <path d="M 530 1481 L 590 1481" class="arrow"/>
+
+  <!-- Step 5 -->
+  <circle cx="620" cy="1480" r="24" class="step-circle"/>
+  <text x="620" y="1488" text-anchor="middle" class="step-num">5</text>
+  
+  <rect x="665" y="1451" width="200" height="70" rx="10" class="box-system"/>
+  <text x="765" y="1477" text-anchor="middle" class="subtitle">메시지 로드</text>
+  <text x="765" y="1496" text-anchor="middle" class="small-text">chat_messages 조회</text>
+  <text x="765" y="1511" text-anchor="middle" class="small-text">(시간순 정렬)</text>
+
+  <path d="M 765 1521 L 765 1580" class="arrow"/>
+
+  <!-- Step 6 -->
+  <circle cx="735" cy="1610" r="24" class="step-circle"/>
+  <text x="735" y="1618" text-anchor="middle" class="step-num">6</text>
+  
+  <rect x="600" y="1586" width="250" height="85" rx="10" class="box-result"/>
+  <text x="725" y="1611" text-anchor="middle" class="subtitle">대화 내역 표시</text>
+  <text x="725" y="1631" text-anchor="middle" class="small-text">• 사용자 질문 (파란색)</text>
+  <text x="725" y="1647" text-anchor="middle" class="small-text">• AI 답변 (회색)</text>
+  <text x="725" y="1663" text-anchor="middle" class="small-text">• 시간 스탬프</text>
+
+  <path d="M 725 1671 L 725 1730" class="arrow"/>
+
+  <!-- Step 7 (Decision) -->
+  <circle cx="695" cy="1760" r="24" class="step-circle"/>
+  <text x="695" y="1768" text-anchor="middle" class="step-num">7</text>
+
+  <!-- Decision Diamond -->
+  <polygon points="725,1730 805,1785 725,1840 645,1785" class="box-decision"/>
+  <text x="725" y="1790" text-anchor="middle" class="text">계속 대화?</text>
+
+  <path d="M 805 1785 L 885 1785" class="arrow-yes"/>
+  <text x="835" y="1775" class="arrow-label" fill="#28a745">예</text>
+  
+  <rect x="885" y="1757" width="180" height="56" rx="10" class="box-action"/>
+  <text x="975" y="1781" text-anchor="middle" class="subtitle">채팅 페이지 이동</text>
+  <text x="975" y="1799" text-anchor="middle" class="small-text">세션 이어가기</text>
+
+  <path d="M 725 1840 L 725 1900" class="arrow-no"/>
+  <text x="745" y="1870" class="arrow-label" fill="#f44336">아니오</text>
+  
+  <rect x="650" y="1900" width="150" height="45" rx="10" class="box-end"/>
+  <text x="725" y="1927" text-anchor="middle" class="subtitle">페이지 유지</text>
+
+
+  <!-- ====== 공통 기능 설명 ====== -->
+  <rect x="80" y="2000" width="1240" height="80" rx="10" fill="#f5f5f5" stroke="#999" stroke-width="2"/>
+  <text x="700" y="2030" text-anchor="middle" class="flow-title">✨ 공통 기능 (Cross-Cutting Features)</text>
+  
+  <text x="150" y="2058" class="small-text">• 로딩 상태 표시 (스피너/프로그레스바)</text>
+  <text x="150" y="2074" class="small-text">• 에러 핸들링 (Toast/Alert)</text>
+  
+  <text x="800" y="2058" class="small-text">• 자동 저장 (대화 이력 백그라운드)</text>
+  <text x="800" y="2074" class="small-text">• Markdown 렌더링 (react-markdown)</text>
+
+</svg>

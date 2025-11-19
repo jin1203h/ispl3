@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 2200" width="1600" height="2200">
+  <defs>
+    <style>
+      text { font-family: 'Segoe UI', Arial, sans-serif; }
+      .title { font-size: 28px; font-weight: 700; fill: #2c3e50; }
+      .subtitle { font-size: 16px; fill: #7f8c8d; }
+      .actor-box { fill: #e8f4f8; stroke: #2c3e50; stroke-width: 2; }
+      .actor-text { font-size: 13px; font-weight: 600; fill: #2c3e50; text-anchor: middle; }
+      .lifeline { stroke: #95a5a6; stroke-width: 1.5; stroke-dasharray: 6,4; }
+      .message { stroke: #2c3e50; stroke-width: 2.5; fill: none; }
+      .message-return { stroke: #2c3e50; stroke-width: 2.5; stroke-dasharray: 6,4; fill: none; }
+      .message-text { font-size: 12px; fill: #2c3e50; }
+      .note { fill: #fff8dc; stroke: #f0ad4e; stroke-width: 2; }
+      .note-text { font-size: 14px; font-weight: 600; fill: #856404; text-anchor: middle; }
+      .activation { fill: #667eea; opacity: 0.25; }
+      .section { fill: none; stroke: #28a745; stroke-width: 2.5; stroke-dasharray: 8,4; }
+      .section-text { font-size: 13px; font-weight: 600; fill: #28a745; }
+      .alt-box { fill: none; stroke: #dc3545; stroke-width: 2; stroke-dasharray: 5,5; }
+      .alt-text { font-size: 12px; fill: #dc3545; font-weight: 600; }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="11" refY="6" orient="auto">
+      <path d="M2,2 L2,11 L10,6 z" fill="#2c3e50"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="800" y="40" class="title" text-anchor="middle">📄 문서 업로드 플로우</text>
+  <text x="800" y="70" class="subtitle" text-anchor="middle">Hybrid PDF Processing · PyMuPDF + GPT-4o Vision · Quality Validation</text>
+
+  <!-- Participants -->
+  <g id="participants">
+    <!-- Client -->
+    <rect x="50" y="100" width="100" height="50" class="actor-box" rx="5"/>
+    <text x="100" y="130" class="actor-text">🖥️ Client</text>
+    <line x1="100" y1="150" x2="100" y2="2100" class="lifeline"/>
+
+    <!-- API -->
+    <rect x="200" y="100" width="100" height="50" class="actor-box" rx="5"/>
+    <text x="250" y="120" class="actor-text">FastAPI</text>
+    <text x="250" y="138" class="actor-text">pdf.py</text>
+    <line x1="250" y1="150" x2="250" y2="2100" class="lifeline"/>
+
+    <!-- Graph -->
+    <rect x="350" y="100" width="110" height="50" class="actor-box" rx="5"/>
+    <text x="405" y="120" class="actor-text">LangGraph</text>
+    <text x="405" y="138" class="actor-text">graph.py</text>
+    <line x1="405" y1="150" x2="405" y2="2100" class="lifeline"/>
+
+    <!-- Processing Agent -->
+    <rect x="510" y="100" width="110" height="50" class="actor-box" rx="5"/>
+    <text x="565" y="120" class="actor-text">Processing</text>
+    <text x="565" y="138" class="actor-text">Agent</text>
+    <line x1="565" y1="150" x2="565" y2="2100" class="lifeline"/>
+
+    <!-- PDF Processor -->
+    <rect x="670" y="100" width="120" height="50" class="actor-box" rx="5"/>
+    <text x="730" y="120" class="actor-text">PDF</text>
+    <text x="730" y="138" class="actor-text">Processor</text>
+    <line x1="730" y1="150" x2="730" y2="2100" class="lifeline"/>
+
+    <!-- Extractors -->
+    <rect x="840" y="100" width="140" height="50" class="actor-box" rx="5"/>
+    <text x="910" y="120" class="actor-text">PyMuPDF +</text>
+    <text x="910" y="138" class="actor-text">Vision Extractors</text>
+    <line x1="910" y1="150" x2="910" y2="2100" class="lifeline"/>
+
+    <!-- Services -->
+    <rect x="1030" y="100" width="140" height="50" class="actor-box" rx="5"/>
+    <text x="1100" y="120" class="actor-text">Merger/Validator</text>
+    <text x="1100" y="138" class="actor-text">Chunker/Embed</text>
+    <line x1="1100" y1="150" x2="1100" y2="2100" class="lifeline"/>
+
+    <!-- DB -->
+    <rect x="1220" y="100" width="130" height="50" class="actor-box" rx="5"/>
+    <text x="1285" y="120" class="actor-text">🗄️ PostgreSQL</text>
+    <text x="1285" y="138" class="actor-text">pgvector</text>
+    <line x1="1285" y1="150" x2="1285" y2="2100" class="lifeline"/>
+
+    <!-- OpenAI -->
+    <rect x="1400" y="100" width="120" height="50" class="actor-box" rx="5"/>
+    <text x="1460" y="120" class="actor-text">🤖 OpenAI</text>
+    <text x="1460" y="138" class="actor-text">GPT-4o Vision</text>
+    <line x1="1460" y1="150" x2="1460" y2="2100" class="lifeline"/>
+  </g>
+
+  <!-- Flow -->
+  <g id="flow">
+    <!-- 1. Client → API: Upload -->
+    <line x1="100" y1="200" x2="250" y2="200" class="message" marker-end="url(#arrow)"/>
+    <text x="175" y="190" class="message-text">POST /api/upload</text>
+    <text x="175" y="215" class="message-text" font-size="10">file, method="both"</text>
+    <rect x="240" y="200" width="20" height="1800" class="activation"/>
+
+    <!-- 2. API internal: validation -->
+    <text x="270" y="250" class="message-text">파일 검증 (PDF, 50MB)</text>
+    <text x="270" y="270" class="message-text">temp 저장</text>
+
+    <!-- 3. API → Graph -->
+    <line x1="250" y1="300" x2="405" y2="300" class="message" marker-end="url(#arrow)"/>
+    <text x="327" y="290" class="message-text">run_graph()</text>
+    <rect x="395" y="300" width="20" height="1600" class="activation"/>
+
+    <!-- 4. Router Note -->
+    <rect x="415" y="340" width="200" height="40" class="note" rx="5"/>
+    <text x="515" y="365" class="note-text">1️⃣ Router Agent</text>
+
+    <!-- 5. Graph → Processing Agent -->
+    <line x1="405" y1="410" x2="565" y2="410" class="message" marker-end="url(#arrow)"/>
+    <text x="485" y="400" class="message-text">processing_node()</text>
+    <rect x="555" y="410" width="20" height="1400" class="activation"/>
+
+    <!-- 6. Processing Agent Note -->
+    <rect x="575" y="450" width="230" height="40" class="note" rx="5"/>
+    <text x="690" y="475" class="note-text">2️⃣ Processing Agent</text>
+
+    <text x="590" y="510" class="message-text">메타데이터 추출</text>
+
+    <!-- 7. Processing → PDF Processor -->
+    <line x1="565" y1="540" x2="730" y2="540" class="message" marker-end="url(#arrow)"/>
+    <text x="647" y="530" class="message-text">process_pdf()</text>
+    <rect x="720" y="540" width="20" height="700" class="activation"/>
+
+    <!-- 8. Hybrid Processing Section -->
+    <rect x="735" y="580" width="715" height="300" class="section"/>
+    <text x="750" y="605" class="section-text">⭐ 하이브리드 전처리 (method="both")</text>
+
+    <!-- Parallel extraction -->
+    <text x="750" y="635" class="message-text" font-weight="600">병렬 추출:</text>
+
+    <!-- PyMuPDF branch -->
+    <line x1="730" y1="660" x2="910" y2="660" class="message" marker-end="url(#arrow)"/>
+    <text x="820" y="650" class="message-text" font-size="11">PyMuPDF4LLM</text>
+    <rect x="900" y="660" width="20" height="60" class="activation"/>
+    
+    <text x="930" y="690" class="message-text" font-size="11">텍스트 추출</text>
+
+    <line x1="910" y1="710" x2="730" y2="710" class="message-return" marker-end="url(#arrow)"/>
+    <text x="820" y="700" class="message-text" font-size="11">pymupdf_result</text>
+
+    <!-- Vision branch -->
+    <line x1="730" y1="750" x2="910" y2="750" class="message" marker-end="url(#arrow)"/>
+    <text x="820" y="740" class="message-text" font-size="11">Vision API</text>
+    <rect x="900" y="750" width="20" height="100" class="activation"/>
+
+    <line x1="910" y1="780" x2="1460" y2="780" class="message" marker-end="url(#arrow)"/>
+    <text x="1185" y="770" class="message-text" font-size="11">GPT-4o Vision + context</text>
+
+    <line x1="1460" y1="810" x2="910" y2="810" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1185" y="800" class="message-text" font-size="11">vision_result</text>
+
+    <line x1="910" y1="840" x2="730" y2="840" class="message-return" marker-end="url(#arrow)"/>
+    <text x="820" y="830" class="message-text" font-size="11">vision_result</text>
+
+    <!-- 9. Merge -->
+    <line x1="730" y1="900" x2="1100" y2="900" class="message" marker-end="url(#arrow)"/>
+    <text x="915" y="890" class="message-text">merge_results()</text>
+    <rect x="1090" y="900" width="20" height="120" class="activation"/>
+
+    <text x="1120" y="930" class="message-text" font-size="11">페이지별 매칭</text>
+    <text x="1120" y="950" class="message-text" font-size="11">품질 점수 계산</text>
+    <text x="1120" y="970" class="message-text" font-size="11">듀얼 페이지 번호</text>
+
+    <line x1="1100" y1="1010" x2="730" y2="1010" class="message-return" marker-end="url(#arrow)"/>
+    <text x="915" y="1000" class="message-text">통합 결과</text>
+
+    <!-- 10. Quality Validation -->
+    <line x1="730" y1="1050" x2="1100" y2="1050" class="message" marker-end="url(#arrow)"/>
+    <text x="915" y="1040" class="message-text">validate_quality()</text>
+    <rect x="1090" y="1050" width="20" height="100" class="activation"/>
+
+    <text x="1120" y="1080" class="message-text" font-size="11">완성도 검사</text>
+    <text x="1120" y="1100" class="message-text" font-size="11">구조 분석</text>
+    <text x="1120" y="1120" class="message-text" font-size="11">품질 점수 계산</text>
+
+    <line x1="1100" y1="1140" x2="730" y2="1140" class="message-return" marker-end="url(#arrow)"/>
+    <text x="915" y="1130" class="message-text">validation_report</text>
+
+    <!-- 11. Alternative: Quality fail -->
+    <rect x="730" y="1170" width="350" height="80" class="alt-box"/>
+    <text x="745" y="1195" class="alt-text">품질 미달 시</text>
+    <text x="760" y="1220" class="message-text" font-size="11">→ error 반환</text>
+    <text x="760" y="1240" class="message-text" font-size="11">→ 400 Bad Request</text>
+
+    <!-- 12. Processing → DB: Insert document -->
+    <line x1="565" y1="1290" x2="1285" y2="1290" class="message" marker-end="url(#arrow)"/>
+    <text x="925" y="1280" class="message-text">INSERT documents (트랜잭션 시작)</text>
+
+    <line x1="1285" y1="1320" x2="565" y2="1320" class="message-return" marker-end="url(#arrow)"/>
+    <text x="925" y="1310" class="message-text">document_id</text>
+
+    <!-- 13. Chunking -->
+    <line x1="565" y1="1360" x2="1100" y2="1360" class="message" marker-end="url(#arrow)"/>
+    <text x="832" y="1350" class="message-text">chunk_text()</text>
+    <rect x="1090" y="1360" width="20" height="80" class="activation"/>
+
+    <text x="1120" y="1390" class="message-text" font-size="11">토큰 분할 (1000토큰, 200 오버랩)</text>
+    <text x="1120" y="1410" class="message-text" font-size="11">조항 번호 추출</text>
+
+    <line x1="1100" y1="1430" x2="565" y2="1430" class="message-return" marker-end="url(#arrow)"/>
+    <text x="832" y="1420" class="message-text">chunks[]</text>
+
+    <!-- 14. Loop: Embedding + Insert -->
+    <rect x="570" y="1460" width="740" height="260" fill="none" stroke="#007bff" stroke-width="2" stroke-dasharray="8,4"/>
+    <text x="585" y="1485" class="message-text" fill="#007bff" font-weight="600">각 청크마다 반복</text>
+
+    <line x1="565" y1="1510" x2="1100" y2="1510" class="message" marker-end="url(#arrow)"/>
+    <text x="832" y="1500" class="message-text" font-size="11">get_embedding()</text>
+    <rect x="1090" y="1510" width="20" height="120" class="activation"/>
+
+    <text x="1120" y="1540" class="message-text" font-size="11">Cache 확인 (MemoryCache)</text>
+
+    <line x1="1100" y1="1570" x2="1460" y2="1570" class="message" marker-end="url(#arrow)"/>
+    <text x="1280" y="1560" class="message-text" font-size="11">text-embedding-3-large</text>
+
+    <line x1="1460" y1="1600" x2="1100" y2="1600" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1280" y="1590" class="message-text" font-size="11">vector (3072차원)</text>
+
+    <line x1="1100" y1="1620" x2="565" y2="1620" class="message-return" marker-end="url(#arrow)"/>
+    <text x="832" y="1610" class="message-text" font-size="11">embedding_vector</text>
+
+    <line x1="565" y1="1650" x2="1285" y2="1650" class="message" marker-end="url(#arrow)"/>
+    <text x="925" y="1640" class="message-text" font-size="11">INSERT chunks + HNSW 인덱싱</text>
+
+    <line x1="1285" y1="1680" x2="565" y2="1680" class="message-return" marker-end="url(#arrow)"/>
+    <text x="925" y="1670" class="message-text" font-size="11">chunk_id</text>
+
+    <!-- 15. Commit transaction -->
+    <line x1="565" y1="1750" x2="1285" y2="1750" class="message" marker-end="url(#arrow)"/>
+    <text x="925" y="1740" class="message-text">COMMIT 트랜잭션</text>
+
+    <line x1="1285" y1="1780" x2="565" y2="1780" class="message-return" marker-end="url(#arrow)"/>
+    <text x="925" y="1770" class="message-text">성공</text>
+
+    <!-- 16. Processing → Graph -->
+    <line x1="565" y1="1830" x2="405" y2="1830" class="message-return" marker-end="url(#arrow)"/>
+    <text x="485" y="1820" class="message-text">{success, document_id, chunks}</text>
+
+    <!-- 17. Graph → API -->
+    <line x1="405" y1="1880" x2="250" y2="1880" class="message-return" marker-end="url(#arrow)"/>
+    <text x="327" y="1870" class="message-text">final_state</text>
+
+    <!-- 18. API cleanup -->
+    <text x="270" y="1920" class="message-text">temp 파일 삭제</text>
+    <text x="270" y="1940" class="message-text">응답 생성</text>
+
+    <!-- 19. API → Client -->
+    <line x1="250" y1="1970" x2="100" y2="1970" class="message-return" marker-end="url(#arrow)"/>
+    <text x="175" y="1960" class="message-text">200 OK</text>
+    <text x="175" y="1985" class="message-text" font-size="10">{document_id, status}</text>
+  </g>
+
+  <!-- Bottom actors -->
+  <g id="bottom-actors">
+    <rect x="50" y="2120" width="100" height="50" class="actor-box" rx="5"/>
+    <text x="100" y="2150" class="actor-text">🖥️ Client</text>
+
+    <rect x="200" y="2120" width="100" height="50" class="actor-box" rx="5"/>
+    <text x="250" y="2140" class="actor-text">FastAPI</text>
+    <text x="250" y="2158" class="actor-text">pdf.py</text>
+
+    <rect x="350" y="2120" width="110" height="50" class="actor-box" rx="5"/>
+    <text x="405" y="2140" class="actor-text">LangGraph</text>
+    <text x="405" y="2158" class="actor-text">graph.py</text>
+
+    <rect x="510" y="2120" width="110" height="50" class="actor-box" rx="5"/>
+    <text x="565" y="2140" class="actor-text">Processing</text>
+    <text x="565" y="2158" class="actor-text">Agent</text>
+
+    <rect x="670" y="2120" width="120" height="50" class="actor-box" rx="5"/>
+    <text x="730" y="2140" class="actor-text">PDF</text>
+    <text x="730" y="2158" class="actor-text">Processor</text>
+
+    <rect x="840" y="2120" width="140" height="50" class="actor-box" rx="5"/>
+    <text x="910" y="2140" class="actor-text">PyMuPDF +</text>
+    <text x="910" y="2158" class="actor-text">Vision Extractors</text>
+
+    <rect x="1030" y="2120" width="140" height="50" class="actor-box" rx="5"/>
+    <text x="1100" y="2140" class="actor-text">Merger/Validator</text>
+    <text x="1100" y="2158" class="actor-text">Chunker/Embed</text>
+
+    <rect x="1220" y="2120" width="130" height="50" class="actor-box" rx="5"/>
+    <text x="1285" y="2140" class="actor-text">🗄️ PostgreSQL</text>
+    <text x="1285" y="2158" class="actor-text">pgvector</text>
+
+    <rect x="1400" y="2120" width="120" height="50" class="actor-box" rx="5"/>
+    <text x="1460" y="2140" class="actor-text">🤖 OpenAI</text>
+    <text x="1460" y="2158" class="actor-text">GPT-4o Vision</text>
+  </g>
+</svg>
+
+
+

@@ -37,7 +37,9 @@ class VisionExtractor:
     async def pdf_to_images(
         self,
         pdf_path: str,
-        dpi: int = 300
+        dpi: int = 300,
+        document_id: Optional[int] = None,
+        save_images: bool = True
     ) -> List[Image.Image]:
         """
         PDF 파일을 이미지로 변환합니다.
@@ -45,6 +47,8 @@ class VisionExtractor:
         Args:
             pdf_path: PDF 파일 경로
             dpi: 이미지 해상도 (Dots Per Inch)
+            document_id: 문서 ID (이미지 저장 시 필요)
+            save_images: 이미지 파일 저장 여부
             
         Returns:
             PIL Image 리스트
@@ -60,6 +64,11 @@ class VisionExtractor:
                 poppler_path=POPPLER_PATH  # Windows Poppler 경로 지원
             )
             logger.info(f"이미지 변환 완료: {len(images)}페이지")
+            
+            # 이미지 저장 (옵션)
+            if save_images and document_id is not None:
+                await self._save_images(images, document_id)
+            
             return images
         
         except Exception as e:
@@ -71,6 +80,51 @@ class VisionExtractor:
                     "환경 변수 POPPLER_PATH를 설정하세요."
                 )
             raise
+    
+    async def _save_images(
+        self,
+        images: List[Image.Image],
+        document_id: int
+    ) -> List[str]:
+        """
+        변환된 이미지를 파일로 저장합니다.
+        
+        Args:
+            images: PIL Image 리스트
+            document_id: 문서 ID
+            
+        Returns:
+            저장된 이미지 경로 리스트
+        """
+        from pathlib import Path
+        
+        # 이미지 저장 디렉토리 생성
+        image_dir = Path("uploads/images") / str(document_id)
+        image_dir.mkdir(parents=True, exist_ok=True)
+        
+        saved_paths = []
+        
+        logger.info(f"이미지 저장 시작: {len(images)}페이지 → {image_dir}")
+        
+        for page_num, image in enumerate(images, start=1):
+            try:
+                # 파일명: page_1.png, page_2.png, ...
+                filename = f"page_{page_num}.png"
+                file_path = image_dir / filename
+                
+                # PNG로 저장
+                image.save(file_path, "PNG")
+                saved_paths.append(str(file_path))
+                
+                # 100페이지마다 로그
+                if page_num % 100 == 0:
+                    logger.info(f"이미지 저장 진행: {page_num}/{len(images)}페이지")
+            
+            except Exception as e:
+                logger.error(f"페이지 {page_num} 이미지 저장 실패: {e}")
+        
+        logger.info(f"이미지 저장 완료: {len(saved_paths)}개 파일")
+        return saved_paths
     
     def preprocess_image(
         self,
@@ -303,7 +357,7 @@ class VisionExtractor:
         )
         
         # Semaphore로 동시 요청 수 제한 (OpenAI API rate limit 고려)
-        semaphore = asyncio.Semaphore(3)  # 최대 3개 동시 요청
+        semaphore = asyncio.Semaphore(50)  # 최대 50개 동시 요청 (3 → 50 최적화)
         
         async def process_with_semaphore(
             image: Image.Image, 
@@ -339,7 +393,9 @@ class VisionExtractor:
         self,
         pdf_path: str,
         apply_preprocessing: bool = True,
-        max_concurrent: int = 3
+        max_concurrent: int = 3,
+        document_id: Optional[int] = None,
+        save_images: bool = True
     ) -> Dict:
         """
         PDF 전체 문서 추출 (메인 함수)
@@ -348,6 +404,8 @@ class VisionExtractor:
             pdf_path: PDF 파일 경로
             apply_preprocessing: 이미지 전처리 적용 여부
             max_concurrent: 최대 동시 처리 수
+            document_id: 문서 ID (이미지 저장 시 필요)
+            save_images: 이미지 파일 저장 여부
             
         Returns:
             추출 결과
@@ -357,8 +415,12 @@ class VisionExtractor:
         
         logger.info(f"GPT-4 Vision 추출 시작: {pdf_path}")
         
-        # 1. PDF를 이미지로 변환
-        images = await self.pdf_to_images(pdf_path)
+        # 1. PDF를 이미지로 변환 (및 저장)
+        images = await self.pdf_to_images(
+            pdf_path,
+            document_id=document_id,
+            save_images=save_images
+        )
         
         # 2. 이미지 전처리 (옵션)
         if apply_preprocessing:
@@ -412,7 +474,9 @@ class VisionExtractor:
         self,
         pdf_path: str,
         context_texts: List[str],
-        apply_preprocessing: bool = True
+        apply_preprocessing: bool = True,
+        document_id: Optional[int] = None,
+        save_images: bool = True
     ) -> Dict:
         """
         하이브리드 방식: PyMuPDF 텍스트를 컨텍스트로 활용한 Vision 추출
@@ -421,6 +485,8 @@ class VisionExtractor:
             pdf_path: PDF 파일 경로
             context_texts: 페이지별 PyMuPDF 추출 텍스트 리스트
             apply_preprocessing: 이미지 전처리 적용 여부
+            document_id: 문서 ID (이미지 저장 시 필요)
+            save_images: 이미지 파일 저장 여부
             
         Returns:
             추출 결과
@@ -433,8 +499,12 @@ class VisionExtractor:
             f"(컨텍스트: {len(context_texts)}페이지)"
         )
         
-        # 1. PDF를 이미지로 변환
-        images = await self.pdf_to_images(pdf_path)
+        # 1. PDF를 이미지로 변환 (및 저장)
+        images = await self.pdf_to_images(
+            pdf_path,
+            document_id=document_id,
+            save_images=save_images
+        )
         
         # 페이지 수 검증
         if len(images) != len(context_texts):

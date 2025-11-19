@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2600 3600" width="2600" height="3600">
+  <defs>
+    <style>
+      text { font-family: 'Segoe UI', Arial, sans-serif; }
+      .title { font-size: 32px; font-weight: 700; fill: #2c3e50; }
+      .subtitle { font-size: 18px; fill: #7f8c8d; }
+      .actor-box { fill: #e8f4f8; stroke: #2c3e50; stroke-width: 2.5; }
+      .actor-text { font-size: 14px; font-weight: 600; fill: #2c3e50; text-anchor: middle; }
+      .lifeline { stroke: #bdc3c7; stroke-width: 2; stroke-dasharray: 8,6; }
+      .message { stroke: #2c3e50; stroke-width: 2.5; fill: none; }
+      .message-return { stroke: #2c3e50; stroke-width: 2.5; stroke-dasharray: 8,6; fill: none; }
+      .message-text { font-size: 13px; fill: #2c3e50; }
+      .note { fill: #fff8dc; stroke: #f0ad4e; stroke-width: 2.5; }
+      .note-text { font-size: 15px; font-weight: 700; fill: #856404; text-anchor: middle; }
+      .activation { fill: #667eea; opacity: 0.3; }
+      .section { fill: none; stroke: #28a745; stroke-width: 3; stroke-dasharray: 10,6; }
+      .section-text { font-size: 14px; font-weight: 700; fill: #28a745; }
+      .alt-box { fill: none; stroke: #dc3545; stroke-width: 2.5; stroke-dasharray: 8,6; }
+      .alt-text { font-size: 13px; fill: #dc3545; font-weight: 600; }
+      .self-msg { fill: #ecf0f1; stroke: #7f8c8d; stroke-width: 2; }
+    </style>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="13" refY="7" orient="auto">
+      <path d="M2,2 L2,12 L12,7 z" fill="#2c3e50"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="1300" y="50" class="title" text-anchor="middle">🔍 AI 채팅 검색 플로우 (7 Agents)</text>
+  <text x="1300" y="85" class="subtitle" text-anchor="middle">FastAPI → LangGraph → Router → Search → Context → Expand → Answer</text>
+
+  <!-- Participants Top -->
+  <g id="participants-top">
+    <rect x="40" y="120" width="130" height="65" class="actor-box" rx="6"/>
+    <text x="105" y="145" class="actor-text">🖥️ Client</text>
+
+    <rect x="210" y="120" width="140" height="65" class="actor-box" rx="6"/>
+    <text x="280" y="145" class="actor-text">FastAPI</text>
+    <text x="280" y="165" class="actor-text">chat.py</text>
+
+    <rect x="390" y="120" width="150" height="65" class="actor-box" rx="6"/>
+    <text x="465" y="145" class="actor-text">LangGraph</text>
+    <text x="465" y="165" class="actor-text">graph.py</text>
+
+    <rect x="580" y="120" width="140" height="65" class="actor-box" rx="6"/>
+    <text x="650" y="145" class="actor-text">Router</text>
+    <text x="650" y="165" class="actor-text">Agent</text>
+
+    <rect x="760" y="120" width="140" height="65" class="actor-box" rx="6"/>
+    <text x="830" y="145" class="actor-text">Search</text>
+    <text x="830" y="165" class="actor-text">Agent</text>
+
+    <rect x="940" y="120" width="140" height="65" class="actor-box" rx="6"/>
+    <text x="1010" y="145" class="actor-text">Context</text>
+    <text x="1010" y="165" class="actor-text">Judgement</text>
+
+    <rect x="1120" y="120" width="140" height="65" class="actor-box" rx="6"/>
+    <text x="1190" y="145" class="actor-text">Chunk</text>
+    <text x="1190" y="165" class="actor-text">Expansion</text>
+
+    <rect x="1300" y="120" width="140" height="65" class="actor-box" rx="6"/>
+    <text x="1370" y="145" class="actor-text">Answer</text>
+    <text x="1370" y="165" class="actor-text">Agent</text>
+
+    <rect x="1480" y="120" width="150" height="65" class="actor-box" rx="6"/>
+    <text x="1555" y="145" class="actor-text">Query</text>
+    <text x="1555" y="165" class="actor-text">Preprocessor</text>
+
+    <rect x="1670" y="120" width="150" height="65" class="actor-box" rx="6"/>
+    <text x="1745" y="145" class="actor-text">Hybrid</text>
+    <text x="1745" y="165" class="actor-text">Search</text>
+
+    <rect x="1860" y="120" width="150" height="65" class="actor-box" rx="6"/>
+    <text x="1935" y="145" class="actor-text">Vector</text>
+    <text x="1935" y="165" class="actor-text">Search</text>
+
+    <rect x="2050" y="120" width="150" height="65" class="actor-box" rx="6"/>
+    <text x="2125" y="145" class="actor-text">Answer</text>
+    <text x="2125" y="165" class="actor-text">Validator</text>
+
+    <rect x="2240" y="120" width="160" height="65" class="actor-box" rx="6"/>
+    <text x="2320" y="145" class="actor-text">🗄️ PostgreSQL</text>
+    <text x="2320" y="165" class="actor-text">pgvector</text>
+
+    <rect x="2440" y="120" width="140" height="65" class="actor-box" rx="6"/>
+    <text x="2510" y="145" class="actor-text">🤖 OpenAI</text>
+    <text x="2510" y="165" class="actor-text">GPT-4o</text>
+  </g>
+
+  <!-- Lifelines -->
+  <line x1="105" y1="185" x2="105" y2="3450" class="lifeline"/>
+  <line x1="280" y1="185" x2="280" y2="3450" class="lifeline"/>
+  <line x1="465" y1="185" x2="465" y2="3450" class="lifeline"/>
+  <line x1="650" y1="185" x2="650" y2="3450" class="lifeline"/>
+  <line x1="830" y1="185" x2="830" y2="3450" class="lifeline"/>
+  <line x1="1010" y1="185" x2="1010" y2="3450" class="lifeline"/>
+  <line x1="1190" y1="185" x2="1190" y2="3450" class="lifeline"/>
+  <line x1="1370" y1="185" x2="1370" y2="3450" class="lifeline"/>
+  <line x1="1555" y1="185" x2="1555" y2="3450" class="lifeline"/>
+  <line x1="1745" y1="185" x2="1745" y2="3450" class="lifeline"/>
+  <line x1="1935" y1="185" x2="1935" y2="3450" class="lifeline"/>
+  <line x1="2125" y1="185" x2="2125" y2="3450" class="lifeline"/>
+  <line x1="2320" y1="185" x2="2320" y2="3450" class="lifeline"/>
+  <line x1="2510" y1="185" x2="2510" y2="3450" class="lifeline"/>
+
+  <!-- Messages -->
+  <g id="messages">
+    <!-- 1. Client → API -->
+    <line x1="105" y1="230" x2="280" y2="230" class="message" marker-end="url(#arrow)"/>
+    <text x="192" y="220" class="message-text">POST /api/chat</text>
+    <text x="192" y="250" class="message-text" font-size="11">{query, thread_id}</text>
+    <rect x="270" y="230" width="20" height="3100" class="activation"/>
+
+    <!-- 2. API self calls -->
+    <rect x="290" y="280" width="80" height="60" class="self-msg" rx="4"/>
+    <text x="330" y="305" class="message-text" font-size="12">로깅 &amp;</text>
+    <text x="330" y="325" class="message-text" font-size="12">검증</text>
+
+    <!-- 3. API → Graph -->
+    <line x1="280" y1="370" x2="465" y2="370" class="message" marker-end="url(#arrow)"/>
+    <text x="372" y="360" class="message-text">run_graph(query, thread_id)</text>
+    <rect x="455" y="370" width="20" height="2880" class="activation"/>
+
+    <!-- 4. Graph self calls -->
+    <rect x="475" y="410" width="110" height="80" class="self-msg" rx="4"/>
+    <text x="530" y="435" class="message-text" font-size="11">create_graph()</text>
+    <text x="530" y="455" class="message-text" font-size="11">StateGraph 생성</text>
+    <text x="530" y="475" class="message-text" font-size="11">초기 State 설정</text>
+
+    <!-- 5. Note: Router Agent -->
+    <rect x="465" y="520" width="230" height="50" class="note" rx="6"/>
+    <text x="580" y="550" class="note-text">1️⃣ Router Agent</text>
+
+    <!-- 6. Graph → Router -->
+    <line x1="465" y1="600" x2="650" y2="600" class="message" marker-end="url(#arrow)"/>
+    <text x="557" y="590" class="message-text">router_node(state)</text>
+    <rect x="640" y="600" width="20" height="180" class="activation"/>
+
+    <!-- 7. Router → OpenAI -->
+    <line x1="650" y1="640" x2="2510" y2="640" class="message" marker-end="url(#arrow)"/>
+    <text x="1580" y="630" class="message-text">GPT-4o 의도 분석</text>
+
+    <!-- 8. OpenAI → Router -->
+    <line x1="2510" y1="690" x2="650" y2="690" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1580" y="680" class="message-text">task_type="search"</text>
+
+    <!-- 9. Router → Graph -->
+    <line x1="650" y1="750" x2="465" y2="750" class="message-return" marker-end="url(#arrow)"/>
+    <text x="557" y="740" class="message-text">{task_type, next_agent}</text>
+
+    <!-- 10. Note: Search Agent -->
+    <rect x="650" y="800" width="230" height="50" class="note" rx="6"/>
+    <text x="765" y="830" class="note-text">2️⃣ Search Agent</text>
+
+    <!-- 11. Graph → Search -->
+    <line x1="465" y1="880" x2="830" y2="880" class="message" marker-end="url(#arrow)"/>
+    <text x="647" y="870" class="message-text">search_node(state)</text>
+    <rect x="820" y="880" width="20" height="900" class="activation"/>
+
+    <!-- 12. Search → QPre -->
+    <line x1="830" y1="930" x2="1555" y2="930" class="message" marker-end="url(#arrow)"/>
+    <text x="1192" y="920" class="message-text">preprocess(query)</text>
+    <rect x="1545" y="930" width="20" height="240" class="activation"/>
+
+    <!-- 13. QPre self calls -->
+    <rect x="1565" y="970" width="150" height="120" class="self-msg" rx="4"/>
+    <text x="1640" y="995" class="message-text" font-size="11">정규화/표준화</text>
+    <text x="1640" y="1020" class="message-text" font-size="11">동의어 확장</text>
+    <text x="1640" y="1045" class="message-text" font-size="11">조항 번호 추출</text>
+
+    <!-- 14. QPre → Search -->
+    <line x1="1555" y1="1140" x2="830" y2="1140" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1192" y="1130" class="message-text">PreprocessedQuery</text>
+
+    <!-- 15. Search → HSearch -->
+    <line x1="830" y1="1200" x2="1745" y2="1200" class="message" marker-end="url(#arrow)"/>
+    <text x="1287" y="1190" class="message-text">hybrid_search(query)</text>
+    <rect x="1735" y="1200" width="20" height="500" class="activation"/>
+
+    <!-- 16. Parallel Search Section -->
+    <rect x="1745" y="1250" width="760" height="360" class="section"/>
+    <text x="1765" y="1280" class="section-text">병렬 검색</text>
+
+    <!-- 17. HSearch → VSearch -->
+    <line x1="1745" y1="1320" x2="1935" y2="1320" class="message" marker-end="url(#arrow)"/>
+    <text x="1840" y="1310" class="message-text" font-size="12">vector_search(query)</text>
+    <rect x="1925" y="1320" width="20" height="240" class="activation"/>
+
+    <!-- 18. VSearch → OpenAI -->
+    <line x1="1935" y1="1360" x2="2510" y2="1360" class="message" marker-end="url(#arrow)"/>
+    <text x="2222" y="1350" class="message-text" font-size="12">text-embedding-3-large</text>
+
+    <!-- 19. OpenAI → VSearch -->
+    <line x1="2510" y1="1400" x2="1935" y2="1400" class="message-return" marker-end="url(#arrow)"/>
+    <text x="2222" y="1390" class="message-text" font-size="12">embedding vector</text>
+
+    <!-- 20. VSearch → DB -->
+    <line x1="1935" y1="1450" x2="2320" y2="1450" class="message" marker-end="url(#arrow)"/>
+    <text x="2127" y="1440" class="message-text" font-size="11">SELECT cosine_similarity</text>
+
+    <!-- 21. DB → VSearch -->
+    <line x1="2320" y1="1490" x2="1935" y2="1490" class="message-return" marker-end="url(#arrow)"/>
+    <text x="2127" y="1480" class="message-text" font-size="12">벡터 검색 결과</text>
+
+    <!-- 22. VSearch → HSearch -->
+    <line x1="1935" y1="1540" x2="1745" y2="1540" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1840" y="1530" class="message-text" font-size="12">vector_results</text>
+
+    <!-- 23. HSearch → DB (Keyword) -->
+    <line x1="1745" y1="1380" x2="2320" y2="1380" class="message" marker-end="url(#arrow)"/>
+    <text x="2032" y="1370" class="message-text" font-size="11">SELECT to_tsquery(FTS)</text>
+
+    <!-- 24. DB → HSearch -->
+    <line x1="2320" y1="1580" x2="1745" y2="1580" class="message-return" marker-end="url(#arrow)"/>
+    <text x="2032" y="1570" class="message-text" font-size="12">키워드 검색 결과</text>
+
+    <!-- 25. HSearch self calls -->
+    <rect x="1755" y="1630" width="200" height="60" class="self-msg" rx="4"/>
+    <text x="1855" y="1655" class="message-text" font-size="11">RRF 융합 (K=60)</text>
+    <text x="1855" y="1675" class="message-text" font-size="11">컨텍스트 최적화 (20K)</text>
+
+    <!-- 26. HSearch → Search -->
+    <line x1="1745" y1="1710" x2="830" y2="1710" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1287" y="1700" class="message-text">통합 검색 결과</text>
+
+    <!-- 27. Search → Graph -->
+    <line x1="830" y1="1760" x2="465" y2="1760" class="message-return" marker-end="url(#arrow)"/>
+    <text x="647" y="1750" class="message-text">{search_results}</text>
+
+    <!-- 28. Note: Context Judgement -->
+    <rect x="840" y="1810" width="310" height="50" class="note" rx="6"/>
+    <text x="995" y="1840" class="note-text">3️⃣ Context Judgement Agent</text>
+
+    <!-- 29. Graph → Context -->
+    <line x1="465" y1="1890" x2="1010" y2="1890" class="message" marker-end="url(#arrow)"/>
+    <text x="737" y="1880" class="message-text">context_judgement_node(state)</text>
+    <rect x="1000" y="1890" width="20" height="140" class="activation"/>
+
+    <!-- 30. Context self call -->
+    <rect x="1020" y="1940" width="170" height="50" class="self-msg" rx="4"/>
+    <text x="1105" y="1965" class="message-text" font-size="11">충분성 판단</text>
+    <text x="1105" y="1980" class="message-text" font-size="10">(개수/유사도/토큰)</text>
+
+    <!-- 31. Alternative: Expansion -->
+    <rect x="1010" y="2050" width="450" height="320" class="alt-box"/>
+    <text x="1030" y="2080" class="alt-text">컨텍스트 불충분</text>
+
+    <!-- 32. Context → Graph (insufficient) -->
+    <line x1="1010" y1="2110" x2="465" y2="2110" class="message-return" marker-end="url(#arrow)"/>
+    <text x="737" y="2100" class="message-text" font-size="12">{context_sufficient=False}</text>
+
+    <!-- 33. Note: Chunk Expansion -->
+    <rect x="1050" y="2150" width="310" height="50" class="note" rx="6"/>
+    <text x="1205" y="2180" class="note-text">4️⃣ Chunk Expansion Agent</text>
+
+    <!-- 34. Graph → Expand -->
+    <line x1="465" y1="2230" x2="1190" y2="2230" class="message" marker-end="url(#arrow)"/>
+    <text x="827" y="2220" class="message-text">chunk_expansion_node(state)</text>
+    <rect x="1180" y="2230" width="20" height="120" class="activation"/>
+
+    <!-- 35. Expand → DB -->
+    <line x1="1190" y1="2270" x2="2320" y2="2270" class="message" marker-end="url(#arrow)"/>
+    <text x="1755" y="2260" class="message-text" font-size="11">SELECT 인접 청크 확장</text>
+
+    <!-- 36. DB → Expand -->
+    <line x1="2320" y1="2310" x2="1190" y2="2310" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1755" y="2300" class="message-text" font-size="12">확장된 청크</text>
+
+    <!-- 37. Expand → Graph -->
+    <line x1="1190" y1="2340" x2="465" y2="2340" class="message-return" marker-end="url(#arrow)"/>
+    <text x="827" y="2330" class="message-text">{expanded_chunks}</text>
+
+    <!-- 38. Re-judgement note -->
+    <text x="1030" y="2365" class="alt-text" font-size="12">재판단 (최대 3회)</text>
+
+    <!-- 39. Context → Graph (sufficient) -->
+    <line x1="1010" y1="2420" x2="465" y2="2420" class="message-return" marker-end="url(#arrow)"/>
+    <text x="737" y="2410" class="message-text">{context_sufficient=True}</text>
+
+    <!-- 40. Note: Answer Agent -->
+    <rect x="1180" y="2470" width="260" height="50" class="note" rx="6"/>
+    <text x="1310" y="2500" class="note-text">5️⃣ Answer Agent</text>
+
+    <!-- 41. Graph → Answer -->
+    <line x1="465" y1="2550" x2="1370" y2="2550" class="message" marker-end="url(#arrow)"/>
+    <text x="917" y="2540" class="message-text">answer_node(state)</text>
+    <rect x="1360" y="2550" width="20" height="610" class="activation"/>
+
+    <!-- 42. Answer self calls -->
+    <rect x="1380" y="2590" width="180" height="60" class="self-msg" rx="4"/>
+    <text x="1470" y="2615" class="message-text" font-size="11">build_context()</text>
+    <text x="1470" y="2635" class="message-text" font-size="11">build_system_prompt()</text>
+
+    <!-- 43. Answer → OpenAI -->
+    <line x1="1370" y1="2680" x2="2510" y2="2680" class="message" marker-end="url(#arrow)"/>
+    <text x="1940" y="2670" class="message-text">GPT-4o 답변 생성 (temp=0.1)</text>
+
+    <!-- 44. OpenAI → Answer -->
+    <line x1="2510" y1="2720" x2="1370" y2="2720" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1940" y="2710" class="message-text">초안 답변</text>
+
+    <!-- 45. Answer → Validator -->
+    <line x1="1370" y1="2770" x2="2125" y2="2770" class="message" marker-end="url(#arrow)"/>
+    <text x="1747" y="2760" class="message-text">validate_answer()</text>
+    <rect x="2115" y="2770" width="20" height="320" class="activation"/>
+
+    <!-- 46. Validator self calls -->
+    <rect x="2135" y="2810" width="200" height="150" class="self-msg" rx="4"/>
+    <text x="2235" y="2835" class="message-text" font-size="10">1단계: 형식 검증</text>
+    <text x="2235" y="2855" class="message-text" font-size="10">2단계: 조항 검증</text>
+    <text x="2235" y="2875" class="message-text" font-size="10">3단계: 컨텍스트 매칭</text>
+    <text x="2235" y="2895" class="message-text" font-size="10">4단계: Hallucination 검증</text>
+    <text x="2235" y="2920" class="message-text" font-size="10">신뢰도 계산</text>
+
+    <!-- 47. Alternative: Low confidence -->
+    <rect x="1370" y="2980" width="1140" height="150" class="alt-box"/>
+    <text x="1390" y="3010" class="alt-text">신뢰도 &lt; 0.7</text>
+
+    <!-- 48. Validator → Answer (failed) -->
+    <line x1="2125" y1="3040" x2="1370" y2="3040" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1747" y="3030" class="message-text" font-size="12">검증 실패</text>
+
+    <!-- 49. Answer → OpenAI (retry) -->
+    <line x1="1370" y1="3070" x2="2510" y2="3070" class="message" marker-end="url(#arrow)"/>
+    <text x="1940" y="3060" class="message-text" font-size="11">재생성 요청 (최대 3회)</text>
+
+    <!-- 50. OpenAI → Answer -->
+    <line x1="2510" y1="3100" x2="1370" y2="3100" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1940" y="3090" class="message-text" font-size="12">개선된 답변</text>
+
+    <!-- 51. Answer → Validator (retry) - back to line 45 -->
+    <text x="1390" y="3125" class="alt-text" font-size="11">재검증...</text>
+
+    <!-- 52. Validator → Answer (success) -->
+    <line x1="2125" y1="3150" x2="1370" y2="3150" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1747" y="3140" class="message-text">{valid=True, score}</text>
+
+    <!-- 53. Answer → Graph -->
+    <line x1="1370" y1="3210" x2="465" y2="3210" class="message-return" marker-end="url(#arrow)"/>
+    <text x="917" y="3200" class="message-text">{final_answer, metadata}</text>
+
+    <!-- 54. Graph → API -->
+    <line x1="465" y1="3270" x2="280" y2="3270" class="message-return" marker-end="url(#arrow)"/>
+    <text x="372" y="3260" class="message-text">final_state</text>
+
+    <!-- 55. API self call -->
+    <rect x="290" y="3300" width="140" height="40" class="self-msg" rx="4"/>
+    <text x="360" y="3325" class="message-text" font-size="11">ChatResponse 생성</text>
+
+    <!-- 56. API → Client -->
+    <line x1="280" y1="3360" x2="105" y2="3360" class="message-return" marker-end="url(#arrow)"/>
+    <text x="192" y="3350" class="message-text">200 OK</text>
+    <text x="192" y="3380" class="message-text" font-size="11">{answer, search_results}</text>
+  </g>
+
+  <!-- Participants Bottom -->
+  <g id="participants-bottom">
+    <rect x="40" y="3470" width="130" height="65" class="actor-box" rx="6"/>
+    <text x="105" y="3495" class="actor-text">🖥️ Client</text>
+
+    <rect x="210" y="3470" width="140" height="65" class="actor-box" rx="6"/>
+    <text x="280" y="3495" class="actor-text">FastAPI</text>
+    <text x="280" y="3515" class="actor-text">chat.py</text>
+
+    <rect x="390" y="3470" width="150" height="65" class="actor-box" rx="6"/>
+    <text x="465" y="3495" class="actor-text">LangGraph</text>
+    <text x="465" y="3515" class="actor-text">graph.py</text>
+
+    <rect x="580" y="3470" width="140" height="65" class="actor-box" rx="6"/>
+    <text x="650" y="3495" class="actor-text">Router</text>
+    <text x="650" y="3515" class="actor-text">Agent</text>
+
+    <rect x="760" y="3470" width="140" height="65" class="actor-box" rx="6"/>
+    <text x="830" y="3495" class="actor-text">Search</text>
+    <text x="830" y="3515" class="actor-text">Agent</text>
+
+    <rect x="940" y="3470" width="140" height="65" class="actor-box" rx="6"/>
+    <text x="1010" y="3495" class="actor-text">Context</text>
+    <text x="1010" y="3515" class="actor-text">Judgement</text>
+
+    <rect x="1120" y="3470" width="140" height="65" class="actor-box" rx="6"/>
+    <text x="1190" y="3495" class="actor-text">Chunk</text>
+    <text x="1190" y="3515" class="actor-text">Expansion</text>
+
+    <rect x="1300" y="3470" width="140" height="65" class="actor-box" rx="6"/>
+    <text x="1370" y="3495" class="actor-text">Answer</text>
+    <text x="1370" y="3515" class="actor-text">Agent</text>
+
+    <rect x="1480" y="3470" width="150" height="65" class="actor-box" rx="6"/>
+    <text x="1555" y="3495" class="actor-text">Query</text>
+    <text x="1555" y="3515" class="actor-text">Preprocessor</text>
+
+    <rect x="1670" y="3470" width="150" height="65" class="actor-box" rx="6"/>
+    <text x="1745" y="3495" class="actor-text">Hybrid</text>
+    <text x="1745" y="3515" class="actor-text">Search</text>
+
+    <rect x="1860" y="3470" width="150" height="65" class="actor-box" rx="6"/>
+    <text x="1935" y="3495" class="actor-text">Vector</text>
+    <text x="1935" y="3515" class="actor-text">Search</text>
+
+    <rect x="2050" y="3470" width="150" height="65" class="actor-box" rx="6"/>
+    <text x="2125" y="3495" class="actor-text">Answer</text>
+    <text x="2125" y="3515" class="actor-text">Validator</text>
+
+    <rect x="2240" y="3470" width="160" height="65" class="actor-box" rx="6"/>
+    <text x="2320" y="3495" class="actor-text">🗄️ PostgreSQL</text>
+    <text x="2320" y="3515" class="actor-text">pgvector</text>
+
+    <rect x="2440" y="3470" width="140" height="65" class="actor-box" rx="6"/>
+    <text x="2510" y="3495" class="actor-text">🤖 OpenAI</text>
+    <text x="2510" y="3515" class="actor-text">GPT-4o</text>
+  </g>
+</svg>
+
+
+

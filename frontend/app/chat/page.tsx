@@ -282,16 +282,16 @@ export default function ChatPage() {
                         <br />
                         AI가 정확한 답변을 제공해드립니다
                       </p>
-                      <div className="space-y-2 text-left">
+                      {/* <div className="space-y-2 text-left">
                         <div className="rounded-lg bg-blue-50 p-3 text-sm">
                           <p className="font-medium text-blue-900">예시 질문:</p>
                           <ul className="mt-1 space-y-1 text-blue-700">
-                            <li>• 암 진단비는 얼마인가요?</li>
+                            <li>• 암 진단금은 얼마인가요?</li>
                             <li>• 제15조의 내용이 무엇인가요?</li>
                             <li>• 면책기간은 얼마나 되나요?</li>
                           </ul>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 ) : (

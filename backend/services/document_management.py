@@ -223,6 +223,17 @@ class DocumentManagementService:
                 except Exception as e:
                     logger.error(f"파일 삭제 실패: {md_path}, {e}")
         
+        # 5. 이미지 폴더 삭제 (uploads/images/{document_id}/)
+        image_dir = Path("uploads/images") / str(document_id)
+        if image_dir.exists() and image_dir.is_dir():
+            try:
+                import shutil
+                shutil.rmtree(image_dir)
+                deleted_files.append(f"{image_dir}/ (폴더)")
+                logger.info(f"이미지 폴더 삭제 완료: {image_dir}")
+            except Exception as e:
+                logger.error(f"이미지 폴더 삭제 실패: {image_dir}, {e}")
+        
         return {
             "success": True,
             "message": "문서가 삭제되었습니다",

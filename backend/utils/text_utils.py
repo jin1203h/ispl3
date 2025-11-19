@@ -57,11 +57,24 @@ def extract_keywords(query: str) -> List[str]:
         >>> extract_keywords("경계성종양이란?")
         ["경계성종양"]
         
-        >>> extract_keywords("갑상선암진단비는?")
-        ["갑상선암진단비"]
+        >>> extract_keywords("암 진단금은?")
+        ["암", "진단금"]
     """
     if not query or not query.strip():
         return []
+    
+    # 중요한 1글자 명사 목록 (보험/의료 관련)
+    IMPORTANT_SINGLE_CHAR = {
+        '암', '간', '폐', '위', '뇌', '심', '장', '혈', '골', '신',
+        '눈', '귀', '코', '입', '치', '손', '발', '다리', '팔', '목'
+    }
+    
+    # 의문사 제외 목록 (검색 쿼리에 불필요한 단어)
+    QUESTION_WORDS = {
+        '얼마', '어디', '언제', '누구', '무엇', '뭐', '왜', '어떻게',
+        '어느', '어떤', '무슨', '몇', '어찌', '하는', '되는', '있는',
+        '것', '수', '때', '등', '및', '또'  # 의존명사도 제외
+    }
     
     try:
         # Kiwi 형태소 분석기 사용
@@ -90,7 +103,8 @@ def extract_keywords(query: str) -> List[str]:
                     # 이전 복합명사 저장
                     if current_noun:
                         compound = ''.join(current_noun)
-                        if len(compound) >= 2:
+                        # 2글자 이상 또는 중요한 1글자 명사, 단 의문사는 제외
+                        if (len(compound) >= 2 or compound in IMPORTANT_SINGLE_CHAR) and compound not in QUESTION_WORDS:
                             keywords.append(compound)
                     # 새로운 복합명사 시작
                     current_noun = [token.form]
@@ -100,7 +114,8 @@ def extract_keywords(query: str) -> List[str]:
                 # 명사가 아니면 이전까지의 복합명사 저장
                 if current_noun:
                     compound = ''.join(current_noun)
-                    if len(compound) >= 2:
+                    # 2글자 이상 또는 중요한 1글자 명사, 단 의문사는 제외
+                    if (len(compound) >= 2 or compound in IMPORTANT_SINGLE_CHAR) and compound not in QUESTION_WORDS:
                         keywords.append(compound)
                     current_noun = []
                     prev_end = -1
@@ -108,7 +123,8 @@ def extract_keywords(query: str) -> List[str]:
         # 마지막 복합명사 처리
         if current_noun:
             compound = ''.join(current_noun)
-            if len(compound) >= 2:
+            # 2글자 이상 또는 중요한 1글자 명사, 단 의문사는 제외
+            if (len(compound) >= 2 or compound in IMPORTANT_SINGLE_CHAR) and compound not in QUESTION_WORDS:
                 keywords.append(compound)
         
         # 중복 제거 (순서 유지)

@@ -87,7 +87,7 @@ class PDFProcessor:
             if method == "pymupdf":
                 result = self._process_with_pymupdf(pdf_path, document_id)
             elif method == "vision":
-                result = await self._process_with_vision_async(pdf_path)
+                result = await self._process_with_vision_async(pdf_path, document_id)
             elif method == "both":
                 result = await self._process_with_both_async(pdf_path, document_id)
             else:
@@ -149,10 +149,14 @@ class PDFProcessor:
             save_images=True
         )
     
-    async def _process_with_vision_async(self, pdf_path: str) -> Dict:
+    async def _process_with_vision_async(self, pdf_path: str, document_id: int = None) -> Dict:
         """GPT-4 Vision으로 처리 (Path 2) - async 버전"""
         logger.info("Path 2: GPT-4 Vision 처리")
-        return await self.vision_extractor.extract_full_document(pdf_path)
+        return await self.vision_extractor.extract_full_document(
+            pdf_path,
+            document_id=document_id,
+            save_images=True
+        )
     
     async def _process_with_both_async(self, pdf_path: str, document_id: int) -> Dict:
         """
@@ -180,7 +184,9 @@ class PDFProcessor:
         vision_result = await self.vision_extractor.extract_with_context(
             pdf_path,
             context_texts=context_texts,
-            apply_preprocessing=True
+            apply_preprocessing=True,
+            document_id=document_id,
+            save_images=True
         )
         
         logger.info("Step 4: 하이브리드 결과 생성")

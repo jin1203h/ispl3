@@ -244,8 +244,11 @@ class PyMuPDFExtractor:
         
         try:
             doc = fitz.open(pdf_path)
+            total_pages = len(doc)
             
-            for page_num in range(len(doc)):
+            logger.info(f"PyMuPDF 페이지별 추출 시작: {total_pages}페이지")
+            
+            for page_num in range(total_pages):
                 page = doc[page_num]
                 
                 # 페이지별 Markdown 변환
@@ -270,6 +273,11 @@ class PyMuPDFExtractor:
                 }
                 
                 pages_data.append(page_data)
+                
+                # 100페이지마다 진행 로그 표시
+                if (page_num + 1) % 100 == 0:
+                    progress = ((page_num + 1) / total_pages) * 100
+                    logger.info(f"페이지 추출 진행: {page_num + 1}/{total_pages} ({progress:.1f}%)")
             
             doc.close()
             logger.info(f"페이지별 추출 완료: {len(pages_data)}페이지")

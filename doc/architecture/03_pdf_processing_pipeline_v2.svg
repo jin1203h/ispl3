@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1250">
+  <defs>
+    <style>
+      .title { font: bold 24px sans-serif; fill: #1a1a1a; }
+      .subtitle { font: bold 16px sans-serif; fill: #2c3e50; }
+      .text { font: 14px sans-serif; fill: #34495e; }
+      .small-text { font: 12px sans-serif; fill: #555; }
+      .label-new { font: bold 12px sans-serif; fill: #28a745; }
+      .box-input { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; }
+      .box-path1 { fill: #fff3e0; stroke: #f57c00; stroke-width: 2; }
+      .box-path2 { fill: #f3e5f5; stroke: #7b1fa2; stroke-width: 2; }
+      .box-merge { fill: #e8f5e9; stroke: #388e3c; stroke-width: 2; }
+      .box-new { fill: #d4edda; stroke: #28a745; stroke-width: 3; }
+      .box-process { fill: #fce4ec; stroke: #c2185b; stroke-width: 2; }
+      .box-output { fill: #e0f2f1; stroke: #00796b; stroke-width: 2; }
+      .arrow { stroke: #424242; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .arrow-split { stroke: #d32f2f; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .arrow-cache { stroke: #28a745; stroke-width: 2; fill: none; marker-end: url(#arrowhead); stroke-dasharray: 3,3; }
+      .label-path { font: bold 14px sans-serif; fill: #d32f2f; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#424242" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="700" y="40" text-anchor="middle" class="title">PDF 전처리 하이브리드 파이프라인 v2 (품질 검증 + 캐싱)</text>
+
+  <!-- PDF Upload -->
+  <rect x="550" y="80" width="300" height="60" rx="10" class="box-input"/>
+  <text x="700" y="110" text-anchor="middle" class="subtitle">PDF 파일 업로드</text>
+  <text x="700" y="128" text-anchor="middle" class="small-text">보험약관.pdf</text>
+
+  <path d="M 700 140 L 700 180" class="arrow"/>
+
+  <!-- PDF Analysis -->
+  <rect x="550" y="180" width="300" height="70" rx="10" class="box-input"/>
+  <text x="700" y="210" text-anchor="middle" class="subtitle">PDF 분석</text>
+  <text x="700" y="230" text-anchor="middle" class="small-text">• 전체 페이지 수 파악</text>
+  <text x="700" y="245" text-anchor="middle" class="small-text">• 병렬 처리 경로 설정</text>
+
+  <!-- Split Arrows -->
+  <path d="M 600 250 L 300 310" class="arrow-split"/>
+  <path d="M 800 250 L 1100 310" class="arrow-split"/>
+  
+  <text x="400" y="275" text-anchor="middle" class="label-path">Path 1</text>
+  <text x="1000" y="275" text-anchor="middle" class="label-path">Path 2</text>
+
+  <!-- Path 1: Direct Extraction -->
+  <rect x="80" y="310" width="440" height="450" rx="10" class="box-path1"/>
+  <text x="300" y="345" text-anchor="middle" class="subtitle">Path 1: 직접 텍스트 추출 (빠름)</text>
+
+  <rect x="120" y="365" width="360" height="70" rx="5" class="box-process"/>
+  <text x="300" y="390" text-anchor="middle" class="text">1. PDF 파싱 및 텍스트 추출</text>
+  <text x="300" y="410" text-anchor="middle" class="small-text">• PyMuPDF4LLM 0.0.17</text>
+  <text x="300" y="425" text-anchor="middle" class="small-text">• PDF → Markdown 변환</text>
+
+  <path d="M 300 435 L 300 455" class="arrow"/>
+
+  <rect x="120" y="455" width="360" height="70" rx="5" class="box-process"/>
+  <text x="300" y="480" text-anchor="middle" class="text">2. 표 및 이미지 객체 추출</text>
+  <text x="300" y="500" text-anchor="middle" class="small-text">• '|' 구문으로 표 감지</text>
+  <text x="300" y="515" text-anchor="middle" class="small-text">• '![]()' 구문으로 이미지 감지</text>
+
+  <path d="M 300 525 L 300 545" class="arrow"/>
+
+  <rect x="120" y="545" width="360" height="70" rx="5" class="box-process"/>
+  <text x="300" y="570" text-anchor="middle" class="text">3. 구조화</text>
+  <text x="300" y="590" text-anchor="middle" class="small-text">• 텍스트/표/이미지별 분리</text>
+  <text x="300" y="605" text-anchor="middle" class="small-text">• 메타데이터 부여 (페이지, 섹션, 해시)</text>
+
+  <path d="M 300 615 L 300 645" class="arrow"/>
+
+  <rect x="120" y="645" width="360" height="100" rx="5" class="box-process"/>
+  <text x="300" y="670" text-anchor="middle" class="text">Path 1 출력</text>
+  <text x="300" y="690" text-anchor="middle" class="small-text">• 구조화된 텍스트 블록</text>
+  <text x="300" y="705" text-anchor="middle" class="small-text">• 표 데이터</text>
+  <text x="300" y="720" text-anchor="middle" class="small-text">• 이미지 메타데이터</text>
+  <text x="300" y="735" text-anchor="middle" class="small-text">• 처리 시간: ~5-10초 (10페이지)</text>
+
+  <!-- Path 2: Multimodal AI -->
+  <rect x="880" y="310" width="440" height="450" rx="10" class="box-path2"/>
+  <text x="1100" y="345" text-anchor="middle" class="subtitle">Path 2: 멀티모달 AI (고품질) ⭐</text>
+
+  <rect x="920" y="365" width="360" height="70" rx="5" class="box-process"/>
+  <text x="1100" y="390" text-anchor="middle" class="text">1. PDF → 고해상도 이미지 변환</text>
+  <text x="1100" y="410" text-anchor="middle" class="small-text">• pdf2image 1.17.0 (DPI 300+)</text>
+  <text x="1100" y="425" text-anchor="middle" class="small-text">• 페이지별 PNG 생성</text>
+
+  <path d="M 1100 435 L 1100 455" class="arrow"/>
+
+  <rect x="920" y="455" width="360" height="70" rx="5" class="box-process"/>
+  <text x="1100" y="480" text-anchor="middle" class="text">2. 이미지 전처리</text>
+  <text x="1100" y="500" text-anchor="middle" class="small-text">• OpenCV 4.10.0.84 / Pillow 11.0.0</text>
+  <text x="1100" y="515" text-anchor="middle" class="small-text">• 그레이스케일, 노이즈 제거, 기울기 보정</text>
+
+  <path d="M 1100 525 L 1100 545" class="arrow"/>
+
+  <rect x="920" y="545" width="360" height="70" rx="5" class="box-process"/>
+  <text x="1100" y="570" text-anchor="middle" class="text">3. GPT-4o Vision 추론 ⭐</text>
+  <text x="1100" y="590" text-anchor="middle" class="small-text">• 이미지 + 텍스트 동시 입력</text>
+  <text x="1100" y="605" text-anchor="middle" class="small-text">• 표 구조, 이미지 설명 추출</text>
+
+  <path d="M 1100 615 L 1100 645" class="arrow"/>
+
+  <rect x="920" y="645" width="360" height="100" rx="5" class="box-process"/>
+  <text x="1100" y="670" text-anchor="middle" class="text">Path 2 출력</text>
+  <text x="1100" y="690" text-anchor="middle" class="small-text">• AI 추론 텍스트</text>
+  <text x="1100" y="705" text-anchor="middle" class="small-text">• 재구성된 표 구조</text>
+  <text x="1100" y="720" text-anchor="middle" class="small-text">• 이미지 설명 텍스트</text>
+  <text x="1100" y="735" text-anchor="middle" class="small-text">• 처리 시간: ~30-60초 (10페이지)</text>
+
+  <!-- Merge Arrows -->
+  <path d="M 300 760 L 600 820" class="arrow"/>
+  <path d="M 1100 760 L 800 820" class="arrow"/>
+
+  <!-- Merge Process -->
+  <rect x="450" y="820" width="500" height="100" rx="10" class="box-merge"/>
+  <text x="700" y="850" text-anchor="middle" class="subtitle">결과 통합 및 병합 (HybridMerger)</text>
+  <text x="700" y="873" text-anchor="middle" class="small-text">• 페이지별 콘텐츠 정렬 (SequenceMatcher)</text>
+  <text x="700" y="890" text-anchor="middle" class="small-text">• 유사도 기반 중복 감지</text>
+  <text x="700" y="905" text-anchor="middle" class="small-text">• 신뢰도 최고 결과 선택 또는 병합</text>
+
+  <path d="M 700 920 L 700 950" class="arrow"/>
+
+  <!-- Quality Validation (NEW/ENHANCED) -->
+  <rect x="450" y="950" width="500" height="100" rx="10" class="box-new"/>
+  <text x="700" y="980" text-anchor="middle" class="subtitle">품질 검증 ⭐ (QualityValidator)</text>
+  <text x="700" y="1003" text-anchor="middle" class="small-text">• 완전성 검사 (블록 수 대비 점수)</text>
+  <text x="700" y="1020" text-anchor="middle" class="small-text">• 일관성 검사 (중복 여부)</text>
+  <text x="700" y="1037" text-anchor="middle" class="small-text">• 정확도 추정 (신뢰도 평균)</text>
+
+  <path d="M 700 1050 L 700 1080" class="arrow"/>
+
+  <!-- Chunking & Embedding -->
+  <rect x="150" y="1080" width="450" height="130" rx="10" class="box-output"/>
+  <text x="375" y="1110" text-anchor="middle" class="subtitle">청킹 &amp; 임베딩 (TextChunker)</text>
+  <text x="375" y="1133" text-anchor="middle" class="small-text">• Fixed-size: 1,000 토큰, overlap 100</text>
+  <text x="375" y="1150" text-anchor="middle" class="small-text">• 특수: 표(전체), 이미지(200-400 토큰)</text>
+  <text x="375" y="1167" text-anchor="middle" class="small-text">• text-embedding-3-large (1536차원)</text>
+  <text x="375" y="1184" text-anchor="middle" class="small-text">• tiktoken 0.8.0 토큰 카운팅</text>
+
+  <path d="M 600 1145 L 800 1145" class="arrow"/>
+
+  <!-- Embedding Cache (NEW) -->
+  <rect x="620" y="1065" width="160" height="50" rx="5" class="box-new"/>
+  <text x="700" y="1085" text-anchor="middle" class="label-new">EmbeddingCache ⭐</text>
+  <text x="700" y="1103" text-anchor="middle" class="small-text">MemoryCache</text>
+  
+  <path d="M 700 1080 L 700 1115" class="arrow-cache"/>
+
+  <!-- Vector DB Storage -->
+  <rect x="800" y="1080" width="450" height="130" rx="10" class="box-output"/>
+  <text x="1025" y="1110" text-anchor="middle" class="subtitle">벡터 DB 저장</text>
+  <text x="1025" y="1133" text-anchor="middle" class="small-text">• PostgreSQL 17.6 + pgvector 0.3.6</text>
+  <text x="1025" y="1150" text-anchor="middle" class="small-text">• HNSW 인덱스 (m=32, ef_construction=200)</text>
+  <text x="1025" y="1167" text-anchor="middle" class="small-text">• Cosine Similarity</text>
+  <text x="1025" y="1184" text-anchor="middle" class="small-text">• 메타데이터: page_number, pdf_page_number ⭐</text>
+
+  <!-- Service Components Labels -->
+  <text x="700" y="1230" text-anchor="middle" class="label-new">
+    서비스: PyMuPDFExtractor | VisionExtractor | HybridMerger | QualityValidator | TextChunker | EmbeddingService | EmbeddingCache
+  </text>
+
+</svg>
+

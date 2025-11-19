@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1800">
+  <defs>
+    <style>
+      .title { font: bold 24px sans-serif; fill: #2c3e50; }
+      .node-text { font: 16px sans-serif; fill: #2c3e50; }
+      .edge-label { font: 12px sans-serif; fill: #666; }
+      
+      /* 노드 스타일 */
+      .node-start { fill: #e8eaf6; stroke: #5c6bc0; stroke-width: 2; }
+      .node-agent { fill: #e1bee7; stroke: #8e24aa; stroke-width: 2; }
+      .node-end { fill: #c5cae9; stroke: #5c6bc0; stroke-width: 2; }
+      
+      /* 화살표 스타일 */
+      .arrow-solid { stroke: #424242; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .arrow-dashed { stroke: #424242; stroke-width: 2; fill: none; marker-end: url(#arrowhead); stroke-dasharray: 5,5; }
+      .arrow-conditional { stroke: #f57c00; stroke-width: 2; fill: none; marker-end: url(#arrowhead-orange); }
+    </style>
+    
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#424242" />
+    </marker>
+    <marker id="arrowhead-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#f57c00" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1400" height="1800" fill="#fafafa"/>
+
+  <!-- Title -->
+  <text x="700" y="40" text-anchor="middle" class="title">ISPL LangGraph - Multi-Agent Workflow</text>
+
+  <!-- START -->
+  <ellipse cx="700" cy="100" rx="80" ry="40" class="node-start"/>
+  <text x="700" y="108" text-anchor="middle" class="node-text">__start__</text>
+
+  <!-- Arrow: start → router_agent -->
+  <path d="M 700 140 L 700 210" class="arrow-solid"/>
+
+  <!-- Router Agent -->
+  <rect x="600" y="210" width="200" height="80" rx="15" class="node-agent"/>
+  <text x="700" y="245" text-anchor="middle" class="node-text">router_agent</text>
+  <text x="700" y="265" text-anchor="middle" class="edge-label">의도 분석</text>
+  <text x="700" y="280" text-anchor="middle" class="edge-label">task_type 결정</text>
+
+  <!-- Conditional routing from router_agent -->
+  <path d="M 600 250 L 350 380" class="arrow-conditional"/>
+  <text x="450" y="310" class="edge-label" fill="#f57c00">search</text>
+
+  <path d="M 700 290 L 700 380" class="arrow-conditional"/>
+  <text x="720" y="340" class="edge-label" fill="#f57c00">upload</text>
+
+  <path d="M 800 250 L 1050 380" class="arrow-conditional"/>
+  <text x="950" y="310" class="edge-label" fill="#f57c00">manage</text>
+
+  <!-- Search Agent (왼쪽) -->
+  <rect x="250" y="380" width="200" height="80" rx="15" class="node-agent"/>
+  <text x="350" y="415" text-anchor="middle" class="node-text">search_agent</text>
+  <text x="350" y="435" text-anchor="middle" class="edge-label">하이브리드 검색</text>
+  <text x="350" y="450" text-anchor="middle" class="edge-label">RRF 융합</text>
+
+  <!-- Processing Agent (중앙) -->
+  <rect x="600" y="380" width="200" height="80" rx="15" class="node-agent"/>
+  <text x="700" y="415" text-anchor="middle" class="node-text">processing_agent</text>
+  <text x="700" y="435" text-anchor="middle" class="edge-label">PDF 전처리</text>
+  <text x="700" y="450" text-anchor="middle" class="edge-label">하이브리드 파이프라인</text>
+
+  <!-- Management Agent (오른쪽) -->
+  <rect x="950" y="380" width="200" height="80" rx="15" class="node-agent"/>
+  <text x="1050" y="415" text-anchor="middle" class="node-text">management_agent</text>
+  <text x="1050" y="435" text-anchor="middle" class="edge-label">문서 관리</text>
+  <text x="1050" y="450" text-anchor="middle" class="edge-label">CRUD 작업</text>
+
+  <!-- Arrow: search_agent → context_judgement_agent -->
+  <path d="M 350 460 L 350 570" class="arrow-solid"/>
+
+  <!-- Context Judgement Agent -->
+  <rect x="250" y="570" width="200" height="80" rx="15" class="node-agent"/>
+  <text x="350" y="605" text-anchor="middle" class="node-text">context_judgement</text>
+  <text x="350" y="625" text-anchor="middle" class="edge-label">컨텍스트 충분성 판단</text>
+  <text x="350" y="640" text-anchor="middle" class="edge-label">context_sufficient?</text>
+
+  <!-- Conditional routing from context_judgement -->
+  <path d="M 350 650 L 350 750" class="arrow-conditional"/>
+  <text x="370" y="700" class="edge-label" fill="#28a745">충분</text>
+
+  <path d="M 450 610 L 580 720" class="arrow-conditional"/>
+  <text x="520" y="660" class="edge-label" fill="#f44336">불충분</text>
+
+  <!-- Chunk Expansion Agent (재판단 루프) -->
+  <rect x="580" y="680" width="200" height="80" rx="15" class="node-agent"/>
+  <text x="680" y="715" text-anchor="middle" class="node-text">chunk_expansion</text>
+  <text x="680" y="735" text-anchor="middle" class="edge-label">인접 청크 확장</text>
+  <text x="680" y="750" text-anchor="middle" class="edge-label">최대 3회 반복</text>
+
+  <!-- Arrow: chunk_expansion → context_judgement (loop back) -->
+  <path d="M 580 720 L 450 610" class="arrow-dashed"/>
+  <text x="510" y="650" class="edge-label">재판단</text>
+
+  <!-- Answer Agent -->
+  <rect x="250" y="750" width="200" height="80" rx="15" class="node-agent"/>
+  <text x="350" y="785" text-anchor="middle" class="node-text">answer_agent</text>
+  <text x="350" y="805" text-anchor="middle" class="edge-label">GPT-4o 답변 생성</text>
+  <text x="350" y="820" text-anchor="middle" class="edge-label">4단계 검증</text>
+
+  <!-- Arrow: processing_agent → end -->
+  <path d="M 700 460 L 700 1100" class="arrow-solid"/>
+
+  <!-- Arrow: management_agent → end -->
+  <path d="M 1050 460 L 1050 1100 L 800 1100" class="arrow-solid"/>
+
+  <!-- Arrow: answer_agent → validation -->
+  <path d="M 350 830 L 350 920" class="arrow-solid"/>
+
+  <!-- Validation (4-stage) -->
+  <rect x="220" y="920" width="260" height="120" rx="15" fill="#fff9c4" stroke="#f57f17" stroke-width="2"/>
+  <text x="350" y="950" text-anchor="middle" class="node-text">4단계 검증</text>
+  <text x="350" y="972" text-anchor="middle" class="edge-label">① 형식 검증 (10%)</text>
+  <text x="350" y="988" text-anchor="middle" class="edge-label">② 조항 검증 (20%)</text>
+  <text x="350" y="1004" text-anchor="middle" class="edge-label">③ 컨텍스트 일치 (30%)</text>
+  <text x="350" y="1020" text-anchor="middle" class="edge-label">④ 할루시네이션 검증 (40%)</text>
+
+  <!-- Arrow: validation → end -->
+  <path d="M 350 1040 L 350 1100 L 600 1100" class="arrow-solid"/>
+
+  <!-- END -->
+  <ellipse cx="700" cy="1100" rx="80" ry="40" class="node-end"/>
+  <text x="700" y="1108" text-anchor="middle" class="node-text">__end__</text>
+
+  <!-- ========== 범례 (하단) ========== -->
+  <rect x="50" y="1200" width="1300" height="550" rx="15" fill="#fff" stroke="#ccc" stroke-width="2"/>
+  <text x="700" y="1240" text-anchor="middle" class="title">Agent 상세 설명</text>
+
+  <!-- Router Agent 설명 -->
+  <rect x="80" y="1270" width="380" height="110" rx="10" fill="#f5f5f5" stroke="#8e24aa" stroke-width="2"/>
+  <text x="270" y="1295" text-anchor="middle" class="node-text">🧭 Router Agent</text>
+  <text x="100" y="1320" class="edge-label">• 사용자 의도 분석 (GPT-4o)</text>
+  <text x="100" y="1340" class="edge-label">• task_type 결정: search/upload/manage</text>
+  <text x="100" y="1360" class="edge-label">• Command 객체로 다음 Agent 라우팅</text>
+
+  <!-- Search Agent 설명 -->
+  <rect x="510" y="1270" width="380" height="110" rx="10" fill="#f5f5f5" stroke="#8e24aa" stroke-width="2"/>
+  <text x="700" y="1295" text-anchor="middle" class="node-text">🔍 Search Agent</text>
+  <text x="530" y="1320" class="edge-label">• 하이브리드 검색 (벡터 + 키워드)</text>
+  <text x="530" y="1340" class="edge-label">• RRF 융합 (K=60), 유사도 임계값 0.7</text>
+  <text x="530" y="1360" class="edge-label">• 최대 20K 토큰 컨텍스트</text>
+
+  <!-- Processing Agent 설명 -->
+  <rect x="940" y="1270" width="380" height="110" rx="10" fill="#f5f5f5" stroke="#8e24aa" stroke-width="2"/>
+  <text x="1130" y="1295" text-anchor="middle" class="node-text">⚙️ Processing Agent</text>
+  <text x="960" y="1320" class="edge-label">• 하이브리드 PDF 전처리</text>
+  <text x="960" y="1340" class="edge-label">• PyMuPDF4LLM + GPT-4o Vision</text>
+  <text x="960" y="1360" class="edge-label">• Quality Validator, Chunking, Embedding</text>
+
+  <!-- Context Judgement Agent 설명 -->
+  <rect x="80" y="1400" width="380" height="110" rx="10" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
+  <text x="270" y="1425" text-anchor="middle" class="node-text">✅ Context Judgement Agent (NEW)</text>
+  <text x="100" y="1450" class="edge-label">• 검색 컨텍스트 충분성 판단</text>
+  <text x="100" y="1470" class="edge-label">• 기준: 결과 개수, 유사도, 토큰 수</text>
+  <text x="100" y="1490" class="edge-label">• 불충분 시 Chunk Expansion으로 라우팅</text>
+
+  <!-- Chunk Expansion Agent 설명 -->
+  <rect x="510" y="1400" width="380" height="110" rx="10" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
+  <text x="700" y="1425" text-anchor="middle" class="node-text">📈 Chunk Expansion Agent (NEW)</text>
+  <text x="530" y="1450" class="edge-label">• 인접 청크 동적 확장</text>
+  <text x="530" y="1470" class="edge-label">• 최대 3회 반복 / 20K 토큰 제한</text>
+  <text x="530" y="1490" class="edge-label">• Context Judgement로 재판단</text>
+
+  <!-- Answer Agent 설명 -->
+  <rect x="940" y="1400" width="380" height="110" rx="10" fill="#f5f5f5" stroke="#8e24aa" stroke-width="2"/>
+  <text x="1130" y="1425" text-anchor="middle" class="node-text">💬 Answer Agent</text>
+  <text x="960" y="1450" class="edge-label">• GPT-4o 답변 생성 (temperature=0.1)</text>
+  <text x="960" y="1470" class="edge-label">• 시스템 프롬프트: 정확성, 근거 제시</text>
+  <text x="960" y="1490" class="edge-label">• 4단계 검증 프로세스</text>
+
+  <!-- Management Agent 설명 -->
+  <rect x="80" y="1530" width="380" height="110" rx="10" fill="#f5f5f5" stroke="#8e24aa" stroke-width="2"/>
+  <text x="270" y="1555" text-anchor="middle" class="node-text">📁 Management Agent</text>
+  <text x="100" y="1580" class="edge-label">• 문서 CRUD 작업</text>
+  <text x="100" y="1600" class="edge-label">• 문서 목록 조회, 삭제</text>
+  <text x="100" y="1620" class="edge-label">• 메타데이터 관리</text>
+
+  <!-- 화살표 범례 -->
+  <rect x="510" y="1530" width="380" height="110" rx="10" fill="#f5f5f5" stroke="#666" stroke-width="2"/>
+  <text x="700" y="1555" text-anchor="middle" class="node-text">➡️ 화살표 타입</text>
+  <line x1="540" y1="1580" x2="620" y2="1580" stroke="#424242" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="640" y="1585" class="edge-label">실선: 일반 플로우</text>
+  <line x1="540" y1="1605" x2="620" y2="1605" stroke="#424242" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+  <text x="640" y="1610" class="edge-label">점선: 루프백/재시도</text>
+  <line x1="540" y1="1630" x2="620" y2="1630" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowhead-orange)"/>
+  <text x="640" y="1635" class="edge-label">주황: 조건부 라우팅</text>
+
+  <!-- 주요 특징 -->
+  <rect x="940" y="1530" width="380" height="110" rx="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+  <text x="1130" y="1555" text-anchor="middle" class="node-text">⭐ 주요 특징</text>
+  <text x="960" y="1580" class="edge-label">• 7개 전문화된 Agent</text>
+  <text x="960" y="1600" class="edge-label">• 조건부 라우팅 (Command 패턴)</text>
+  <text x="960" y="1620" class="edge-label">• 동적 컨텍스트 확장 &amp; 재판단</text>
+
+  <!-- 하단 버전 정보 -->
+  <text x="700" y="1720" text-anchor="middle" class="edge-label">LangGraph 0.3.27+ | Python 3.11 | ISPL v2.0</text>
+
+</svg>
+

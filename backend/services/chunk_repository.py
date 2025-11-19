@@ -95,10 +95,6 @@ class ChunkRepository:
             
             await self.session.commit()
             
-            # ID 갱신을 위해 새로고침
-            for db_chunk in db_chunks:
-                await self.session.refresh(db_chunk)
-            
             logger.info(f"청크 저장 완료: {len(db_chunks)}개")
             return db_chunks
         

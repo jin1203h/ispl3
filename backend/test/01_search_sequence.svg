@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 2400" width="1800" height="2400">
+  <defs>
+    <style>
+      text { font-family: 'Segoe UI', Arial, sans-serif; }
+      .title { font-size: 28px; font-weight: 700; fill: #2c3e50; }
+      .subtitle { font-size: 16px; fill: #7f8c8d; }
+      .actor-box { fill: #e8f4f8; stroke: #2c3e50; stroke-width: 2; }
+      .actor-text { font-size: 13px; font-weight: 600; fill: #2c3e50; text-anchor: middle; }
+      .lifeline { stroke: #95a5a6; stroke-width: 1.5; stroke-dasharray: 6,4; }
+      .message { stroke: #2c3e50; stroke-width: 2.5; fill: none; }
+      .message-return { stroke: #2c3e50; stroke-width: 2.5; stroke-dasharray: 6,4; fill: none; }
+      .message-text { font-size: 12px; fill: #2c3e50; }
+      .note { fill: #fff8dc; stroke: #f0ad4e; stroke-width: 2; }
+      .note-text { font-size: 14px; font-weight: 600; fill: #856404; text-anchor: middle; }
+      .activation { fill: #667eea; opacity: 0.25; }
+      .section { fill: none; stroke: #28a745; stroke-width: 2.5; stroke-dasharray: 8,4; }
+      .section-text { font-size: 13px; font-weight: 600; fill: #28a745; }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="11" refY="6" orient="auto">
+      <path d="M2,2 L2,11 L10,6 z" fill="#2c3e50"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="900" y="40" class="title" text-anchor="middle">🔍 AI 채팅 검색 플로우</text>
+  <text x="900" y="70" class="subtitle" text-anchor="middle">7 Agents · Hybrid Search · 4-Stage Validation</text>
+
+  <!-- Participants -->
+  <g id="participants">
+    <!-- Client -->
+    <rect x="50" y="100" width="100" height="50" class="actor-box" rx="5"/>
+    <text x="100" y="130" class="actor-text">🖥️ Client</text>
+    <line x1="100" y1="150" x2="100" y2="2300" class="lifeline"/>
+
+    <!-- API -->
+    <rect x="200" y="100" width="110" height="50" class="actor-box" rx="5"/>
+    <text x="255" y="120" class="actor-text">FastAPI</text>
+    <text x="255" y="138" class="actor-text">chat.py</text>
+    <line x1="255" y1="150" x2="255" y2="2300" class="lifeline"/>
+
+    <!-- LangGraph -->
+    <rect x="360" y="100" width="120" height="50" class="actor-box" rx="5"/>
+    <text x="420" y="120" class="actor-text">LangGraph</text>
+    <text x="420" y="138" class="actor-text">graph.py</text>
+    <line x1="420" y1="150" x2="420" y2="2300" class="lifeline"/>
+
+    <!-- Router -->
+    <rect x="530" y="100" width="110" height="50" class="actor-box" rx="5"/>
+    <text x="585" y="120" class="actor-text">Router</text>
+    <text x="585" y="138" class="actor-text">Agent</text>
+    <line x1="585" y1="150" x2="585" y2="2300" class="lifeline"/>
+
+    <!-- Search -->
+    <rect x="690" y="100" width="110" height="50" class="actor-box" rx="5"/>
+    <text x="745" y="120" class="actor-text">Search</text>
+    <text x="745" y="138" class="actor-text">Agent</text>
+    <line x1="745" y1="150" x2="745" y2="2300" class="lifeline"/>
+
+    <!-- Services -->
+    <rect x="850" y="100" width="120" height="50" class="actor-box" rx="5"/>
+    <text x="910" y="120" class="actor-text">Services</text>
+    <text x="910" y="138" class="actor-text">Query/Hybrid</text>
+    <line x1="910" y1="150" x2="910" y2="2300" class="lifeline"/>
+
+    <!-- Context -->
+    <rect x="1020" y="100" width="110" height="50" class="actor-box" rx="5"/>
+    <text x="1075" y="120" class="actor-text">Context</text>
+    <text x="1075" y="138" class="actor-text">Judgement</text>
+    <line x1="1075" y1="150" x2="1075" y2="2300" class="lifeline"/>
+
+    <!-- Expand -->
+    <rect x="1180" y="100" width="110" height="50" class="actor-box" rx="5"/>
+    <text x="1235" y="120" class="actor-text">Chunk</text>
+    <text x="1235" y="138" class="actor-text">Expansion</text>
+    <line x1="1235" y1="150" x2="1235" y2="2300" class="lifeline"/>
+
+    <!-- Answer -->
+    <rect x="1340" y="100" width="110" height="50" class="actor-box" rx="5"/>
+    <text x="1395" y="120" class="actor-text">Answer</text>
+    <text x="1395" y="138" class="actor-text">Agent</text>
+    <line x1="1395" y1="150" x2="1395" y2="2300" class="lifeline"/>
+
+    <!-- DB -->
+    <rect x="1500" y="100" width="130" height="50" class="actor-box" rx="5"/>
+    <text x="1565" y="120" class="actor-text">🗄️ PostgreSQL</text>
+    <text x="1565" y="138" class="actor-text">pgvector</text>
+    <line x1="1565" y1="150" x2="1565" y2="2300" class="lifeline"/>
+
+    <!-- OpenAI -->
+    <rect x="1680" y="100" width="100" height="50" class="actor-box" rx="5"/>
+    <text x="1730" y="120" class="actor-text">🤖 OpenAI</text>
+    <text x="1730" y="138" class="actor-text">GPT-4o</text>
+    <line x1="1730" y1="150" x2="1730" y2="2300" class="lifeline"/>
+  </g>
+
+  <!-- Flow -->
+  <g id="flow">
+    <!-- 1. Client → API -->
+    <line x1="100" y1="200" x2="255" y2="200" class="message" marker-end="url(#arrow)"/>
+    <text x="177" y="190" class="message-text">POST /api/chat</text>
+    <rect x="245" y="200" width="20" height="2000" class="activation"/>
+
+    <!-- 2. API → Graph -->
+    <line x1="255" y1="240" x2="420" y2="240" class="message" marker-end="url(#arrow)"/>
+    <text x="337" y="230" class="message-text">run_graph()</text>
+    <rect x="410" y="240" width="20" height="1900" class="activation"/>
+
+    <!-- 3. Router Agent -->
+    <rect x="430" y="280" width="240" height="40" class="note" rx="5"/>
+    <text x="550" y="305" class="note-text">1️⃣ Router Agent</text>
+
+    <line x1="420" y1="350" x2="585" y2="350" class="message" marker-end="url(#arrow)"/>
+    <text x="502" y="340" class="message-text">router_node()</text>
+    <rect x="575" y="350" width="20" height="120" class="activation"/>
+
+    <line x1="585" y1="390" x2="1730" y2="390" class="message" marker-end="url(#arrow)"/>
+    <text x="1157" y="380" class="message-text">GPT-4o 의도 분석</text>
+
+    <line x1="1730" y1="430" x2="585" y2="430" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1157" y="420" class="message-text">task_type="search"</text>
+
+    <line x1="585" y1="460" x2="420" y2="460" class="message-return" marker-end="url(#arrow)"/>
+
+    <!-- 4. Search Agent -->
+    <rect x="590" y="500" width="240" height="40" class="note" rx="5"/>
+    <text x="710" y="525" class="note-text">2️⃣ Search Agent</text>
+
+    <line x1="420" y1="570" x2="745" y2="570" class="message" marker-end="url(#arrow)"/>
+    <text x="582" y="560" class="message-text">search_node()</text>
+    <rect x="735" y="570" width="20" height="400" class="activation"/>
+
+    <line x1="745" y1="610" x2="910" y2="610" class="message" marker-end="url(#arrow)"/>
+    <text x="827" y="600" class="message-text">preprocess()</text>
+    <rect x="900" y="610" width="20" height="320" class="activation"/>
+
+    <!-- Parallel Search Box -->
+    <rect x="905" y="650" width="670" height="220" class="section"/>
+    <text x="920" y="675" class="section-text">병렬 검색</text>
+
+    <line x1="910" y1="700" x2="1565" y2="700" class="message" marker-end="url(#arrow)"/>
+    <text x="1237" y="690" class="message-text">Vector Search</text>
+
+    <line x1="1565" y1="740" x2="1730" y2="740" class="message" marker-end="url(#arrow)"/>
+    <text x="1647" y="730" class="message-text" font-size="11">embedding</text>
+
+    <line x1="1730" y1="770" x2="1565" y2="770" class="message-return" marker-end="url(#arrow)"/>
+
+    <line x1="1565" y1="800" x2="910" y2="800" class="message-return" marker-end="url(#arrow)"/>
+
+    <line x1="910" y1="820" x2="1565" y2="820" class="message" marker-end="url(#arrow)"/>
+    <text x="1237" y="810" class="message-text">Keyword Search (FTS)</text>
+
+    <line x1="1565" y1="850" x2="910" y2="850" class="message-return" marker-end="url(#arrow)"/>
+
+    <text x="920" y="900" class="message-text" font-weight="600">RRF 융합 (K=60) + 최적화</text>
+
+    <line x1="910" y1="920" x2="745" y2="920" class="message-return" marker-end="url(#arrow)"/>
+    <text x="827" y="910" class="message-text">통합 결과</text>
+
+    <line x1="745" y1="960" x2="420" y2="960" class="message-return" marker-end="url(#arrow)"/>
+
+    <!-- 5. Context Judgement -->
+    <rect x="770" y="1000" width="290" height="40" class="note" rx="5"/>
+    <text x="915" y="1025" class="note-text">3️⃣ Context Judgement</text>
+
+    <line x1="420" y1="1070" x2="1075" y2="1070" class="message" marker-end="url(#arrow)"/>
+    <text x="747" y="1060" class="message-text">context_judgement_node()</text>
+    <rect x="1065" y="1070" width="20" height="100" class="activation"/>
+
+    <text x="1100" y="1120" class="message-text">충분성 판단</text>
+
+    <!-- Alternative: Expansion -->
+    <rect x="1075" y="1150" width="300" height="150" fill="none" stroke="#dc3545" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="1090" y="1175" class="message-text" fill="#dc3545" font-weight="600">불충분 시</text>
+
+    <line x1="1075" y1="1200" x2="1235" y2="1200" class="message" marker-end="url(#arrow)"/>
+    <text x="1155" y="1190" class="message-text" font-size="11">expand</text>
+    <rect x="1225" y="1200" width="20" height="60" class="activation"/>
+
+    <line x1="1235" y1="1230" x2="1565" y2="1230" class="message" marker-end="url(#arrow)"/>
+    <text x="1400" y="1220" class="message-text" font-size="11">인접 청크</text>
+
+    <line x1="1565" y1="1255" x2="1235" y2="1255" class="message-return" marker-end="url(#arrow)"/>
+
+    <line x1="1235" y1="1280" x2="1075" y2="1280" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1155" y="1295" class="message-text" font-size="10">재판단(최대3회)</text>
+
+    <line x1="1075" y1="1330" x2="420" y2="1330" class="message-return" marker-end="url(#arrow)"/>
+    <text x="747" y="1320" class="message-text">context_sufficient=True</text>
+
+    <!-- 6. Answer Agent -->
+    <rect x="1100" y="1370" width="260" height="40" class="note" rx="5"/>
+    <text x="1230" y="1395" class="note-text">4️⃣ Answer Agent</text>
+
+    <line x1="420" y1="1440" x2="1395" y2="1440" class="message" marker-end="url(#arrow)"/>
+    <text x="907" y="1430" class="message-text">answer_node()</text>
+    <rect x="1385" y="1440" width="20" height="600" class="activation"/>
+
+    <text x="1420" y="1480" class="message-text">build_context()</text>
+
+    <line x1="1395" y1="1510" x2="1730" y2="1510" class="message" marker-end="url(#arrow)"/>
+    <text x="1562" y="1500" class="message-text">답변 생성</text>
+
+    <line x1="1730" y1="1550" x2="1395" y2="1550" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1562" y="1540" class="message-text">초안</text>
+
+    <!-- 4-Stage Validation -->
+    <rect x="1405" y="1590" width="300" height="160" fill="#fff8dc" stroke="#f0ad4e" stroke-width="2"/>
+    <text x="1415" y="1615" class="message-text" font-weight="600" fill="#856404">4단계 검증</text>
+    <text x="1415" y="1640" class="message-text" font-size="11">1. 형식 검증</text>
+    <text x="1415" y="1665" class="message-text" font-size="11">2. 조항 검증</text>
+    <text x="1415" y="1690" class="message-text" font-size="11">3. 컨텍스트 매칭</text>
+    <text x="1415" y="1715" class="message-text" font-size="11">4. Hallucination 검증</text>
+    <text x="1415" y="1740" class="message-text" font-size="11">→ 신뢰도 >= 0.7</text>
+
+    <!-- Alternative: Retry -->
+    <rect x="1395" y="1780" width="350" height="120" fill="none" stroke="#dc3545" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="1410" y="1805" class="message-text" fill="#dc3545" font-weight="600">신뢰도 &lt; 0.7</text>
+
+    <line x1="1395" y1="1830" x2="1730" y2="1830" class="message" marker-end="url(#arrow)"/>
+    <text x="1562" y="1820" class="message-text" font-size="11">재생성(최대3회)</text>
+
+    <line x1="1730" y1="1870" x2="1395" y2="1870" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1562" y="1860" class="message-text" font-size="11">개선</text>
+
+    <line x1="1395" y1="1950" x2="910" y2="1950" class="message-return" marker-end="url(#arrow)"/>
+    <text x="1152" y="1940" class="message-text">validated_answer</text>
+
+    <line x1="1395" y1="2030" x2="420" y2="2030" class="message-return" marker-end="url(#arrow)"/>
+    <text x="907" y="2020" class="message-text">final_answer</text>
+
+    <!-- Response -->
+    <line x1="420" y1="2100" x2="255" y2="2100" class="message-return" marker-end="url(#arrow)"/>
+    <text x="337" y="2090" class="message-text">final_state</text>
+
+    <line x1="255" y1="2160" x2="100" y2="2160" class="message-return" marker-end="url(#arrow)"/>
+    <text x="177" y="2150" class="message-text">200 OK</text>
+  </g>
+
+  <!-- Bottom actors -->
+  <g id="bottom-actors">
+    <rect x="50" y="2320" width="100" height="50" class="actor-box" rx="5"/>
+    <text x="100" y="2350" class="actor-text">🖥️ Client</text>
+
+    <rect x="200" y="2320" width="110" height="50" class="actor-box" rx="5"/>
+    <text x="255" y="2340" class="actor-text">FastAPI</text>
+    <text x="255" y="2358" class="actor-text">chat.py</text>
+
+    <rect x="360" y="2320" width="120" height="50" class="actor-box" rx="5"/>
+    <text x="420" y="2340" class="actor-text">LangGraph</text>
+    <text x="420" y="2358" class="actor-text">graph.py</text>
+
+    <rect x="530" y="2320" width="110" height="50" class="actor-box" rx="5"/>
+    <text x="585" y="2340" class="actor-text">Router</text>
+    <text x="585" y="2358" class="actor-text">Agent</text>
+
+    <rect x="690" y="2320" width="110" height="50" class="actor-box" rx="5"/>
+    <text x="745" y="2340" class="actor-text">Search</text>
+    <text x="745" y="2358" class="actor-text">Agent</text>
+
+    <rect x="850" y="2320" width="120" height="50" class="actor-box" rx="5"/>
+    <text x="910" y="2340" class="actor-text">Services</text>
+    <text x="910" y="2358" class="actor-text">Query/Hybrid</text>
+
+    <rect x="1020" y="2320" width="110" height="50" class="actor-box" rx="5"/>
+    <text x="1075" y="2340" class="actor-text">Context</text>
+    <text x="1075" y="2358" class="actor-text">Judgement</text>
+
+    <rect x="1180" y="2320" width="110" height="50" class="actor-box" rx="5"/>
+    <text x="1235" y="2340" class="actor-text">Chunk</text>
+    <text x="1235" y="2358" class="actor-text">Expansion</text>
+
+    <rect x="1340" y="2320" width="110" height="50" class="actor-box" rx="5"/>
+    <text x="1395" y="2340" class="actor-text">Answer</text>
+    <text x="1395" y="2358" class="actor-text">Agent</text>
+
+    <rect x="1500" y="2320" width="130" height="50" class="actor-box" rx="5"/>
+    <text x="1565" y="2340" class="actor-text">🗄️ PostgreSQL</text>
+    <text x="1565" y="2358" class="actor-text">pgvector</text>
+
+    <rect x="1680" y="2320" width="100" height="50" class="actor-box" rx="5"/>
+    <text x="1730" y="2340" class="actor-text">🤖 OpenAI</text>
+    <text x="1730" y="2358" class="actor-text">GPT-4o</text>
+  </g>
+</svg>
+
+
+
